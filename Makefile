@@ -1,9 +1,9 @@
 CC = gcc
-CFLAGS = -W -Wall -std=c89 -pedantic -O2 $(shell pkg-config --cflags MLV)
-LDFLAGS = $(shell pkg-config --libs-only-other --libs-only-L MLV) $(shell pkg-config --libs-only-l MLV)
+CFLAGS = -W -Wall -std=c89 -pedantic -O2 -Iheaders $(shell pkg-config --cflags MLV)
+LDFLAGS = $(shell pkg-config --libs MLV)
 
-TARGET = tetris
-SRCS = main.c game.c graphics.c input.c tetromino.c utils.c
+TARGET = Tetris-like
+SRCS = src/main.c src/game.c src/graphics.c src/input.c src/piece.c src/save.c
 OBJS = $(SRCS:.c=.o)
 
 all: $(TARGET)
@@ -17,4 +17,4 @@ $(TARGET): $(OBJS)
 clean:
 	rm -f $(OBJS) $(TARGET)
 
-.PHONY: all clean
+clear: clean

@@ -1,6 +1,9 @@
-#include "affichage_menus.h"
-#include "jeu.h"
-#include "score.h"
+#include "../headers/graphics.h"
+#include "../headers/input.h"
+#include "../headers/save.h"
+#include "../headers/game.h"
+#include "../headers/piece.h"
+#include <MLV/MLV_all.h>
 
 
 int main() {

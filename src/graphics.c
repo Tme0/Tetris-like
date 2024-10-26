@@ -1,6 +1,6 @@
 /* Ce fichier gère l'affichage des éléments du jeu à l'écran (plateau, pièces et menus).*/
 
-#include "graphics.h"
+#include "../headers/graphics.h"
 #include <MLV/MLV_all.h>
 
 void initialiserFenetre() {

@@ -1,6 +1,6 @@
 /* Ce fichier gère la logique principale du jeu.*/
 
-#include "game.h"
+#include "../headers/game.h"
 
 int jouer() {
     struct timespec debut, fin;

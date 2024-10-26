@@ -1,6 +1,6 @@
 /* Ce fichier gère les entrées utilisateur.*/
 
-#include "input.h"
+#include "../headers/input.h"
 #include <MLV/MLV_all.h>
 
 void selectionParametres() { /* Fonctionnel mais très peu pratique pour changer la disposition du menu (coordonées en dur)*/

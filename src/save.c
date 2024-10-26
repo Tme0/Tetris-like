@@ -1,6 +1,6 @@
 /*Ce fichier gère le système de sauvegarde de parties et de score.*/
 
-#include "save.h"
+#include "../headers/save.h"
 
 void sauvegarderScore(int score) {
     FILE *fichier = fopen("scores.txt", "a");

@@ -1,28 +1,6 @@
-#include <stdio.h>
-#include <stdlib.h>
-#include <time.h>
+/* Ce fichier gère la logique principale du jeu.*/
 
-void resoudreEvenement(MLV_Keyboard_button touche) {
-    switch (touche) {
-        case MLV_KEYBOARD_d:
-            /*Déplacer le bloc à droite*/
-            break;
-        case MLV_KEYBOARD_q:
-            /*Déplacer le bloc à gauche*/
-            break;
-        case MLV_KEYBOARD_s:
-            /*Déplacer le bloc vers le bas*/
-            break;
-        case MLV_KEYBOARD_e:
-            /*Faire tourner le bloc à droite*/
-            break;
-        case MLV_KEYBOARD_a:
-            /*Faire tourner le bloc à gauche*/
-            break;
-        default:
-            break;
-    }
-}
+#include "game.h"
 
 int jouer() {
     struct timespec debut, fin;
@@ -30,6 +8,7 @@ int jouer() {
     MLV_Keyboard_button touche;
     int unicode_touche;
     int continuer = 1;
+    MLV_clear_window(MLV_COLOR_BLACK);
     while (continuer) {
         /*Temps au début l'image*/
         clock_gettime(CLOCK_REALTIME, &debut );
@@ -45,8 +24,4 @@ int jouer() {
         }
     }
     return 0;
-}
-
-void choisirSauvegarde() {
-    printf("Choix de la sauvegarde...\n");
 }

@@ -1,6 +1,7 @@
 #include "affichage_menus.h"
+#include "jeu.h"
+#include "score.h"
 
-/*Erreurs de compilations (que je connais pas) à débugger*/
 
 int main() {
     initialiserFenetre();

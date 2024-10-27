@@ -56,7 +56,7 @@ void afficherScores(scores mesScores) { /*Fonctionnel : A rendre beau*/
     MLV_draw_text_box(milieu, 100, 200, 50, texte_scores_1, 0, MLV_COLOR_WHITE, MLV_COLOR_WHITE, MLV_COLOR_BLACK, MLV_TEXT_CENTER, MLV_HORIZONTAL_CENTER, MLV_VERTICAL_CENTER);
     MLV_draw_text_box(milieu, 200, 200, 50, texte_scores_2, 0, MLV_COLOR_WHITE, MLV_COLOR_WHITE, MLV_COLOR_BLACK, MLV_TEXT_CENTER, MLV_HORIZONTAL_CENTER, MLV_VERTICAL_CENTER);
     MLV_actualise_window();
-    selection(1, (bouton[]){retour});
+    selection(1, (bouton[]){retour}); /* A corriger : Lorsque le programme recoit un clic il se ferme (le bouton retour fonctionne dans afficherParametres())*/
 }
 
 void afficherSauvegarde() { /*A completer*/

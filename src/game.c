@@ -4,6 +4,14 @@
 #include <MLV/MLV_all.h>
 #include <time.h>
 #include "../headers/input.h"
+#include "../headers/graphics.h"
+
+
+void menu(int menu) {
+    while (menu) {
+        afficherMenu();
+    }
+}
 
 int jouer() {
     struct timespec debut, fin;

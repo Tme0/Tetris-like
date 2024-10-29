@@ -3,6 +3,8 @@
 #ifndef PIECE_H
 #define PIECE_H
 
+#include <MLV/MLV_all.h>
+
 #define TAILLE_PIECE 16
 
 typedef struct {
@@ -16,6 +18,7 @@ typedef struct {
     X X O O  ---->  forme[9] = 1, forme[10] = 1, forme[11] = 0, forme[12] = 0,
     O O O O  ---->  forme[13] = 0, forme[14] = 0, forme[15] = 0, forme[16] = 0
     */
+    int couleur;
 } idPiece;
 
 typedef struct {
@@ -23,10 +26,18 @@ typedef struct {
     int y;
     idPiece idPiece;
     int orientation;
+    int vitesse;
 } piece;
 
-piece creerPiece(int id);
+typedef struct {
+    int state[10*20];
+    int x;
+    int y;
+    int largeur;
+    int hauteur;
+    MLV_Color couleur[10*20];
+} plateau;
 
-
+piece creerPiece(int id, int vit);
 
 #endif /* PIECE_H */

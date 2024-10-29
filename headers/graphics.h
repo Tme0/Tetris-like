@@ -5,11 +5,14 @@
 
 #include "../headers/input.h"
 #include "../headers/game.h"
+#include "../headers/piece.h"
 #define N 50
 
 void initialiserFenetre();
 void afficherMenu();
 void afficherParametres();
+void afficherPlateau(plateau monPlateau);
+void afficherPiece(piece maPiece);
 void afficherScores(scores mesScores);
 void afficherSauvegarde();
 void afficherParametresControles();

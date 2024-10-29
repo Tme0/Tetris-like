@@ -54,10 +54,38 @@ void afficherParametres() { /*Fonctionnel : A rendre beau*/
     selection(4, (bouton[]){parametresControles, parametresVideo, parametresAudio, retour});
 }
 
+void afficherPlateau(plateau monPlateau) {
+    int i, j;
+    int offsetX = (1920 - monPlateau.largeur * 40) / 2;
+    int offsetY = (1080 - monPlateau.hauteur * 40) / 2;
+    for (i = 0; i < monPlateau.largeur; i++) {
+        for (j = 0; j < monPlateau.hauteur; j++) {
+            if (monPlateau.state[i + j * monPlateau.largeur] != 0) {
+                MLV_draw_filled_rectangle(offsetX + i * 40, offsetY + j * 40, 40, 40, monPlateau.couleur[i + j * monPlateau.largeur]);
+            }
+            else {
+                MLV_draw_filled_rectangle(offsetX + i * 40, offsetY + j * 40, 40, 40, MLV_COLOR_WHITE);
+            }
+        }
+    }
+}
+
+void afficherPiece(piece maPiece) {
+    int i, j;
+    int offsetX = (1920 - 10 * 40) / 2;
+    int offsetY = (1080 - 20 * 40) / 2;
+    for (i = 0; i < 4; i++) {
+        for (j = 0; j < 4; j++) {
+            if (maPiece.idPiece.forme[i + j * 4] != 0) {
+                MLV_draw_filled_rectangle(offsetX + (maPiece.x + i) * 40, offsetY + (maPiece.y + j) * 40, 40, 40, maPiece.idPiece.couleur);
+            }
+        }
+    }
+}
+
 void afficherScores(scores mesScores) { /*Fonctionnel : A rendre beau*/
     int milieu = (1920 - 200) / 2;
     bouton retour = {milieu, milieu + 100, 200, 250, 9};
-    printf("%d\n", milieu);
     char texte_scores_1[N] = "Scores";
     char texte_scores_2[N] = "Retour";
     MLV_clear_window(MLV_COLOR_BLACK);

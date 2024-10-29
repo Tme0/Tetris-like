@@ -3,6 +3,7 @@
 #include "../headers/input.h"
 #include "../headers/graphics.h"
 #include "../headers/game.h"
+#include "../headers/piece.h"
 /*#include <MLV/MLV_all.h> déjà inclut dans input.h*/
 /*
 void selectionParametres() { / * Fonctionnel mais très peu pratique pour changer la disposition du menu (coordonées en dur)* /
@@ -55,29 +56,33 @@ void selectionSauvegarde() { /* A completer */
     printf("Choix de la sauvegarde...\n");
 }
 
-void resoudreEvenement(MLV_Keyboard_button touche) { /* A completer */
+piece resoudreEvenement(MLV_Keyboard_button touche, piece maPiece, plateau monPlateau) { /* A completer */
     switch (touche) {
         case MLV_KEYBOARD_d:
-            /*Déplacer le bloc à droite*/
-            return;
+            if (colisionDroite(maPiece, monPlateau) == 0) {
+                maPiece.x++;
+            }
+            return maPiece;
         case MLV_KEYBOARD_q:
-            /*Déplacer le bloc à gauche*/
-            return;
+            if (colisionGauche(maPiece, monPlateau) == 0) {  
+                maPiece.x--;
+            }
+            return maPiece;
         case MLV_KEYBOARD_s:
-            /*Déplacer le bloc vers le bas*/
-            return;
+            maPiece.y++;
+            return maPiece;
         case MLV_KEYBOARD_e:
             /*Faire tourner le bloc à droite*/
-            return;
+            return maPiece;
         case MLV_KEYBOARD_a:
             /*Faire tourner le bloc à gauche*/
-            return;
+            return maPiece;
         case MLV_KEYBOARD_ESCAPE:
             MLV_clear_window(MLV_COLOR_BLACK);
             afficherMenu();
-            return;
+            return maPiece;
         default:
-            break;
+            return maPiece;
     }
 }
 /*
@@ -97,14 +102,14 @@ void selectionScores() { / * Fonctionnel mais très peu pratique pour changer la
 
 
 
-void selection(int nbBoutons, bouton* boutons) { /* Nouvelle fonction de sélection beaucoup plus simple mais incompatible avec la compilation donné par la prof (voir warnings)*/
+void selection(int nbBoutons, bouton boutons[BOUNTONS]) {
     int x, y, i;
     MLV_wait_mouse(&x, &y);
-    printf("test\n");
+    printf("x = %d, y = %d\n", x, y); 
     for (i = 0; i < nbBoutons; i++) {
-        printf("test2\n");
-        if (x >= boutons[i].x_min && x <= boutons[i].x_plus_hauteur && y >= boutons[i].y_min && y <= boutons[i].y_plus_largeur) {
-            printf("test3\n");
+        printf ("x_min = %d, x_max = %d, y_min = %d, y_max = %d\n", boutons[i].x_min, boutons[i].x_max, boutons[i].y_min, boutons[i].y_max);
+        if (x >= boutons[i].x_min && x <= boutons[i].x_max &&
+            y >= boutons[i].y_min && y <= boutons[i].y_max) {
             MLV_clear_window(MLV_COLOR_BLACK);
             switch (boutons[i].index) {
                 case 1:

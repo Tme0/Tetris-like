@@ -5,10 +5,11 @@
 #include <time.h>
 #include "../headers/input.h"
 #include "../headers/graphics.h"
+#include "../headers/piece.h"
 
 
-void menu(int menu) {
-    while (menu) {
+void menu(int menuActif) {
+    while (menuActif != 0) {
         afficherMenu();
     }
 }
@@ -22,9 +23,9 @@ int jouer() {
     while (continuer) {
         /*Temps au début l'image*/
         clock_gettime(CLOCK_REALTIME, &debut );
+        piece maPiece = creerPiece(nbAleatoire(1, 7));
         MLV_actualise_window();
         MLV_get_event(&touche, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL); 
-        /*get_event à completer; Je ne sais pas comment ça marche.*/
         resoudreEvenement(touche);
 
         /*Temps à la fin de l'image et boucle while pour completer le temps manquant (60/1 sec)*/
@@ -37,9 +38,9 @@ int jouer() {
     return 0;
 }
 
-scores recupererScores() { /*Probablement a l'origine d'une seg fault que je ne comprends pas*/
+scores recupererScores() {
     scores mesScores;
-    int score;
+    int score, i;
     int nb_lignes = 0;
     FILE *fichier;
     fichier = fopen("./ressources/scores.txt", "r");
@@ -52,6 +53,13 @@ scores recupererScores() { /*Probablement a l'origine d'une seg fault que je ne 
         mesScores.score[nb_lignes]=score;
         printf("%d\n", mesScores.score[nb_lignes]);
     }
+    for (i = 0 ; i < nb_lignes ; i++) {
+        MLV_draw_text(100, 100 + 50 * i, "%d", mesScores.score[i]);
+    }
     fclose(fichier);
     return mesScores;
+}
+
+int nbAleatoire(int mi, int ma) {
+    return rand() % (ma - mi + 1) + mi;
 }

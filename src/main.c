@@ -7,6 +7,6 @@
 
 int main() {
     initialiserFenetre();
-    menu();
+    menu(1);
     return 0;
 }

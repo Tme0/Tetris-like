@@ -5,7 +5,7 @@
 #include "../headers/game.h"
 /*#include <MLV/MLV_all.h> déjà inclut dans input.h*/
 /*
-void selectionParametres() { /* Fonctionnel mais très peu pratique pour changer la disposition du menu (coordonées en dur)* /
+void selectionParametres() { / * Fonctionnel mais très peu pratique pour changer la disposition du menu (coordonées en dur)* /
     int x, y;
     MLV_wait_mouse(&x, &y);
     if (x >= 100 && x <= 300 && y >= 100 && y <= 150) {
@@ -27,7 +27,7 @@ void selectionParametres() { /* Fonctionnel mais très peu pratique pour changer
 }
 */
 /*
-void selectionMenu() { /* Fonctionnel mais très peu pratique pour changer la disposition du menu (coordonées en dur)* /
+void selectionMenu() { / * Fonctionnel mais très peu pratique pour changer la disposition du menu (coordonées en dur)* /
     int x, y;
     MLV_wait_mouse(&x, &y);
     if (x >= 100 && x <= 300 && y >= 100 && y <= 150) {
@@ -81,7 +81,7 @@ void resoudreEvenement(MLV_Keyboard_button touche) { /* A completer */
     }
 }
 /*
-void selectionScores() { /* Fonctionnel mais très peu pratique pour changer la disposition du menu (coordonées en dur)* /
+void selectionScores() { / * Fonctionnel mais très peu pratique pour changer la disposition du menu (coordonées en dur)* /
     int x, y;
     MLV_wait_mouse(&x, &y);
     if (x >= (1920 - 200) / 2 && x <= (1920 - 200) / 2 + 200 && y >= 200 && y <= 250) {

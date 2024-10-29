@@ -7,7 +7,8 @@ typedef struct scores {
     int score[10];
 } scores;
 
-
+int nbAleatoire(int mi, int ma);
+void menu(int menuActif);
 int jouer();
 scores recupererScores();
 

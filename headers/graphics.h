@@ -6,6 +6,7 @@
 #include "../headers/input.h"
 #include "../headers/game.h"
 #include "../headers/piece.h"
+#include "../headers/plateau.h"
 #define N 50
 
 void initialiserFenetre();

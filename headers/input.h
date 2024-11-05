@@ -3,7 +3,7 @@
 #ifndef INPUT_H
 #define INPUT_H
 
-#include <MLV/MLV_all.h>/*Nécessaire */
+#include <MLV/MLV_all.h>
 #include "../headers/piece.h"
 #include "../headers/game.h"
 

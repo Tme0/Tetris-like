@@ -55,29 +55,29 @@ void afficherParametres() { /*Fonctionnel : A rendre beau*/
 }
 
 void afficherPlateau(plateau monPlateau) {
-    int i, j;
+    int h, l;
     int offsetX = (1920 - monPlateau.largeur * 40) / 2;
     int offsetY = (1080 - monPlateau.hauteur * 40) / 2;
-    for (i = 0; i < monPlateau.largeur; i++) {
-        for (j = 0; j < monPlateau.hauteur; j++) {
-            if (monPlateau.state[i + j * monPlateau.largeur] != 0) {
-                MLV_draw_filled_rectangle(offsetX + i * 40, offsetY + j * 40, 40, 40, monPlateau.couleur[i + j * monPlateau.largeur]);
+    for (l = 0; l < monPlateau.hauteur; l++) {
+        for (h = 0; h < monPlateau.largeur; h++) {
+            if (monPlateau.state[h][l] != 0) {
+                MLV_draw_filled_rectangle(offsetX + h * 40, offsetY + l * 40, 40, 40, MLV_COLOR_BLUE);
             }
             else {
-                MLV_draw_filled_rectangle(offsetX + i * 40, offsetY + j * 40, 40, 40, MLV_COLOR_WHITE);
+                MLV_draw_filled_rectangle(offsetX + h * 40, offsetY + l * 40, 40, 40, MLV_COLOR_WHITE);
             }
         }
     }
 }
 
 void afficherPiece(piece maPiece) {
-    int i, j;
+    int h, l;
     int offsetX = (1920 - 10 * 40) / 2;
     int offsetY = (1080 - 20 * 40) / 2;
-    for (i = 0; i < 4; i++) {
-        for (j = 0; j < 4; j++) {
-            if (maPiece.idPiece.forme[i + j * 4] != 0) {
-                MLV_draw_filled_rectangle(offsetX + (maPiece.x + i) * 40, offsetY + (maPiece.y + j) * 40, 40, 40, maPiece.idPiece.couleur);
+    for (h = 0; h < TAILLE_PIECE; h++) {
+        for (l = 0; l < TAILLE_PIECE; l++) {
+            if (maPiece.idPiece.forme[h][l] != 0) {
+                MLV_draw_filled_rectangle(offsetX + (maPiece.x + l) * 40, offsetY + (maPiece.y + h) * 40, 40, 40, maPiece.idPiece.couleur);
             }
         }
     }
@@ -85,14 +85,16 @@ void afficherPiece(piece maPiece) {
 
 void afficherScores(scores mesScores) { /*Fonctionnel : A rendre beau*/
     int milieu = (1920 - 200) / 2;
+    int i;
     bouton retour = {milieu, milieu + 100, 200, 250, 9};
-    char texte_scores_1[N] = "Scores";
-    char texte_scores_2[N] = "Retour";
+    char texte_scores_1[N] = "Retour";
     MLV_clear_window(MLV_COLOR_BLACK);
     MLV_draw_text_box(milieu, 100, 200, 50, texte_scores_1, 0, MLV_COLOR_WHITE, MLV_COLOR_WHITE, MLV_COLOR_BLACK, MLV_TEXT_CENTER, MLV_HORIZONTAL_CENTER, MLV_VERTICAL_CENTER);
-    MLV_draw_text_box(milieu, 200, 200, 50, texte_scores_2, 0, MLV_COLOR_WHITE, MLV_COLOR_WHITE, MLV_COLOR_BLACK, MLV_TEXT_CENTER, MLV_HORIZONTAL_CENTER, MLV_VERTICAL_CENTER);
+    for (i = 0; i < 10; i++) {
+        MLV_draw_text_box(milieu, 200 + i * 50, 200, 50, "", 0, MLV_COLOR_WHITE, MLV_COLOR_WHITE, MLV_COLOR_BLACK, MLV_TEXT_CENTER, MLV_HORIZONTAL_CENTER, MLV_VERTICAL_CENTER);
+    }
     MLV_actualise_window();
-    selection(1, (bouton[]){retour}); /* A corriger : Lorsque le programme recoit un clic il se ferme (le bouton retour fonctionne dans afficherParametres())*/
+    selection(1, (bouton[]){retour});
 }
 
 void afficherSauvegarde() { /*A completer*/

@@ -4,7 +4,8 @@
 #include "../headers/graphics.h"
 #include "../headers/game.h"
 #include "../headers/piece.h"
-/*#include <MLV/MLV_all.h> déjà inclut dans input.h*/
+/*#include <MLV/MLV_all.h> déjà inclus dans input.h*/
+/*#define BOUNTONS 9 déjà définis dans input.h*/
 /*
 void selectionParametres() { / * Fonctionnel mais très peu pratique pour changer la disposition du menu (coordonées en dur)* /
     int x, y;

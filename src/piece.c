@@ -4,7 +4,7 @@
 #include <time.h>
 
 piece creerPiece(int id, int vit) {
-    int i;
+    int h, l;
     piece maPiece;
     maPiece.x = 0;
     maPiece.y = 0;
@@ -12,80 +12,61 @@ piece creerPiece(int id, int vit) {
     maPiece.orientation = 0;
     maPiece.vitesse = vit;
     maPiece.idPiece.couleur = MLV_COLOR_RED;
+
+    for (h = 0; h < TAILLE_PIECE; h++) {
+        for (l = 0; l < TAILLE_PIECE; l++) {
+            maPiece.idPiece.forme[h][l] = 0;
+        }
+    }
+
     switch (id) {
         case 1:
-            for (i = 0; i < TAILLE_PIECE; i++) {
-                if (i == 0 || i == 4 || i == 8 || i == 9) {
-                    maPiece.idPiece.forme[i] = 1;
-                } 
-                else {
-                    maPiece.idPiece.forme[i] = 0;
-                }
-            }
+            maPiece.idPiece.forme[0][0] = 1;
+            maPiece.idPiece.forme[1][0] = 1;
+            maPiece.idPiece.forme[2][0] = 1;
+            maPiece.idPiece.forme[2][1] = 1;
             break;
 
         case 2:
-            for (i = 0; i < TAILLE_PIECE; i++) {
-                if (i == 0 || i == 4 || i == 8 || i == 12) {
-                    maPiece.idPiece.forme[i] = 1;
-                } 
-                else {
-                    maPiece.idPiece.forme[i] = 0;
-                }
-            }
+            maPiece.idPiece.forme[0][0] = 1;
+            maPiece.idPiece.forme[1][0] = 1;
+            maPiece.idPiece.forme[2][0] = 1;
+            maPiece.idPiece.forme[3][0] = 1;
             break;
 
         case 3:
-            for (i = 0; i < TAILLE_PIECE; i++) {
-                if (i == 0 || i == 1 || i == 4 || i == 8) {
-                    maPiece.idPiece.forme[i] = 1;
-                } 
-                else {
-                    maPiece.idPiece.forme[i] = 0;
-                }
-            }
+            maPiece.idPiece.forme[0][0] = 1;
+            maPiece.idPiece.forme[0][1] = 1;
+            maPiece.idPiece.forme[1][0] = 1;
+            maPiece.idPiece.forme[2][0] = 1;
             break;
 
         case 4:
-            for (i = 0; i < TAILLE_PIECE; i++) {
-                if (i == 0 || i == 1 || i == 4 || i == 5) {
-                    maPiece.idPiece.forme[i] = 1;
-                } 
-                else {
-                    maPiece.idPiece.forme[i] = 0;
-                }
-            }
+            maPiece.idPiece.forme[0][0] = 1;
+            maPiece.idPiece.forme[0][1] = 1;
+            maPiece.idPiece.forme[1][0] = 1;
+            maPiece.idPiece.forme[1][1] = 1;
             break;
             
         case 5:
-            for (i = 0; i < TAILLE_PIECE; i++) {
-                if (i == 0 || i == 1 || i == 5 || i == 6) {
-                    maPiece.idPiece.forme[i] = 1;
-                } 
-                else {
-                    maPiece.idPiece.forme[i] = 0;
-                }
-            }
+            maPiece.idPiece.forme[0][0] = 1;
+            maPiece.idPiece.forme[0][1] = 1;
+            maPiece.idPiece.forme[1][1] = 1;
+            maPiece.idPiece.forme[1][2] = 1;
             break;
+
         case 6:
-            for (i = 0; i < TAILLE_PIECE; i++) {
-                if (i == 1 || i == 2 || i == 4 || i == 5) {
-                    maPiece.idPiece.forme[i] = 1;
-                } 
-                else {
-                    maPiece.idPiece.forme[i] = 0;
-                }
-            }
+            maPiece.idPiece.forme[0][1] = 1;
+            maPiece.idPiece.forme[0][2] = 1;
+            maPiece.idPiece.forme[1][0] = 1;
+            maPiece.idPiece.forme[1][1] = 1;
             break;
+
         case 7:
-            for (i = 0; i < TAILLE_PIECE; i++) {
-                if (i == 0 || i == 1 || i == 2 || i == 5) {
-                    maPiece.idPiece.forme[i] = 1;
-                } 
-                else {
-                    maPiece.idPiece.forme[i] = 0;
-                }
-            }
+            maPiece.idPiece.forme[0][0] = 1;
+            maPiece.idPiece.forme[0][1] = 1;
+            maPiece.idPiece.forme[0][2] = 1;
+            maPiece.idPiece.forme[1][1] = 1;
             break;
     }   
     return maPiece;

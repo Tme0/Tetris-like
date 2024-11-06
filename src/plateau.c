@@ -3,11 +3,11 @@
 #include "../headers/plateau.h"
 
 plateau initPlateau(plateau monPlateau) {
-    int i,j;
-    for (i = 0 ; i < 20 ; i++) {
-        for (j = 0 ; j < 10 ; j++) {
-            monPlateau.state[i][j] = 0;
-            monPlateau.couleur[i][j] = MLV_COLOR_BLUE;
+    int l, h;
+    for (l = 0 ; l < 10 ; l++) {
+        for (h = 0 ; h < 20 ; h++) {
+            monPlateau.state[l][h] = 0;
+            monPlateau.couleur[l][h] = MLV_COLOR_WHITE;
         }
     }
     monPlateau.x = 0;
@@ -18,15 +18,51 @@ plateau initPlateau(plateau monPlateau) {
 }
 
 plateau majPlateau(piece maPiece, plateau monPlateau) {
-    int h, l;
-    for (h = TAILLE_PIECE-1 ; h > -1 ; h--) {
-        for (l = TAILLE_PIECE-1 ; l > -1 ; l--) {
-            if (maPiece.idPiece.forme[h][l] == 1) {
-                monPlateau.state[maPiece.y + h][maPiece.x + l] = 1;
-                monPlateau.couleur[maPiece.y + h][maPiece.x + l] = maPiece.idPiece.couleur;
-                printf("ajout de la pièce\n");
+    int h, l, newY, newX;
+    printf("Maj du plateau ; piece en position (%d, %d)\n", maPiece.x, maPiece.y);
+    for (l = 0; l < TAILLE_PIECE; l++) {
+        for (h = 0; h < TAILLE_PIECE; h++) {
+            if (maPiece.idPiece.forme[l][h] == 1) {
+                newY = maPiece.x + h;
+                newX = maPiece.y + l;
+                printf("Partie de piece en position (%d, %d)\n", newX, newY);
+                monPlateau.state[newY][newX] = 1;
+                monPlateau.couleur[newY][newX] = maPiece.idPiece.couleur;
             }
         }
     }
+    return monPlateau;
+}
+
+int ligneComplete(plateau monPlateau) {
+    int h, l;
+    for (h = 0; h < monPlateau.hauteur; h++) {
+        for (l = 0; l < monPlateau.largeur; l++) {
+            if (monPlateau.state[l][h] == 0) {
+                break;
+            }
+        }
+        if (l == monPlateau.largeur) {
+            printf("Ligne %d complète\n", h);
+            return h;
+        }
+    }
+    return -1;
+}
+
+plateau supprimerLigne(plateau monPlateau, int ligne) {
+    int h, l;
+    for (h = ligne; h > 0; h--) {
+        for (l = 0; l < monPlateau.largeur; l++) {
+            printf("Décalage de la ligne %d case %d\n", h, l);
+            monPlateau.state[l][h] = monPlateau.state[l][h - 1];
+            monPlateau.couleur[l][h] = monPlateau.couleur[l][h - 1];
+        }
+    }
+    for (l = 0; l < monPlateau.largeur; l++) {
+        monPlateau.state[l][0] = 0;
+        monPlateau.couleur[l][0] = MLV_COLOR_WHITE;
+    }
+    printf("Ligne %d supprimée\n", ligne);
     return monPlateau;
 }

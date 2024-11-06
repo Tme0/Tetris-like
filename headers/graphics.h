@@ -8,6 +8,7 @@
 #include "../headers/piece.h"
 #include "../headers/plateau.h"
 #define N 50
+#define SCORE_MAX 10
 
 void initialiserFenetre();
 void afficherMenu();

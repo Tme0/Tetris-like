@@ -23,7 +23,7 @@ int jouer() {
     
     piece maPiece;
     plateau monPlateau;
-
+    int i, j;
     int mouvementVertical = 1; /* Permet de savoir si la pièce peut se déplacer (ne touche pas le sol) */
     int frame = 0; /* Permet de compter les frames passées pour gérer la vitesse de chute et attendre quand la pièce est posée pour laisser la possibilité de la déplacer */
     int aBouge = 0; /* Permet d'empecher le déplacement des pièces en restant appuyé */
@@ -42,12 +42,21 @@ int jouer() {
         clock_gettime(CLOCK_REALTIME, &debut );
         frame++;
 
+	fixPlateau(&monPlateau);
+	
 	if (estPosee(maPiece, monPlateau)) {
 	  mouvementVertical = 0;
 	  if (frame % (20/niveau) == 0) {
 	    frame = 0;
 	    majPlateau(maPiece, &monPlateau);
 	    combo = 1;
+	    for (i = 0 ; i < 20 ; i++){
+	      for (j = 0 ; j < 10 ; j++){
+		printf("%d ", monPlateau.state[i][j]);
+	      }
+	      printf("\n");
+	    }
+	    printf("\n");
 	    idLigneComplete = ligneComplete(monPlateau);
 	    while (idLigneComplete >= 0) {
 	      supprimerLigne(&monPlateau, idLigneComplete);

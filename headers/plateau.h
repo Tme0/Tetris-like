@@ -21,5 +21,6 @@ void majApresChute(piece maPiece, plateau *monPlateau);
 int ligneComplete(plateau monPlateau);
 void supprimerLigne(plateau *monPlateau, int ligne);
 void descendreLignes(plateau *monPlateau, int ligne);
+void fixPlateau(plateau *monPlateau);
 
 #endif /* PLATEAU_H */

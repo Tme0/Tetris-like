@@ -180,9 +180,8 @@ int afficherScoresPendantPartie(){
     FILE * fichier;
     MLV_draw_text_box(25, 300, 200, 35, "Meilleurs scores", 0, MLV_COLOR_DEEPSKYBLUE, MLV_COLOR_WHITE, MLV_COLOR_BLACK, MLV_TEXT_CENTER, MLV_HORIZONTAL_CENTER, MLV_VERTICAL_CENTER);
     MLV_draw_rectangle(25, 334, 200, 115, MLV_COLOR_DEEPSKYBLUE);
-    if ((fichier = fopen("scores.txt", "r")) == NULL){
-        printf("Impossible d'ouvrir le fichier scores.txt\n");
-        return -1;
+    if ((fichier = fopen("./ressources/scores.txt", "r")) == NULL){
+        fichier = fopen("./ressources/scores.txt", "a+");
     }
     while ((fscanf(fichier, "%d", &score)) == 1){
         if (i == 6){

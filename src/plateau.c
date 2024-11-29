@@ -55,7 +55,7 @@ int ligneComplete(plateau monPlateau) {
         i++;
     }
     if (complet == 10) {
-        printf("Ligne %d complète\n", i);
+        printf("Ligne %d complète\n", i-1);
         return i-1;
     }
     return -1;
@@ -79,4 +79,20 @@ void descendreLignes(plateau *monPlateau, int ligne) {
             monPlateau->couleur[i][j] = monPlateau->couleur[i-1][j];
         }
     }
+}
+
+void fixPlateau (plateau *monPlateau) {
+  /* Le plateau fait souvent apparaître 255 dans les cases [19][7], [19][8] et [19][9],
+     on utilise donc sa couleur pour savoir s'il y avait un 1 ou un 0 avant à la place.
+     A voir si on appelle la fonction sur toute la ligne ou même tout le plateau
+     si jamais d'autres cases peuvent se mettre à 255. */
+  int j;
+  for (j = 7 ; j < 10 ; j++){
+    if (monPlateau->couleur[19][j] == MLV_COLOR_BLACK) {
+      monPlateau->state[19][j] = 0;
+    }
+    else {
+      monPlateau->state[19][j] = 1;
+    }
+  }
 }

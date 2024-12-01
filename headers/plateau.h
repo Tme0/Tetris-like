@@ -22,5 +22,7 @@ int ligneComplete(plateau monPlateau);
 void supprimerLigne(plateau *monPlateau, int ligne);
 void descendreLignes(plateau *monPlateau, int ligne);
 void fixPlateau(plateau *monPlateau);
+int validerRotation(piece *maPiece, plateau *monPlateau);
+int verifRotation(piece *maPiece, plateau *monPlateau, int droite);
 
 #endif /* PLATEAU_H */

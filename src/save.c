@@ -6,7 +6,7 @@
 
 void sauvegarderScore(int score) {
     FILE *fichier;
-    if ((fichier = fopen("scores.txt", "a")) == NULL) {
+    if ((fichier = fopen("./ressources/scores.txt", "a")) == NULL) {
         printf("Impossible d'ouvrir le fichier scores.txt\n");
     }
     fprintf(fichier, "%d\n", score);

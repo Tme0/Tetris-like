@@ -29,5 +29,6 @@ typedef struct {
 } piece;
 
 piece creerPiece(int id);
+void tournerPieceDroite(piece *maPiece);
 
 #endif /* PIECE_H */

@@ -7,7 +7,7 @@ piece creerPiece(int id) {
     int i, j;
     piece maPiece;
     maPiece.x = 3;
-    maPiece.y = -1;
+    maPiece.y = -2;
     maPiece.idPiece.id = id;
     maPiece.orientation = 0;
     switch (id) {

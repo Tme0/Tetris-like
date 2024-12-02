@@ -105,7 +105,7 @@ piece creerPiece(int id) {
         case 7:
             for (i = 0; i < TAILLE_PIECE; i++) {
                 for (j = 0; j < TAILLE_PIECE; j++) {
-                    if ((i == 0 && j == 0) || (i == 0 && j == 1) || (i == 0 && j == 2) || (i == 1 && j == 1)) {
+                    if ((i == 0 && j == 1) || (i == 1 && j == 0) || (i == 1 && j == 1) || (i == 1 && j == 2)) {
                         maPiece.idPiece.forme[i][j] = 1;
                     } 
                     else {
@@ -119,7 +119,7 @@ piece creerPiece(int id) {
     return maPiece;
 }
 
-void tournerPieceDroite(piece *maPiece) {
+void tournerPieceGauche(piece *maPiece) {
   int i, j;
   int tmp[3][3];
   
@@ -127,6 +127,82 @@ void tournerPieceDroite(piece *maPiece) {
     for (i = 0; i < 3; i++){
       for (j = 0 ; j < 3; j++){
         tmp[i][j] = maPiece->idPiece.forme[j][2-i];
+      }
+    }
+    for (i = 0; i < 3; i++){
+      for (j = 0 ; j < 3; j++){
+	maPiece->idPiece.forme[i][j] = tmp[i][j];
+      }
+    }
+  }
+  
+  if (maPiece->idPiece.id == 2){
+    switch (maPiece->orientation) {
+      case 0 :
+	for (i = 0; i < TAILLE_PIECE; i++) {
+	  for (j = 0; j < TAILLE_PIECE; j++) {
+	    if (j == 1) {
+	      maPiece->idPiece.forme[i][j] = 1;
+	    } 
+	    else {
+	      maPiece->idPiece.forme[i][j] = 0;
+	    }
+	  }
+	}
+	break;
+	
+      case 1 :
+	for (i = 0; i < TAILLE_PIECE; i++) {
+	  for (j = 0; j < TAILLE_PIECE; j++) {
+	    if (i == 1) {
+	      maPiece->idPiece.forme[i][j] = 1;
+	    } 
+	    else {
+	      maPiece->idPiece.forme[i][j] = 0;
+	    }
+	  }
+	}
+	break;
+	
+      case 2 :
+	for (i = 0; i < TAILLE_PIECE; i++) {
+	  for (j = 0; j < TAILLE_PIECE; j++) {
+	    if (j == 2) {
+	      maPiece->idPiece.forme[i][j] = 1;
+	    } 
+	    else {
+	      maPiece->idPiece.forme[i][j] = 0;
+	    }
+	  }
+	}
+	break;
+
+      case 3 :
+	for (i = 0; i < TAILLE_PIECE; i++) {
+	  for (j = 0; j < TAILLE_PIECE; j++) {
+	    if (i == 2) {
+	      maPiece->idPiece.forme[i][j] = 1;
+	    } 
+	    else {
+	      maPiece->idPiece.forme[i][j] = 0;
+	    }
+	  }
+	}
+	break;
+    }
+  }
+  maPiece->orientation = (maPiece->orientation + 3) % 4;
+}
+
+
+void tournerPieceDroite(piece *maPiece) {
+  int i, j;
+  int tmp[3][3];
+  
+  if (maPiece->idPiece.id != 2 && maPiece->idPiece.id != 4){
+    for (i = 0; i < 3; i++){
+      for (j = 0 ; j < 3; j++){
+        tmp[i][j] = maPiece->idPiece.forme[2-j][i];
       }
     }
     for (i = 0; i < 3; i++){

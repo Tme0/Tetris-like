@@ -22,7 +22,6 @@ int ligneComplete(plateau monPlateau);
 void supprimerLigne(plateau *monPlateau, int ligne);
 void descendreLignes(plateau *monPlateau, int ligne);
 void fixPlateau(plateau *monPlateau);
-int validerRotationOld(piece *maPiece, plateau *monPlateau);
 int validerRotation(piece *maPiece, plateau *monPlateau, int x, int y);
 int superRotation(piece *maPiece, plateau *monPlateau, int droite);
 

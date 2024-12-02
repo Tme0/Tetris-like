@@ -56,7 +56,7 @@ void selectionSauvegarde() { /* A completer */
     printf("Choix de la sauvegarde...\n");
 }
 
-piece resoudreEvenement(MLV_Keyboard_button touche, piece maPiece, plateau monPlateau) { /* A completer */
+piece resoudreEvenement(MLV_Keyboard_button touche, piece maPiece, plateau monPlateau) {
     switch (touche) {
         case MLV_KEYBOARD_d:
             if (colisionDroite(maPiece, monPlateau) == 0) {
@@ -72,22 +72,24 @@ piece resoudreEvenement(MLV_Keyboard_button touche, piece maPiece, plateau monPl
             maPiece.y++;
             break;
         case MLV_KEYBOARD_e:
-            /*Faire tourner le bloc à droite*/
 	    tournerPieceDroite(&maPiece);
-	    if (validerRotation(&maPiece, &monPlateau) == 0) {
-	      tournerPieceDroite(&maPiece);
-	      tournerPieceDroite(&maPiece);
-	      tournerPieceDroite(&maPiece);
+	    /* On va faire croire à la fonction que l'orientation n'a pas changé, comme ça ça va utiliser la bonne kicktable : */
+	    maPiece.orientation = (maPiece.orientation + 3) % 4; /* (tournerPieceDroite augmente de 1, ici de 3, donc de 4, donc ça revient à l'orientation de base */
+	    if (superRotation(&maPiece, &monPlateau, 1) == 0) {
+	      maPiece.orientation = (maPiece.orientation + 1) % 4; /* On remet l'orientation à la bonne valeur */
+	      tournerPieceGauche(&maPiece); /* On remet la pièce dans son état original */
+	    }
+	    else {
+	      maPiece.orientation = (maPiece.orientation + 1) % 4; /* On remet l'orientation à la bonne valeur */
 	    }
             break;
         case MLV_KEYBOARD_a:
-            /*Faire tourner le bloc à gauche*/
-	    tournerPieceDroite(&maPiece);
-	    tournerPieceDroite(&maPiece);
-	    tournerPieceDroite(&maPiece);
-	    if (validerRotation(&maPiece, &monPlateau) == 0) {
+	    tournerPieceGauche(&maPiece);
+	    if (superRotation(&maPiece, &monPlateau, -1) == 0) {
 	      tournerPieceDroite(&maPiece);
 	    }
+	    /* Alors qu'ici, on fait d'abord la rotation, puis si on voit qu'elle était en fait impossible,
+	       alors on l'annule (pour la logique, voir le commentaire de la fonction dans plateau.c) */
             break;
         case MLV_KEYBOARD_ESCAPE:
             MLV_clear_window(MLV_COLOR_BLACK);

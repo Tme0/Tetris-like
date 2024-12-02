@@ -82,43 +82,20 @@ void descendreLignes(plateau *monPlateau, int ligne) {
 }
 
 void fixPlateau (plateau *monPlateau) {
-  /* Le plateau fait souvent apparaître 255 dans les cases [19][7], [19][8] et [19][9],
+  /* Le plateau fait souvent apparaître 255 dans les cases en bas à droite,
      on utilise donc sa couleur pour savoir s'il y avait un 1 ou un 0 avant à la place.
-     A voir si on appelle la fonction sur toute la ligne ou même tout le plateau
-     si jamais d'autres cases peuvent se mettre à 255. */
-  int j;
-  for (j = 7 ; j < 10 ; j++){
-    if (monPlateau->couleur[19][j] == MLV_COLOR_BLACK) {
-      monPlateau->state[19][j] = 0;
-    }
-    else {
-      monPlateau->state[19][j] = 1;
-    }
-  }
-}
-
-int validerRotationOld(piece *maPiece, plateau *monPlateau) {
-  /* Fonction temporaire, ici on annule la rotation si elle est impossible,
-     au lieu de tester d'autres emplacements.
-     Ce n'est pas très optimisé car si la rotation est impossible
-     alors on tourne la pièce 4 fois en tout.
-     Pourra peut-être être modif et appelée pour vérifier les murs. */
-  int i, j, x, y;
-  x = maPiece->x;
-  y = maPiece->y;
-  for (i = 0; i < TAILLE_PIECE; i++) {
-    for (j = 0; j < TAILLE_PIECE; j++) {
-      if (maPiece->idPiece.forme[i][j] == 1) {
-	if (y + i >= 20 || x + j >= 10 || x + j < 0) { /* Vérifie le sol et les murs (avant l'autre if sinon ça sort de la matrice) */
-	  return 0;
-	}
-	if (monPlateau->state[y+i][x+j] == 1) { /* Vérifie si une case est déjà occupée */
-	  return 0;
-	}
+     On boucle sur tout le plateau car ça arrive sur d'autres cases très rarement. */
+  int i, j;
+  for (i = 0 ; i < 20 ; i++){
+    for (j = 0 ; j < 10 ; j++){
+      if (monPlateau->couleur[i][j] == MLV_COLOR_BLACK) {
+	monPlateau->state[i][j] = 0;
+      }
+      else {
+	monPlateau->state[i][j] = 1;
       }
     }
   }
-  return 1;
 }
 
 int validerRotation(piece *maPiece, plateau *monPlateau, int x, int y) {

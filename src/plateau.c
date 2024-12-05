@@ -4,8 +4,8 @@
 
 plateau initialiserPlateau(plateau monPlateau){
     int i, j;
-    for (i=0 ; i<20 ; i++) {
-        for (j=0 ; j<10 ; j++) {
+    for (i=0 ; i < 20 ; i++) {
+        for (j=0 ; j < 10 ; j++) {
             monPlateau.state[i][j] = 0;
             monPlateau.couleur[i][j] = MLV_COLOR_BLACK;
         }
@@ -14,6 +14,10 @@ plateau initialiserPlateau(plateau monPlateau){
     monPlateau.y = 0;
     monPlateau.largeur = 10;
     monPlateau.hauteur = 20;
+    monPlateau.reserveOccupee = 0;
+    for (i = 0 ; i < 5 ; i++) {
+      monPlateau.piecesSuivantes[i] = creerPiece(nbAleatoire(1, 7));
+    }
     return monPlateau;
 }
 
@@ -29,6 +33,29 @@ void majPlateau(piece maPiece, plateau *monPlateau) {
     }
 }
 
+void mettreEnReserve(piece *maPiece, plateau *monPlateau) {
+  int id_reserve;
+  if (monPlateau->reserveOccupee == 0) {
+    monPlateau->reserveOccupee = 1;
+    monPlateau->pieceReserve = creerPiece(maPiece->idPiece.id);
+    majPiecesSuivantes(maPiece, monPlateau);
+  }
+  else {
+    id_reserve = monPlateau->pieceReserve.idPiece.id;
+    monPlateau->pieceReserve = creerPiece(maPiece->idPiece.id);
+    *maPiece = creerPiece(id_reserve);
+  }
+}
+
+void majPiecesSuivantes(piece *maPiece, plateau *monPlateau) {
+  int i;
+  *maPiece = monPlateau->piecesSuivantes[0];
+  for (i = 0 ; i < 4 ; i++) {
+    monPlateau->piecesSuivantes[i] = monPlateau->piecesSuivantes[i+1];
+  }
+  monPlateau->piecesSuivantes[4] = creerPiece(nbAleatoire(1, 7));
+}
+    
 void majApresChute(piece maPiece, plateau *monPlateau) { /* Permet d'effacer la pièce à la frame précédente (actualisation) */
     int i, j;
     for (i = 0 ; i < TAILLE_PIECE ; i++) {

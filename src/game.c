@@ -32,6 +32,7 @@ int jouer() {
     int score = 0;
     int combo;
     int idLigneComplete;
+    int reserveUtilisee = 0; /* Permet de savoir si la réserve a été utilisée pendant le tour, car on peut l'utiliser une seule fois par tour */
     long int tempsAttente;
     
     maPiece = creerPiece(nbAleatoire(1, 7));
@@ -46,6 +47,9 @@ int jouer() {
 	
 	if (estPosee(maPiece, monPlateau)) {
 	  mouvementVertical = 0;
+	  if (finJeu(maPiece) == 1) {
+	    continuer = 0;
+	  }
 	  if (frame % (20/niveau) == 0) {
 	    frame = 0;
 	    majPlateau(maPiece, &monPlateau);
@@ -64,8 +68,9 @@ int jouer() {
 	      combo++;
 	      idLigneComplete = ligneComplete(monPlateau);
 	    }
-	    maPiece = creerPiece(nbAleatoire(1, 7));
+	    majPiecesSuivantes(&maPiece, &monPlateau);
 	    mouvementVertical = 1;
+	    reserveUtilisee = 0;
 	  }
 	}
 	else {
@@ -81,14 +86,22 @@ int jouer() {
         if (etatTouche == MLV_PRESSED && touche != MLV_KEYBOARD_UNKNOWN && souris == 0) {
 	  if (aBouge == 0 || touche == MLV_KEYBOARD_s) {
 	    aBouge = 1;
-	    if (touche != MLV_KEYBOARD_s){
+	    if (touche != MLV_KEYBOARD_s && touche != MLV_KEYBOARD_r) {
 	      maPiece = resoudreEvenement(touche, maPiece, monPlateau);
 	      touche = MLV_KEYBOARD_UNKNOWN;
 	    }
 	    else{
-	      if (mouvementVertical == 1) {
-		maPiece = resoudreEvenement(touche, maPiece, monPlateau);
-		frame = 0;
+	      if (touche == MLV_KEYBOARD_r) {
+		if (reserveUtilisee == 0) {
+	        mettreEnReserve(&maPiece, &monPlateau);
+		reserveUtilisee = 1;
+		}
+	      }
+	      else {
+		if (mouvementVertical == 1) {
+		  maPiece = resoudreEvenement(touche, maPiece, monPlateau);
+		  frame = 0;
+		}
 	      }
 	    }
 	  }
@@ -113,12 +126,14 @@ int jouer() {
             aBouge = 0;
         }
 
-        /* MLV_clear_window(MLV_COLOR_BLACK); */
+        MLV_clear_window(MLV_COLOR_BLACK);
         afficherPlateau(monPlateau);
         afficherPiece(maPiece);
         afficherLogo();
         afficherContoursEtTextes();
         afficherScoresPendantPartie();
+	afficherPiecesSuivantes(monPlateau);
+	afficherReserve(monPlateau);
 
         /*Temps à la fin de l'image et boucle while pour completer le temps manquant (60/1 sec)*/
         clock_gettime(CLOCK_REALTIME, &fin );
@@ -131,7 +146,8 @@ int jouer() {
         }
         MLV_actualise_window();
     }
-    return 0;
+    printf("Score : %d\n", score);
+    return score;
 }
 
 int estPosee(piece maPiece, plateau monPlateau) {
@@ -157,7 +173,7 @@ int colisionDroite(piece maPiece, plateau monPlateau) {
     for (i = 0 ; i < TAILLE_PIECE ; i++) {
         for (j = TAILLE_PIECE - 1 ; j >= 0 ; j--) { /* Boucle en partant de la droite */
             if (maPiece.idPiece.forme[i][j] == 1) {  /* Vérifie si le bloc fait partie de la pièce */
-                if (j + maPiece.x == 9){
+                if (j + maPiece.x == 9) {
                     return 1;
                 }
                 /* Vérifie si le bloc à droite est occupé */
@@ -175,7 +191,7 @@ int colisionGauche(piece maPiece, plateau monPlateau) {
     for (i = 0 ; i < TAILLE_PIECE ; i++) {
         for (j = 0 ; j < TAILLE_PIECE ; j++) {
             if (maPiece.idPiece.forme[i][j] == 1) {
-                if (j + maPiece.x == 0){
+                if (j + maPiece.x == 0) {
                     return 1;
                 }
                 /* Vérifie si le bloc à gauche est occupé */
@@ -186,6 +202,20 @@ int colisionGauche(piece maPiece, plateau monPlateau) {
         }
     }
     return 0;  /* Retourne 0 s'il n'y a pas de collision */
+}
+
+int finJeu(piece maPiece) {
+  int i, j;
+  for (i = 0 ; i < TAILLE_PIECE ; i++) {
+    for (j = 0 ; j < TAILLE_PIECE ; j++) {
+      if (maPiece.idPiece.forme[i][j] == 1) {
+	if (i + maPiece.y < 0) {
+	  return 1;
+	}
+      }
+    }
+  }
+  return 0;
 }
 
 scores recupererScores() {
@@ -208,8 +238,4 @@ scores recupererScores() {
     }
     fclose(fichier);
     return mesScores;
-}
-
-int nbAleatoire(int mi, int ma) {
-    return rand() % (ma - mi + 1) + mi;
 }

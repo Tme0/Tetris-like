@@ -53,7 +53,7 @@ int jouer() {
 	  if (frame % (20/niveau) == 0) {
 	    frame = 0;
 	    majPlateau(maPiece, &monPlateau);
-	    combo = 1;
+	    combo = 0;
 	    for (i = 0 ; i < 20 ; i++){
 	      for (j = 0 ; j < 10 ; j++){
 		printf("%d ", monPlateau.state[i][j]);
@@ -64,13 +64,21 @@ int jouer() {
 	    idLigneComplete = ligneComplete(monPlateau);
 	    while (idLigneComplete >= 0) {
 	      supprimerLigne(&monPlateau, idLigneComplete);
-	      score += 100*combo*niveau;
 	      combo++;
 	      idLigneComplete = ligneComplete(monPlateau);
+	    }
+	    if (combo == 4) {
+	      score += 600; /* Un TETRIS rapporte plus de points */
+	    }
+	    else {
+	      score += 100*combo*niveau;
 	    }
 	    majPiecesSuivantes(&maPiece, &monPlateau);
 	    mouvementVertical = 1;
 	    reserveUtilisee = 0;
+	    if (niveau < 10) {
+	      niveau = 1 + score/5000;
+	    }
 	  }
 	}
 	else {
@@ -134,6 +142,7 @@ int jouer() {
         afficherScoresPendantPartie();
 	afficherPiecesSuivantes(monPlateau);
 	afficherReserve(monPlateau);
+	afficherScoreActuel(score);
 
         /*Temps à la fin de l'image et boucle while pour completer le temps manquant (60/1 sec)*/
         clock_gettime(CLOCK_REALTIME, &fin );

@@ -28,8 +28,10 @@ typedef struct {
     int orientation;
 } piece;
 
+int nbAleatoire(int mi, int ma);
 piece creerPiece(int id);
 void tournerPieceGauche(piece *maPiece);
 void tournerPieceDroite(piece *maPiece);
+
 
 #endif /* PIECE_H */

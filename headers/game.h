@@ -10,12 +10,12 @@ typedef struct scores {
     int score[10];
 } scores;
 
-int nbAleatoire(int mi, int ma);
 void menu(int menuActif);
 int jouer();
 int estPosee(piece maPiece, plateau monPlateau);
 int colisionDroite(piece maPiece, plateau monPlateau);
 int colisionGauche(piece maPiece, plateau monPlateau);
+int finJeu(piece maPiece);
 scores recupererScores();
 
 

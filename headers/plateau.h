@@ -13,10 +13,15 @@ typedef struct {
     int largeur;
     int hauteur;
     MLV_Color couleur[20][10];
+    piece pieceReserve;
+    int reserveOccupee;
+    piece piecesSuivantes[5];
 } plateau;
 
 plateau initialiserPlateau(plateau monPlateau);
 void majPlateau(piece maPiece, plateau *monPlateau);
+void mettreEnReserve(piece *maPiece, plateau *monPlateau);
+void majPiecesSuivantes(piece *maPiece, plateau *monPlateau);
 void majApresChute(piece maPiece, plateau *monPlateau);
 int ligneComplete(plateau monPlateau);
 void supprimerLigne(plateau *monPlateau, int ligne);

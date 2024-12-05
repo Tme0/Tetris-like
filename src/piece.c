@@ -3,6 +3,10 @@
 #include "../headers/piece.h"
 #include <time.h>
 
+int nbAleatoire(int mi, int ma) {
+    return rand() % (ma - mi + 1) + mi;
+}
+
 piece creerPiece(int id) {
     int i, j;
     piece maPiece;

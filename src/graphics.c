@@ -59,7 +59,7 @@ void afficherPlateau(plateau monPlateau) {
     for (i = 0; i < 20; i++) {
         for (j = 0; j < 10; j++) {
             MLV_draw_filled_rectangle(250+30*j, 150+30*i, 30, 30, monPlateau.couleur[i][j]);
-            MLV_draw_rectangle(250+30*j, 150+30*i, 30, 30, MLV_COLOR_GREY);
+            MLV_draw_rectangle(250+30*j, 150+30*i, 30, 30, MLV_COLOR_GREY50);
         }
     }
 }
@@ -70,7 +70,7 @@ void afficherPiece(piece maPiece) {
         for (j = 0; j < 4; j++) {
             if (maPiece.idPiece.forme[i][j] == 1) {
                 MLV_draw_filled_rectangle(250 + (maPiece.x + j) * 30, 150 + (maPiece.y + i) * 30, 30, 30, maPiece.idPiece.couleur);
-                MLV_draw_rectangle(250 + (maPiece.x + j) * 30, 150 + (maPiece.y + i) * 30, 30, 30, MLV_COLOR_GREY);
+                MLV_draw_rectangle(250 + (maPiece.x + j) * 30, 150 + (maPiece.y + i) * 30, 30, 30, MLV_COLOR_GREY50);
             }
         }
     }
@@ -130,13 +130,13 @@ void afficherLogo(){
 
 void afficherContoursEtTextes(){
     MLV_draw_rectangle(250, 150, 300, 600, MLV_COLOR_DEEPSKYBLUE); /* contour de la grille */
-    MLV_draw_rectangle(550, 150, 100, 600, MLV_COLOR_DEEPSKYBLUE); /* à droite, liste des prochaines formes et score */
+    MLV_draw_rectangle(550, 150, 100, 600, MLV_COLOR_DEEPSKYBLUE); /* à droite, liste des prochaines pièces et score */
     MLV_draw_rectangle(150, 150, 100, 121, MLV_COLOR_DEEPSKYBLUE); /* à gauche, réserve */
     
     /* tentative de mettre des contours plus épais, à voir si on le fait après : */
     /* MLV_draw_filled_rectangle(246, 146, 310, 5, MLV_COLOR_DEEPSKYBLUE); */
     
-    /* prochaines formes */
+    /* prochaines pièces */
     MLV_draw_text_box(
         550, 150,
         100, 25,
@@ -198,6 +198,34 @@ int afficherScoresPendantPartie(){
     }
     fclose(fichier);
     return 1;
+}
+
+void afficherPiecesSuivantes(plateau monPlateau) {
+  int k, i, j;
+  for (k = 0; k < 5; k++) {
+    for (i = 0; i < 4; i++) {
+      for (j = 0; j < 4; j++) {
+	if (monPlateau.piecesSuivantes[k].idPiece.forme[i][j] == 1) {
+	  MLV_draw_filled_rectangle(560 + j*20, 190 + i*20 + k*70, 20, 20, monPlateau.piecesSuivantes[k].idPiece.couleur);
+	  MLV_draw_rectangle(560 + j*20, 190 + i*20 + k*70, 20, 20, MLV_COLOR_GREY50);
+	}
+      }
+    }
+  }
+}
+
+void afficherReserve(plateau monPlateau) {
+  int i, j;
+  if (monPlateau.reserveOccupee == 1) {
+    for (i = 0; i < 4; i++) {
+      for (j = 0; j < 4; j++) {
+	if (monPlateau.pieceReserve.idPiece.forme[i][j] == 1) {
+	  MLV_draw_filled_rectangle(160 + j*20, 190 + i*20, 20, 20, monPlateau.pieceReserve.idPiece.couleur);
+	  MLV_draw_rectangle(160 + j*20, 190 + i*20, 20, 20, MLV_COLOR_GREY50);
+	}
+      }
+    }
+  }
 }
 
 void afficherSauvegarde() { /*A completer*/

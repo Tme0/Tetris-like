@@ -18,6 +18,8 @@ void afficherScores(scores mesScores);
 void afficherLogo();
 void afficherContoursEtTextes();
 int afficherScoresPendantPartie();
+void afficherPiecesSuivantes(plateau monPlateau);
+void afficherReserve(plateau monPlateau);
 void afficherSauvegarde();
 void afficherParametresControles();
 void afficherParametresVideo();

@@ -175,7 +175,7 @@ int afficherScoresPendantPartie(){
     int decal_hauteur = 345;
     int decal_largeur = 30;
     int score;
-    char score_char[5];
+    char score_char[7];
     char i_char[10];
     FILE * fichier;
     MLV_draw_text_box(25, 300, 200, 35, "Meilleurs scores", 0, MLV_COLOR_DEEPSKYBLUE, MLV_COLOR_WHITE, MLV_COLOR_BLACK, MLV_TEXT_CENTER, MLV_HORIZONTAL_CENTER, MLV_VERTICAL_CENTER);
@@ -198,6 +198,12 @@ int afficherScoresPendantPartie(){
     }
     fclose(fichier);
     return 1;
+}
+
+void afficherScoreActuel(int score) {
+  char score_char[7];
+  sprintf(score_char, "%d", score);
+  MLV_draw_text(560, 560, score_char, MLV_COLOR_WHITE);
 }
 
 void afficherPiecesSuivantes(plateau monPlateau) {

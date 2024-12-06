@@ -92,6 +92,9 @@ piece resoudreEvenement(MLV_Keyboard_button touche, piece maPiece, plateau monPl
 	    /* Alors qu'ici, on fait d'abord la rotation, puis si on voit qu'elle était en fait impossible,
 	       alors on l'annule (pour la logique, voir le commentaire de la fonction dans plateau.c) */
             break;
+        case MLV_KEYBOARD_SPACE:
+	    tomberPiece(&maPiece, &monPlateau);
+	    break;
         case MLV_KEYBOARD_ESCAPE:
             MLV_clear_window(MLV_COLOR_BLACK);
             afficherMenu();

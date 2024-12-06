@@ -76,7 +76,7 @@ int jouer() {
 	    majPiecesSuivantes(&maPiece, &monPlateau);
 	    mouvementVertical = 1;
 	    reserveUtilisee = 0;
-	    if (niveau < 10) {
+	    if (niveau < 8) {
 	      niveau = 1 + score/5000;
 	    }
 	  }
@@ -211,6 +211,18 @@ int colisionGauche(piece maPiece, plateau monPlateau) {
         }
     }
     return 0;  /* Retourne 0 s'il n'y a pas de collision */
+}
+
+void tomberPiece(piece *maPiece, plateau *monPlateau) {
+  int posee;
+  posee = 0;
+  while (posee == 0) {
+    if (estPosee(*maPiece, *monPlateau) == 1) {
+      posee = 1;
+      maPiece->y--; /* pour éviter d'aller un cran trop bas */
+    }
+    maPiece->y++;
+  }
 }
 
 int finJeu(piece maPiece) {

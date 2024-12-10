@@ -64,7 +64,7 @@ piece creerPiece(int id) {
         case 4:
             for (i = 0; i < TAILLE_PIECE; i++) {
                 for (j = 0; j < TAILLE_PIECE; j++) {
-                    if ((i == 0 && j == 0) || (i == 0 && j == 1) || (i == 1 && j == 0) || (i == 1 && j == 1)) {
+                    if ((i == 0 && j == 1) || (i == 0 && j == 2) || (i == 1 && j == 1) || (i == 1 && j == 2)) {
                         maPiece.idPiece.forme[i][j] = 1;
                     } 
                     else {

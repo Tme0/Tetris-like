@@ -30,9 +30,10 @@ int jouer() {
     int continuer = 1; /* Permet de savoir si le jeu est en cours */
     int niveau = 1; /* Permet de gérer la vitesse de chute des pièces */
     int score = 0;
-    int combo;
+    int combo; /* Permet de gérer le nombre de lignes détruites en un seul coup, et gérer le score en fonction */
     int idLigneComplete;
     int reserveUtilisee = 0; /* Permet de savoir si la réserve a été utilisée pendant le tour, car on peut l'utiliser une seule fois par tour */
+    int hardDrop = 0; /* Permet de savoir si on a "hard drop" (touche espace) et d'empêcher une autre action */
     long int tempsAttente;
     
     maPiece = creerPiece(nbAleatoire(1, 7));
@@ -43,15 +44,16 @@ int jouer() {
         clock_gettime(CLOCK_REALTIME, &debut );
         frame++;
 
-	fixPlateau(&monPlateau);
+	fixPlateau(&monPlateau); /* Permet de corriger des valeurs autres que 0 et 1 qui se mettent parfois dans le plateau */
 	
 	if (estPosee(maPiece, monPlateau)) {
 	  mouvementVertical = 0;
 	  if (finJeu(maPiece) == 1) {
 	    continuer = 0;
 	  }
-	  if (frame % (20/niveau) == 0) {
+	  if (frame % 20 == 0 || hardDrop == 1) { /* J'ai enlevé le frame % (20/niveau) pour garder le même temps d'attente avant de bloquer la pièce */
 	    frame = 0;
+	    hardDrop = 0;
 	    majPlateau(maPiece, &monPlateau);
 	    combo = 0;
 	    for (i = 0 ; i < 20 ; i++){
@@ -77,7 +79,7 @@ int jouer() {
 	    mouvementVertical = 1;
 	    reserveUtilisee = 0;
 	    if (niveau < 8) {
-	      niveau = 1 + score/5000;
+	      niveau = 1 + score/5000; /* Augmente la vitesse de chute des pièces jusqu'au niveau 8 */
 	    }
 	  }
 	}
@@ -94,6 +96,9 @@ int jouer() {
         if (etatTouche == MLV_PRESSED && touche != MLV_KEYBOARD_UNKNOWN && souris == 0) {
 	  if (aBouge == 0 || touche == MLV_KEYBOARD_s) {
 	    aBouge = 1;
+	    if (touche == MLV_KEYBOARD_SPACE) { /* On met hardDrop à 1 pour indiquer qu'on l'a utilisé */
+	      hardDrop = 1;
+	    }
 	    if (touche != MLV_KEYBOARD_s && touche != MLV_KEYBOARD_r) {
 	      maPiece = resoudreEvenement(touche, maPiece, monPlateau);
 	      touche = MLV_KEYBOARD_UNKNOWN;
@@ -102,7 +107,7 @@ int jouer() {
 	      if (touche == MLV_KEYBOARD_r) {
 		if (reserveUtilisee == 0) {
 	        mettreEnReserve(&maPiece, &monPlateau);
-		reserveUtilisee = 1;
+		reserveUtilisee = 1; /* On met reserveUtilisee à 1 pour indiquer qu'on l'a utilisée */
 		}
 	      }
 	      else {
@@ -144,7 +149,7 @@ int jouer() {
 	afficherReserve(monPlateau);
 	afficherScoreActuel(score);
 
-        /*Temps à la fin de l'image et boucle while pour completer le temps manquant (60/1 sec)*/
+        /* Temps à la fin de l'image et boucle while pour completer le temps manquant (60/1 sec) */
         clock_gettime(CLOCK_REALTIME, &fin );
         tempsAttente = 16 - (fin.tv_sec - debut.tv_sec) * 1000 + (fin.tv_nsec - debut.tv_nsec) / 1000000;
         if (tempsAttente > 0) {

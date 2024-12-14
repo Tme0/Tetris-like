@@ -12,6 +12,9 @@
 void initialiserFenetre();
 void afficherMenu();
 void afficherParametres();
+void afficherMenuPause();
+void afficherMenuSauvegarder();
+void afficherMenuCharger();
 void afficherPlateau(plateau monPlateau);
 void afficherPiece(piece maPiece);
 void afficherScores(scores mesScores);

@@ -97,6 +97,7 @@ piece resoudreEvenement(MLV_Keyboard_button touche, piece maPiece, plateau monPl
 	    break;
         case MLV_KEYBOARD_ESCAPE:
             MLV_clear_window(MLV_COLOR_BLACK);
+            /* changer pour mettre un nouveau menu */
             afficherMenu();
             break;
         default:

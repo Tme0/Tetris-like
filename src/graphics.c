@@ -54,6 +54,72 @@ void afficherParametres() { /*Fonctionnel : A rendre beau*/
     selection(4, (bouton[]){parametresControles, parametresVideo, parametresAudio, retour});
 }
 
+void afficherMenuPause() {
+    int largeurBouton = 400;
+    int hauteurBouton = 100;
+    int milieu = (800 - largeurBouton) / 2;
+    bouton reprendrePartie = {milieu, 100, milieu + largeurBouton, 100 + hauteurBouton, 10};
+    bouton sauvegarderPartie = {milieu, 250, milieu + largeurBouton, 250 + hauteurBouton, 11};
+    bouton menuPrincipal = {milieu, 400, milieu + largeurBouton, 400 + hauteurBouton, 12};
+    char texte_menu_pause_1[N] = "Reprendre la partie";
+    char texte_menu_pause_2[N] = "Sauvegarder la partie";
+    char texte_menu_pause_3[N] = "Menu principal";
+    MLV_clear_window(MLV_COLOR_BLACK);
+    MLV_draw_text_box(milieu, 100, largeurBouton, hauteurBouton, texte_menu_pause_1, 0, MLV_COLOR_WHITE, MLV_COLOR_WHITE, MLV_COLOR_BLACK, MLV_TEXT_CENTER, MLV_HORIZONTAL_CENTER, MLV_VERTICAL_CENTER);
+    MLV_draw_text_box(milieu, 250, largeurBouton, hauteurBouton, texte_menu_pause_2, 0, MLV_COLOR_WHITE, MLV_COLOR_WHITE, MLV_COLOR_BLACK, MLV_TEXT_CENTER, MLV_HORIZONTAL_CENTER, MLV_VERTICAL_CENTER);
+    MLV_draw_text_box(milieu, 400, largeurBouton, hauteurBouton, texte_menu_pause_3, 0, MLV_COLOR_WHITE, MLV_COLOR_WHITE, MLV_COLOR_BLACK, MLV_TEXT_CENTER, MLV_HORIZONTAL_CENTER, MLV_VERTICAL_CENTER);
+    MLV_actualise_window();
+    selection(4, (bouton[]){reprendrePartie, sauvegarderPartie, menuPrincipal});
+}
+
+void afficherMenuSauvegarder() {
+    int largeurBouton = 400;
+    int hauteurBouton = 100;
+    int milieu = (800 - largeurBouton) / 2;
+    bouton sauvegarde1 = {milieu, 100, milieu + largeurBouton, 100 + hauteurBouton, 13};
+    bouton sauvegarde2 = {milieu, 250, milieu + largeurBouton, 250 + hauteurBouton, 14};
+    bouton sauvegarde3 = {milieu, 400, milieu + largeurBouton, 400 + hauteurBouton, 15};
+    bouton sauvegarde4 = {milieu, 550, milieu + largeurBouton, 550 + hauteurBouton, 16};
+    bouton retour = {milieu, 700, milieu + largeurBouton, 700 + hauteurBouton, 17};
+    char texte_menu_sauvegarder_1[N] = "Sauvegarde 1";
+    char texte_menu_sauvegarder_2[N] = "Sauvegarde 2";
+    char texte_menu_sauvegarder_3[N] = "Sauvegarde 3";
+    char texte_menu_sauvegarder_4[N] = "Sauvegarde 4";
+    char texte_menu_sauvegarder_5[N] = "Retour";
+    MLV_clear_window(MLV_COLOR_BLACK);
+    MLV_draw_text_box(milieu, 100, largeurBouton, hauteurBouton, texte_menu_sauvegarder_1, 0, MLV_COLOR_WHITE, MLV_COLOR_WHITE, MLV_COLOR_BLACK, MLV_TEXT_CENTER, MLV_HORIZONTAL_CENTER, MLV_VERTICAL_CENTER);
+    MLV_draw_text_box(milieu, 250, largeurBouton, hauteurBouton, texte_menu_sauvegarder_2, 0, MLV_COLOR_WHITE, MLV_COLOR_WHITE, MLV_COLOR_BLACK, MLV_TEXT_CENTER, MLV_HORIZONTAL_CENTER, MLV_VERTICAL_CENTER);
+    MLV_draw_text_box(milieu, 400, largeurBouton, hauteurBouton, texte_menu_sauvegarder_3, 0, MLV_COLOR_WHITE, MLV_COLOR_WHITE, MLV_COLOR_BLACK, MLV_TEXT_CENTER, MLV_HORIZONTAL_CENTER, MLV_VERTICAL_CENTER);
+    MLV_draw_text_box(milieu, 550, largeurBouton, hauteurBouton, texte_menu_sauvegarder_4, 0, MLV_COLOR_WHITE, MLV_COLOR_WHITE, MLV_COLOR_BLACK, MLV_TEXT_CENTER, MLV_HORIZONTAL_CENTER, MLV_VERTICAL_CENTER);
+    MLV_draw_text_box(milieu, 700, largeurBouton, hauteurBouton, texte_menu_sauvegarder_5, 0, MLV_COLOR_WHITE, MLV_COLOR_WHITE, MLV_COLOR_BLACK, MLV_TEXT_CENTER, MLV_HORIZONTAL_CENTER, MLV_VERTICAL_CENTER);
+    MLV_actualise_window();
+    selection(4, (bouton[]){sauvegarde1, sauvegarde2, sauvegarde3, sauvegarde4, retour});
+}
+
+void afficherMenuCharger() {
+    int largeurBouton = 400;
+    int hauteurBouton = 100;
+    int milieu = (800 - largeurBouton) / 2;
+    bouton sauvegarde1 = {milieu, 100, milieu + largeurBouton, 100 + hauteurBouton, 18};
+    bouton sauvegarde2 = {milieu, 250, milieu + largeurBouton, 250 + hauteurBouton, 19};
+    bouton sauvegarde3 = {milieu, 400, milieu + largeurBouton, 400 + hauteurBouton, 20};
+    bouton sauvegarde4 = {milieu, 550, milieu + largeurBouton, 550 + hauteurBouton, 21};
+    bouton retour = {milieu, 700, milieu + largeurBouton, 700 + hauteurBouton, 22};
+    char texte_menu_charger_1[N] = "Sauvegarde 1";
+    char texte_menu_charger_2[N] = "Sauvegarde 2";
+    char texte_menu_charger_3[N] = "Sauvegarde 3";
+    char texte_menu_charger_4[N] = "Sauvegarde 4";
+    char texte_menu_charger_5[N] = "Retour";
+    MLV_clear_window(MLV_COLOR_BLACK);
+    MLV_draw_text_box(milieu, 100, largeurBouton, hauteurBouton, texte_menu_charger_1, 0, MLV_COLOR_WHITE, MLV_COLOR_WHITE, MLV_COLOR_BLACK, MLV_TEXT_CENTER, MLV_HORIZONTAL_CENTER, MLV_VERTICAL_CENTER);
+    MLV_draw_text_box(milieu, 250, largeurBouton, hauteurBouton, texte_menu_charger_2, 0, MLV_COLOR_WHITE, MLV_COLOR_WHITE, MLV_COLOR_BLACK, MLV_TEXT_CENTER, MLV_HORIZONTAL_CENTER, MLV_VERTICAL_CENTER);
+    MLV_draw_text_box(milieu, 400, largeurBouton, hauteurBouton, texte_menu_charger_3, 0, MLV_COLOR_WHITE, MLV_COLOR_WHITE, MLV_COLOR_BLACK, MLV_TEXT_CENTER, MLV_HORIZONTAL_CENTER, MLV_VERTICAL_CENTER);
+    MLV_draw_text_box(milieu, 550, largeurBouton, hauteurBouton, texte_menu_charger_4, 0, MLV_COLOR_WHITE, MLV_COLOR_WHITE, MLV_COLOR_BLACK, MLV_TEXT_CENTER, MLV_HORIZONTAL_CENTER, MLV_VERTICAL_CENTER);
+    MLV_draw_text_box(milieu, 700, largeurBouton, hauteurBouton, texte_menu_charger_5, 0, MLV_COLOR_WHITE, MLV_COLOR_WHITE, MLV_COLOR_BLACK, MLV_TEXT_CENTER, MLV_HORIZONTAL_CENTER, MLV_VERTICAL_CENTER);
+    MLV_actualise_window();
+    selection(4, (bouton[]){sauvegarde1, sauvegarde2, sauvegarde3, sauvegarde4, retour});
+}
+
 void afficherPlateau(plateau monPlateau) {
     int i, j;
     for (i = 0; i < 20; i++) {

@@ -7,6 +7,7 @@
 #include "../headers/graphics.h"
 #include "../headers/piece.h"
 #include "../headers/plateau.h"
+#include "../headers/save.h"
 
 void menu(int menuActif) {
     while (menuActif != 0) {
@@ -37,10 +38,27 @@ int jouer(int save) {
     int hardDrop = 0; /* Permet de savoir si on a "hard drop" (touche espace) et d'empêcher une autre action */
     long int tempsAttente;
 
-    char nom_save[10];
+    /* char nom_save[10]; */
+
+    /* if (save == 1) { */
+    /*     nom_save = "save_1"; */
+    /* } */
+    /* if (save == 2) { */
+    /*     nom_save = "save_2"; */
+    /* } */
+    /* if (save == 3) { */
+    /*     nom_save = "save_3"; */
+    /* } */
+    /* if (save == 4) { */
+    /*     nom_save = "save_4"; */
+    /* } */
     
     maPiece = creerPiece(nbAleatoire(1, 7));
     monPlateau = initialiserPlateau(monPlateau);
+
+    /* if (save != 0) { */
+    /*     chargerSave(nom_save, &monPlateau, &maPiece, &mouvementVertical, &frame, &aBouge, &continuer, &niveau, &score, &reserveUtilisee, &hardDrop); */
+    /* } */
     
     while (score < 999999 && continuer == 1) {
         /*Temps au début de l'image*/

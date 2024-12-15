@@ -3,12 +3,12 @@
 #ifndef INPUT_H
 #define INPUT_H
 
-#include <MLV/MLV_all.h>/*Nécessaire */
+#include <MLV/MLV_all.h>
 #include "../headers/piece.h"
 #include "../headers/plateau.h"
 #include "../headers/game.h"
 
-#define BOUNTONS 9
+#define BOUTONS 5
 
 typedef struct {
     int x_min;
@@ -18,10 +18,14 @@ typedef struct {
     int index;
 } bouton;
 
-void selection(int nbBoutons, bouton boutons[BOUNTONS]);
-void selectionParametres();
+int selection(int nbBoutons, bouton boutons[BOUTONS]);
 void selectionMenu();
-void selectionSauvegarde();
 piece resoudreEvenement(MLV_Keyboard_button touche, piece maPiece, plateau monPlateau);
+void mettreEnPause(plateau *monPlateau, piece *maPiece, int *mouvementVertical, int *frame, int *aBouge, int *continuer, int *niveau, int *score, int *reserveUtilisee, int *hardDrop);
+void selectionMenuPause(int nbBoutons, bouton boutons[BOUTONS], plateau *monPlateau, piece *maPiece, int *mouvementVertical, int *frame, int *aBouge, int *continuer, int *niveau, int *score, int *reserveUtilisee, int *hardDrop);
+void selectionMenuSauvegarder(int nbBoutons, bouton boutons[BOUTONS], plateau *monPlateau, piece *maPiece, int *mouvementVertical, int *frame, int *aBouge, int *continuer, int *niveau, int *score, int *reserveUtilisee, int *hardDrop);
+void selectionMenuCharger(int nbBoutons, bouton boutons[BOUTONS]);
+void selectionMenuScores(bouton retour);
+void selectionMenuParametres(int nbBoutons, bouton boutons[BOUTONS]);
 
 #endif /* INPUT_H */

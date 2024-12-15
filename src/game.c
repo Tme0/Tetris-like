@@ -9,10 +9,11 @@
 #include "../headers/plateau.h"
 #include "../headers/save.h"
 
-void menu(int menuActif) {
+int menu(int menuActif) {
     while (menuActif != 0) {
-        afficherMenu();
+        menuActif = afficherMenu();
     }
+    return 0;
 }
 
 int jouer(int save) {
@@ -26,39 +27,49 @@ int jouer(int save) {
     piece maPiece;
     plateau monPlateau;
     int i, j;
-    int mouvementVertical = 1; /* Permet de savoir si la pièce peut se déplacer (ne touche pas le sol) */
-    int frame = 0; /* Permet de compter les frames passées pour gérer la vitesse de chute et attendre quand la pièce est posée pour laisser la possibilité de la déplacer */
-    int aBouge = 0; /* Permet d'empecher le déplacement des pièces en restant appuyé */
-    int continuer = 1; /* Permet de savoir si le jeu est en cours */
-    int niveau = 1; /* Permet de gérer la vitesse de chute des pièces */
-    int score = 0;
+    int mouvementVertical; /* Permet de savoir si la pièce peut se déplacer (ne touche pas le sol) */
+    int frame; /* Permet de compter les frames passées pour gérer la vitesse de chute et attendre quand la pièce est posée pour laisser la possibilité de la déplacer */
+    int aBouge; /* Permet d'empecher le déplacement des pièces en restant appuyé */
+    int continuer; /* Permet de savoir si le jeu est en cours */
+    int niveau; /* Permet de gérer la vitesse de chute des pièces */
+    int score;
     int combo; /* Permet de gérer le nombre de lignes détruites en un seul coup, et gérer le score en fonction */
     int idLigneComplete;
-    int reserveUtilisee = 0; /* Permet de savoir si la réserve a été utilisée pendant le tour, car on peut l'utiliser une seule fois par tour */
-    int hardDrop = 0; /* Permet de savoir si on a "hard drop" (touche espace) et d'empêcher une autre action */
+    int reserveUtilisee; /* Permet de savoir si la réserve a été utilisée pendant le tour, car on peut l'utiliser une seule fois par tour */
+    int hardDrop; /* Permet de savoir si on a "hard drop" (touche espace) et d'empêcher une autre action */
     long int tempsAttente;
 
-    /* char nom_save[10]; */
+    char nom_save[10];
 
-    /* if (save == 1) { */
-    /*     nom_save = "save_1"; */
-    /* } */
-    /* if (save == 2) { */
-    /*     nom_save = "save_2"; */
-    /* } */
-    /* if (save == 3) { */
-    /*     nom_save = "save_3"; */
-    /* } */
-    /* if (save == 4) { */
-    /*     nom_save = "save_4"; */
-    /* } */
+    if (save == 1) {
+        strcpy(nom_save, "save1.bin");
+    }
+    if (save == 2) {
+        strcpy(nom_save, "save2.bin");
+    }
+    if (save == 3) {
+        strcpy(nom_save, "save3.bin");
+    }
+    if (save == 4) {
+        strcpy(nom_save, "save4.bin");
+    }
     
     maPiece = creerPiece(nbAleatoire(1, 7));
     monPlateau = initialiserPlateau(monPlateau);
 
-    /* if (save != 0) { */
-    /*     chargerSave(nom_save, &monPlateau, &maPiece, &mouvementVertical, &frame, &aBouge, &continuer, &niveau, &score, &reserveUtilisee, &hardDrop); */
-    /* } */
+    if (save != 0) {
+        chargerSave(nom_save, &monPlateau, &maPiece, &mouvementVertical, &frame, &aBouge, &continuer, &niveau, &score, &reserveUtilisee, &hardDrop);
+    }
+    else{
+        mouvementVertical = 1;
+        frame = 0;
+	aBouge = 0;
+	continuer = 1;
+	niveau = 1;
+	score = 0;
+	reserveUtilisee = 0;
+	hardDrop = 0;
+    }
     
     while (score < 999999 && continuer == 1) {
         /*Temps au début de l'image*/
@@ -117,6 +128,9 @@ int jouer(int save) {
         if (etatTouche == MLV_PRESSED && touche != MLV_KEYBOARD_UNKNOWN && souris == 0) {
             if (aBouge == 0 || touche == MLV_KEYBOARD_s) {
                 aBouge = 1;
+		if (touche == MLV_KEYBOARD_ESCAPE) {
+		    mettreEnPause(&monPlateau, &maPiece, &mouvementVertical, &frame, &aBouge, &continuer, &niveau, &score, &reserveUtilisee, &hardDrop);
+		}
                 if (touche == MLV_KEYBOARD_SPACE) { /* On met hardDrop à 1 pour indiquer qu'on l'a utilisé */
                     hardDrop = 1;
                 }
@@ -255,26 +269,4 @@ int finJeu(piece maPiece) {
         }
     }
     return 0;
-}
-
-scores recupererScores() {
-    scores mesScores;
-    int score, i;
-    int nb_lignes = 0;
-    FILE *fichier;
-    fichier = fopen("./ressources/scores.txt", "r");
-    if (fichier == NULL) {
-        printf("Création du fichier scores.txt\n");
-        fichier = fopen("./ressources/scores.txt", "a+");
-    }
-    while (fscanf(fichier, "%d\n", &score) != EOF && nb_lignes < 10) {
-        nb_lignes++;
-        mesScores.score[nb_lignes]=score;
-        printf("%d\n", mesScores.score[nb_lignes]);
-    }
-    for (i = 0 ; i < nb_lignes ; i++) {
-        MLV_draw_text(100, 100 + 50 * i, "%d", mesScores.score[i]);
-    }
-    fclose(fichier);
-    return mesScores;
 }

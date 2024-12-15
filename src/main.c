@@ -11,5 +11,5 @@ int main() {
     srand(time(NULL));
     initialiserFenetre();
     menu(1);
-    return 0;
+    exit(EXIT_SUCCESS);
 }

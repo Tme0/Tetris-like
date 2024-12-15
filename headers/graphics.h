@@ -10,14 +10,14 @@
 #define N 50
 
 void initialiserFenetre();
-void afficherMenu();
-void afficherParametres();
-void afficherMenuPause();
+int afficherMenu();
+void afficherMenuPause(plateau *monPlateau, piece *maPiece, int *mouvementVertical, int *frame, int *aBouge, int *continuer, int *niveau, int *score, int *reserveUtilisee, int *hardDrop);
 void afficherMenuSauvegarder();
 void afficherMenuCharger();
+void afficherMenuParametres();
 void afficherPlateau(plateau monPlateau);
 void afficherPiece(piece maPiece);
-void afficherScores(scores mesScores);
+void afficherMenuScores();
 void afficherLogo();
 void afficherContoursEtTextes();
 int afficherScoresPendantPartie();

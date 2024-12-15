@@ -5,57 +5,8 @@
 #include "../headers/game.h"
 #include "../headers/piece.h"
 #include "../headers/plateau.h"
+#include "../headers/save.h"
 /*#include <MLV/MLV_all.h> déjà inclut dans input.h*/
-/*
-void selectionParametres() { / * Fonctionnel mais très peu pratique pour changer la disposition du menu (coordonées en dur)* /
-    int x, y;
-    MLV_wait_mouse(&x, &y);
-    if (x >= 100 && x <= 300 && y >= 100 && y <= 150) {
-        MLV_clear_window(MLV_COLOR_BLACK);
-        afficherParametresControles();
-    } else if (x >= 100 && x <= 300 && y >= 200 && y <= 250) {
-        MLV_clear_window(MLV_COLOR_BLACK);
-        afficherParametresVideo();
-    } else if (x >= 100 && x <= 300 && y >= 300 && y <= 350) {
-        MLV_clear_window(MLV_COLOR_BLACK);
-        afficherParametresAudio();
-    } else if (x >= 100 && x <= 300 && y >= 400 && y <= 450) {
-        MLV_clear_window(MLV_COLOR_BLACK);
-        afficherMenu();
-    }
-    else {
-        selectionParametres();
-    }
-}
-*/
-/*
-void selectionMenu() { / * Fonctionnel mais très peu pratique pour changer la disposition du menu (coordonées en dur)* /
-    int x, y;
-    MLV_wait_mouse(&x, &y);
-    if (x >= 100 && x <= 300 && y >= 100 && y <= 150) {
-        jouer();
-    } else if (x >= 100 && x <= 300 && y >= 200 && y <= 250) {
-        MLV_clear_window(MLV_COLOR_BLACK);
-        afficherSauvegarde();
-    } else if (x >= 100 && x <= 300 && y >= 300 && y <= 350) {
-        MLV_clear_window(MLV_COLOR_BLACK);
-        afficherScores(recupererScores());
-    } else if (x >= 100 && x <= 300 && y >= 400 && y <= 450) {
-        MLV_clear_window(MLV_COLOR_BLACK);
-        afficherParametres();
-    } else if (x >= 100 && x <= 300 && y >= 500 && y <= 550) {
-        MLV_free_window();
-        exit(EXIT_SUCCESS);
-    }
-    else {
-        selectionMenu();
-    }
-}
-*/
-
-void selectionSauvegarde() { /* A completer */
-    printf("Choix de la sauvegarde...\n");
-}
 
 piece resoudreEvenement(MLV_Keyboard_button touche, piece maPiece, plateau monPlateau) {
     switch (touche) {
@@ -95,35 +46,20 @@ piece resoudreEvenement(MLV_Keyboard_button touche, piece maPiece, plateau monPl
         case MLV_KEYBOARD_SPACE:
 	    tomberPiece(&maPiece, &monPlateau);
 	    break;
-        case MLV_KEYBOARD_ESCAPE:
-            MLV_clear_window(MLV_COLOR_BLACK);
-            /* changer pour mettre un nouveau menu */
-            afficherMenu();
-            break;
         default:
             break;
     }
     return maPiece;
 }
-/*
-void selectionScores() { / * Fonctionnel mais très peu pratique pour changer la disposition du menu (coordonées en dur)* /
-    int x, y;
-    MLV_wait_mouse(&x, &y);
-    if (x >= (1920 - 200) / 2 && x <= (1920 - 200) / 2 + 200 && y >= 200 && y <= 250) {
-        MLV_clear_window(MLV_COLOR_BLACK);
-        afficherMenu();
-    }
-    else {
-        selectionScores();
-    }
+
+void mettreEnPause(plateau *monPlateau, piece *maPiece, int *mouvementVertical, int *frame, int *aBouge, int *continuer, int *niveau, int *score, int *reserveUtilisee, int *hardDrop) {
+    MLV_clear_window(MLV_COLOR_BLACK);
+    afficherMenuPause(monPlateau, maPiece, mouvementVertical, frame, aBouge, continuer, niveau, score, reserveUtilisee, hardDrop);
 }
-*/
 
-
-
-
-void selection(int nbBoutons, bouton boutons[BOUNTONS]) {
+int selection(int nbBoutons, bouton boutons[BOUTONS]) {
     int x, y, i;
+    int quitterJeu = 0;
     MLV_wait_mouse(&x, &y);
     printf("x = %d, y = %d\n", x, y); 
     for (i = 0; i < nbBoutons; i++) {
@@ -136,33 +72,181 @@ void selection(int nbBoutons, bouton boutons[BOUNTONS]) {
                     jouer(0);
                     break;
                 case 2:
-                    afficherSauvegarde();
+                    afficherMenuCharger();
                     break;
                 case 3:
-                    afficherScores(recupererScores());
+                    afficherMenuScores();
                     break;
                 case 4:
-                    afficherParametres();
+                    afficherMenuParametres();
                     break;
                 case 5:
                     MLV_free_window();
-                    exit(EXIT_SUCCESS);
+                    quitterJeu = 1;
                     break;
-                case 6:
-                    afficherParametresControles();
-                    break;
-                case 7:
-                    afficherParametresVideo();
-                    break;
-                case 8:
-                    afficherParametresAudio();
-                    break;
-                case 9:
-                    afficherMenu();
-                    break;
-                default:
-                    break;
+	        default:
+	            break;
             }
         }
+    }
+    return quitterJeu;
+}
+
+void selectionMenuPause(int nbBoutons, bouton boutons[BOUTONS], plateau *monPlateau, piece *maPiece, int *mouvementVertical, int *frame, int *aBouge, int *continuer, int *niveau, int *score, int *reserveUtilisee, int *hardDrop) {
+    int x, y, i;
+    int dansBouton = 0;
+    MLV_wait_mouse(&x, &y);
+    printf("x = %d, y = %d\n", x, y); 
+    for (i = 0; i < nbBoutons; i++) {
+        printf ("x_min = %d, x_max = %d, y_min = %d, y_max = %d\n", boutons[i].x_min, boutons[i].x_max, boutons[i].y_min, boutons[i].y_max);
+        if (x >= boutons[i].x_min && x <= boutons[i].x_max &&
+            y >= boutons[i].y_min && y <= boutons[i].y_max) {
+            MLV_clear_window(MLV_COLOR_BLACK);
+	    dansBouton = 1;
+            switch (boutons[i].index) {
+                case 6:
+                    break;
+                case 7:
+                    afficherMenuSauvegarder(monPlateau, maPiece, mouvementVertical, frame, aBouge, continuer, niveau, score, reserveUtilisee, hardDrop);
+                    break;
+                case 8:
+		    *continuer = 0;
+		    afficherMenu();
+                    break;
+	        default:
+	            break;
+	    }
+	}
+    }
+    if (dansBouton == 0) { /* Permet de réafficher la fenêtre si on clique en dehors d'un bouton */
+        afficherMenuPause(monPlateau, maPiece, mouvementVertical, frame, aBouge, continuer, niveau, score, reserveUtilisee, hardDrop);
+    }
+}
+
+void selectionMenuSauvegarder(int nbBoutons, bouton boutons[BOUTONS], plateau *monPlateau, piece *maPiece, int *mouvementVertical, int *frame, int *aBouge, int *continuer, int *niveau, int *score, int *reserveUtilisee, int *hardDrop) {
+    int x, y, i;
+    int dansBouton = 0;
+    MLV_wait_mouse(&x, &y);
+    printf("x = %d, y = %d\n", x, y); 
+    for (i = 0; i < nbBoutons; i++) {
+        printf ("x_min = %d, x_max = %d, y_min = %d, y_max = %d\n", boutons[i].x_min, boutons[i].x_max, boutons[i].y_min, boutons[i].y_max);
+        if (x >= boutons[i].x_min && x <= boutons[i].x_max &&
+            y >= boutons[i].y_min && y <= boutons[i].y_max) {
+            MLV_clear_window(MLV_COLOR_BLACK);
+	    dansBouton = 1;
+            switch (boutons[i].index) {
+                case 9:
+		    sauvegarderSave("save1.bin", monPlateau, maPiece, mouvementVertical, frame, aBouge, continuer, niveau, score, reserveUtilisee, hardDrop);
+                    break;
+                case 10:
+		    sauvegarderSave("save2.bin", monPlateau, maPiece, mouvementVertical, frame, aBouge, continuer, niveau, score, reserveUtilisee, hardDrop);
+                    break;
+                case 11:
+		    sauvegarderSave("save3.bin", monPlateau, maPiece, mouvementVertical, frame, aBouge, continuer, niveau, score, reserveUtilisee, hardDrop);
+                    break;
+		case 12:
+		    sauvegarderSave("save4.bin", monPlateau, maPiece, mouvementVertical, frame, aBouge, continuer, niveau, score, reserveUtilisee, hardDrop);
+                    break;
+		case 13:
+		    mettreEnPause(monPlateau, maPiece, mouvementVertical, frame, aBouge, continuer, niveau, score, reserveUtilisee, hardDrop);
+                    break;
+	        default:
+		    break;
+	    }
+	}
+    }
+    if (dansBouton == 0) { /* Permet de réafficher la fenêtre si on clique en dehors d'un bouton */
+        afficherMenuSauvegarder(monPlateau, maPiece, mouvementVertical, frame, aBouge, continuer, niveau, score, reserveUtilisee, hardDrop);
+    }
+    else{
+        afficherMenuPause(monPlateau, maPiece, mouvementVertical, frame, aBouge, continuer, niveau, score, reserveUtilisee, hardDrop);
+    }
+}
+
+void selectionMenuCharger(int nbBoutons, bouton boutons[BOUTONS]) {
+    int x, y, i;
+    int dansBouton = 0;
+    MLV_wait_mouse(&x, &y);
+    printf("x = %d, y = %d\n", x, y); 
+    for (i = 0; i < nbBoutons; i++) {
+        printf ("x_min = %d, x_max = %d, y_min = %d, y_max = %d\n", boutons[i].x_min, boutons[i].x_max, boutons[i].y_min, boutons[i].y_max);
+        if (x >= boutons[i].x_min && x <= boutons[i].x_max &&
+            y >= boutons[i].y_min && y <= boutons[i].y_max) {
+            MLV_clear_window(MLV_COLOR_BLACK);
+	    dansBouton = 1;
+            switch (boutons[i].index) {
+	        case 14:
+	            jouer(1);
+	            break;
+	        case 15:
+	            jouer(2);
+	            break;
+	        case 16:
+	            jouer(3);
+	            break;
+	        case 17:
+	            jouer(4);
+	            break;
+	        case 18:
+	            afficherMenu();
+	            break;
+	        default:
+		    break;
+	    }
+	}
+    }
+    if (dansBouton == 0) { /* Permet de réafficher la fenêtre si on clique en dehors d'un bouton */
+        afficherMenuCharger();
+    }
+}
+
+void selectionMenuScores(bouton retour) {
+    int x, y;
+    int dansBouton = 0;
+    MLV_wait_mouse(&x, &y);
+    printf("x = %d, y = %d\n", x, y); 
+    if (x >= retour.x_min && x <= retour.x_max &&
+        y >= retour.y_min && y <= retour.y_max) {
+        MLV_clear_window(MLV_COLOR_BLACK);
+	dansBouton = 1;
+        afficherMenu();
+    }
+    if (dansBouton == 0) { /* Permet de réafficher la fenêtre si on clique en dehors d'un bouton */
+        afficherMenuScores();
+    }
+}
+
+
+void selectionMenuParametres(int nbBoutons, bouton boutons[BOUTONS]) {
+    int x, y, i;
+    int dansBouton = 0;
+    MLV_wait_mouse(&x, &y);
+    printf("x = %d, y = %d\n", x, y); 
+    for (i = 0; i < nbBoutons; i++) {
+        printf ("x_min = %d, x_max = %d, y_min = %d, y_max = %d\n", boutons[i].x_min, boutons[i].x_max, boutons[i].y_min, boutons[i].y_max);
+        if (x >= boutons[i].x_min && x <= boutons[i].x_max &&
+            y >= boutons[i].y_min && y <= boutons[i].y_max) {
+            MLV_clear_window(MLV_COLOR_BLACK);
+	    dansBouton = 1;
+            switch (boutons[i].index) {
+	        case 20:
+	            afficherParametresControles();
+	            break;
+	        case 21:
+		    afficherParametresVideo();
+		    break;
+	        case 22:
+	            afficherParametresAudio();
+	            break;
+	        case 23:
+	            afficherMenu();
+	            break;
+	        default:
+		    break;
+	    }
+	}
+    }
+    if (dansBouton == 0) { /* Permet de réafficher la fenêtre si on clique en dehors d'un bouton */
+        afficherMenuParametres();
     }
 }

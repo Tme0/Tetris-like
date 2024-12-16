@@ -6,8 +6,8 @@
 #include "./types.h"
 
 void initialiserFenetre();
-int afficherMenu();
-void afficherMenuPause(plateau *monPlateau, piece *maPiece, int *mouvementVertical, int *frame, int *aBouge, int *continuer, int *niveau, int *score, int *reserveUtilisee, int *hardDrop);
+void afficherMenuPrincipal();
+void afficherMenuPause();
 void afficherMenuSauvegarder();
 void afficherMenuCharger();
 void afficherMenuParametres();

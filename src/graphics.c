@@ -11,26 +11,16 @@ void initialiserFenetre() {
     MLV_create_window("Tetris", "Tetris", 800, 800);
 }
 
-int afficherMenu() { /*Fonctionnel : A rendre beau*/
+void afficherMenuPrincipal() { /*Fonctionnel : A rendre beau*/
     const int largeurBouton = 400;
     const int hauteurBouton = 100;
     const int milieu = (800 - largeurBouton) / 2;
-    bouton nouvellePartie = {milieu, 100, milieu + largeurBouton, 100 + hauteurBouton, 1};
-    bouton chargerPartie = {milieu, 250, milieu + largeurBouton, 250 + hauteurBouton, 2};
-    bouton scores = {milieu, 400, milieu + largeurBouton, 400 + hauteurBouton, 3};
-    bouton parametres = {milieu, 550, milieu + largeurBouton, 550 + hauteurBouton, 4};
-    bouton quitter = {milieu, 700, milieu + largeurBouton, 700 + hauteurBouton, 5};
     char texte_menu_1[N] = "Nouvelle partie";
     char texte_menu_2[N] = "Charger une partie";
     char texte_menu_3[N] = "Afficher les scores";
     char texte_menu_4[N] = "Parametres";
     char texte_menu_5[N] = "Quitter";
-    bouton boutons[BOUTONS];
-    boutons[0] = nouvellePartie;
-    boutons[1] = chargerPartie;
-    boutons[2] = scores;
-    boutons[3] = parametres;
-    boutons[4] = quitter;
+
     MLV_clear_window(MLV_COLOR_BLACK);
     MLV_draw_text_box(milieu, 100, largeurBouton, hauteurBouton, texte_menu_1, 0, MLV_COLOR_WHITE, MLV_COLOR_WHITE, MLV_COLOR_BLACK, MLV_TEXT_CENTER, MLV_HORIZONTAL_CENTER, MLV_VERTICAL_CENTER);
     MLV_draw_text_box(milieu, 250, largeurBouton, hauteurBouton, texte_menu_2, 0, MLV_COLOR_WHITE, MLV_COLOR_WHITE, MLV_COLOR_BLACK, MLV_TEXT_CENTER, MLV_HORIZONTAL_CENTER, MLV_VERTICAL_CENTER);
@@ -38,54 +28,33 @@ int afficherMenu() { /*Fonctionnel : A rendre beau*/
     MLV_draw_text_box(milieu, 550, largeurBouton, hauteurBouton, texte_menu_4, 0, MLV_COLOR_WHITE, MLV_COLOR_WHITE, MLV_COLOR_BLACK, MLV_TEXT_CENTER, MLV_HORIZONTAL_CENTER, MLV_VERTICAL_CENTER);
     MLV_draw_text_box(milieu, 700, largeurBouton, hauteurBouton, texte_menu_5, 0, MLV_COLOR_WHITE, MLV_COLOR_WHITE, MLV_COLOR_BLACK, MLV_TEXT_CENTER, MLV_HORIZONTAL_CENTER, MLV_VERTICAL_CENTER);
     MLV_actualise_window();
-    if (selectionMenuPrincipal(5, boutons) == 1){
-        return 0;
-    }
-    return 1;
 }
 
-void afficherMenuPause(plateau *monPlateau, piece *maPiece, int *mouvementVertical, int *frame, int *aBouge, int *continuer, int *niveau, int *score, int *reserveUtilisee, int *hardDrop) {
+void afficherMenuPause() {
     const int largeurBouton = 400;
     const int hauteurBouton = 100;
     const int milieu = (800 - largeurBouton) / 2;
-    bouton reprendrePartie = {milieu, 100, milieu + largeurBouton, 100 + hauteurBouton, 6};
-    bouton sauvegarderPartie = {milieu, 250, milieu + largeurBouton, 250 + hauteurBouton, 7};
-    bouton menuPrincipal = {milieu, 400, milieu + largeurBouton, 400 + hauteurBouton, 8};
     char texte_menu_pause_1[N] = "Reprendre la partie";
     char texte_menu_pause_2[N] = "Sauvegarder la partie";
     char texte_menu_pause_3[N] = "Menu principal";
-    bouton boutons[BOUTONS];
-    boutons[0] = reprendrePartie;
-    boutons[1] = sauvegarderPartie;
-    boutons[2] = menuPrincipal;
+    
     MLV_clear_window(MLV_COLOR_BLACK);
     MLV_draw_text_box(milieu, 100, largeurBouton, hauteurBouton, texte_menu_pause_1, 0, MLV_COLOR_WHITE, MLV_COLOR_WHITE, MLV_COLOR_BLACK, MLV_TEXT_CENTER, MLV_HORIZONTAL_CENTER, MLV_VERTICAL_CENTER);
     MLV_draw_text_box(milieu, 250, largeurBouton, hauteurBouton, texte_menu_pause_2, 0, MLV_COLOR_WHITE, MLV_COLOR_WHITE, MLV_COLOR_BLACK, MLV_TEXT_CENTER, MLV_HORIZONTAL_CENTER, MLV_VERTICAL_CENTER);
     MLV_draw_text_box(milieu, 400, largeurBouton, hauteurBouton, texte_menu_pause_3, 0, MLV_COLOR_WHITE, MLV_COLOR_WHITE, MLV_COLOR_BLACK, MLV_TEXT_CENTER, MLV_HORIZONTAL_CENTER, MLV_VERTICAL_CENTER);
     MLV_actualise_window();
-    selectionMenuPause(3, boutons, monPlateau, maPiece, mouvementVertical, frame, aBouge, continuer, niveau, score, reserveUtilisee, hardDrop);
 }
 
-void afficherMenuSauvegarder(plateau *monPlateau, piece *maPiece, int *mouvementVertical, int *frame, int *aBouge, int *continuer, int *niveau, int *score, int *reserveUtilisee, int *hardDrop) {
+void afficherMenuSauvegarder() {
     const int largeurBouton = 400;
     const int hauteurBouton = 100;
     const int milieu = (800 - largeurBouton) / 2;
-    bouton sauvegarde1 = {milieu, 100, milieu + largeurBouton, 100 + hauteurBouton, 9};
-    bouton sauvegarde2 = {milieu, 250, milieu + largeurBouton, 250 + hauteurBouton, 10};
-    bouton sauvegarde3 = {milieu, 400, milieu + largeurBouton, 400 + hauteurBouton, 11};
-    bouton sauvegarde4 = {milieu, 550, milieu + largeurBouton, 550 + hauteurBouton, 12};
-    bouton retour = {milieu, 700, milieu + largeurBouton, 700 + hauteurBouton, 13};
     char texte_menu_sauvegarder_1[N] = "Sauvegarde 1";
     char texte_menu_sauvegarder_2[N] = "Sauvegarde 2";
     char texte_menu_sauvegarder_3[N] = "Sauvegarde 3";
     char texte_menu_sauvegarder_4[N] = "Sauvegarde 4";
     char texte_menu_sauvegarder_5[N] = "Retour";
-    bouton boutons[BOUTONS];
-    boutons[0] = sauvegarde1;
-    boutons[1] = sauvegarde2;
-    boutons[2] = sauvegarde3;
-    boutons[3] = sauvegarde4;
-    boutons[4] = retour;
+    
     MLV_clear_window(MLV_COLOR_BLACK);
     MLV_draw_text_box(milieu, 100, largeurBouton, hauteurBouton, texte_menu_sauvegarder_1, 0, MLV_COLOR_WHITE, MLV_COLOR_WHITE, MLV_COLOR_BLACK, MLV_TEXT_CENTER, MLV_HORIZONTAL_CENTER, MLV_VERTICAL_CENTER);
     MLV_draw_text_box(milieu, 250, largeurBouton, hauteurBouton, texte_menu_sauvegarder_2, 0, MLV_COLOR_WHITE, MLV_COLOR_WHITE, MLV_COLOR_BLACK, MLV_TEXT_CENTER, MLV_HORIZONTAL_CENTER, MLV_VERTICAL_CENTER);
@@ -93,29 +62,18 @@ void afficherMenuSauvegarder(plateau *monPlateau, piece *maPiece, int *mouvement
     MLV_draw_text_box(milieu, 550, largeurBouton, hauteurBouton, texte_menu_sauvegarder_4, 0, MLV_COLOR_WHITE, MLV_COLOR_WHITE, MLV_COLOR_BLACK, MLV_TEXT_CENTER, MLV_HORIZONTAL_CENTER, MLV_VERTICAL_CENTER);
     MLV_draw_text_box(milieu, 700, largeurBouton, hauteurBouton, texte_menu_sauvegarder_5, 0, MLV_COLOR_WHITE, MLV_COLOR_WHITE, MLV_COLOR_BLACK, MLV_TEXT_CENTER, MLV_HORIZONTAL_CENTER, MLV_VERTICAL_CENTER);
     MLV_actualise_window();
-    selectionMenuSauvegarder(5, boutons, monPlateau, maPiece, mouvementVertical, frame, aBouge, continuer, niveau, score, reserveUtilisee, hardDrop);
 }
 
 void afficherMenuCharger() {
     const int largeurBouton = 400;
     const int hauteurBouton = 100;
     const int milieu = (800 - largeurBouton) / 2;
-    bouton sauvegarde1 = {milieu, 100, milieu + largeurBouton, 100 + hauteurBouton, 14};
-    bouton sauvegarde2 = {milieu, 250, milieu + largeurBouton, 250 + hauteurBouton, 15};
-    bouton sauvegarde3 = {milieu, 400, milieu + largeurBouton, 400 + hauteurBouton, 16};
-    bouton sauvegarde4 = {milieu, 550, milieu + largeurBouton, 550 + hauteurBouton, 17};
-    bouton retour = {milieu, 700, milieu + largeurBouton, 700 + hauteurBouton, 18};
     char texte_menu_charger_1[N] = "Sauvegarde 1";
     char texte_menu_charger_2[N] = "Sauvegarde 2";
     char texte_menu_charger_3[N] = "Sauvegarde 3";
     char texte_menu_charger_4[N] = "Sauvegarde 4";
     char texte_menu_charger_5[N] = "Retour";
-    bouton boutons[BOUTONS];
-    boutons[0] = sauvegarde1;
-    boutons[1] = sauvegarde2;
-    boutons[2] = sauvegarde3;
-    boutons[3] = sauvegarde4;
-    boutons[4] = retour;
+    
     MLV_clear_window(MLV_COLOR_BLACK);
     MLV_draw_text_box(milieu, 100, largeurBouton, hauteurBouton, texte_menu_charger_1, 0, MLV_COLOR_WHITE, MLV_COLOR_WHITE, MLV_COLOR_BLACK, MLV_TEXT_CENTER, MLV_HORIZONTAL_CENTER, MLV_VERTICAL_CENTER);
     MLV_draw_text_box(milieu, 250, largeurBouton, hauteurBouton, texte_menu_charger_2, 0, MLV_COLOR_WHITE, MLV_COLOR_WHITE, MLV_COLOR_BLACK, MLV_TEXT_CENTER, MLV_HORIZONTAL_CENTER, MLV_VERTICAL_CENTER);
@@ -123,33 +81,23 @@ void afficherMenuCharger() {
     MLV_draw_text_box(milieu, 550, largeurBouton, hauteurBouton, texte_menu_charger_4, 0, MLV_COLOR_WHITE, MLV_COLOR_WHITE, MLV_COLOR_BLACK, MLV_TEXT_CENTER, MLV_HORIZONTAL_CENTER, MLV_VERTICAL_CENTER);
     MLV_draw_text_box(milieu, 700, largeurBouton, hauteurBouton, texte_menu_charger_5, 0, MLV_COLOR_WHITE, MLV_COLOR_WHITE, MLV_COLOR_BLACK, MLV_TEXT_CENTER, MLV_HORIZONTAL_CENTER, MLV_VERTICAL_CENTER);
     MLV_actualise_window();
-    selectionMenuCharger(5, boutons);
 }
 
 void afficherMenuParametres() { /*Fonctionnel : A rendre beau*/
     const int largeurBouton = 400;
     const int hauteurBouton = 100;
     const int milieu = (800 - largeurBouton) / 2;
-    bouton parametresControles = {milieu, 100, milieu + largeurBouton, 100 + hauteurBouton, 20};
-    bouton parametresVideo = {milieu, 250, milieu + largeurBouton, 250 + hauteurBouton, 21};
-    bouton parametresAudio = {milieu, 400, milieu + largeurBouton, 400 + hauteurBouton, 22};
-    bouton retour = {milieu, 550, milieu + largeurBouton, 550 + hauteurBouton, 23};
     char texte_parametres_1[N] = "Controles";
     char texte_parametres_2[N] = "Video";
     char texte_parametres_3[N] = "Audio";
     char texte_parametres_4[N] = "Retour";
-    bouton boutons[BOUTONS];
-    boutons[0] = parametresControles;
-    boutons[1] = parametresVideo;
-    boutons[2] = parametresAudio;
-    boutons[3] = retour;
+
     MLV_clear_window(MLV_COLOR_BLACK);
     MLV_draw_text_box(milieu, 100, largeurBouton, hauteurBouton, texte_parametres_1, 0, MLV_COLOR_WHITE, MLV_COLOR_WHITE, MLV_COLOR_BLACK, MLV_TEXT_CENTER, MLV_HORIZONTAL_CENTER, MLV_VERTICAL_CENTER);
     MLV_draw_text_box(milieu, 250, largeurBouton, hauteurBouton, texte_parametres_2, 0, MLV_COLOR_WHITE, MLV_COLOR_WHITE, MLV_COLOR_BLACK, MLV_TEXT_CENTER, MLV_HORIZONTAL_CENTER, MLV_VERTICAL_CENTER);
     MLV_draw_text_box(milieu, 400, largeurBouton, hauteurBouton, texte_parametres_3, 0, MLV_COLOR_WHITE, MLV_COLOR_WHITE, MLV_COLOR_BLACK, MLV_TEXT_CENTER, MLV_HORIZONTAL_CENTER, MLV_VERTICAL_CENTER);
     MLV_draw_text_box(milieu, 550, largeurBouton, hauteurBouton, texte_parametres_4, 0, MLV_COLOR_WHITE, MLV_COLOR_WHITE, MLV_COLOR_BLACK, MLV_TEXT_CENTER, MLV_HORIZONTAL_CENTER, MLV_VERTICAL_CENTER);
     MLV_actualise_window();
-    selectionMenuParametres(4, boutons);
 }
 
 void afficherPlateau(plateau monPlateau) {
@@ -181,7 +129,6 @@ void afficherMenuScores() { /*Fonctionnel : A rendre beau*/
     const int largeurBouton = 400;
     const int hauteurBouton = 100;
     const int milieu = (800 - largeurBouton) / 2;
-    const bouton retour = {milieu, 550, milieu + largeurBouton, 550 + hauteurBouton, 19};
     char texte_scores[N] = "Retour";
 
     fichier = fopen("./ressources/scores.txt", "r");
@@ -199,7 +146,6 @@ void afficherMenuScores() { /*Fonctionnel : A rendre beau*/
     }
     fclose(fichier);
     MLV_actualise_window();
-    selectionMenuScores(retour);
 }
 
 void afficherLogo(){

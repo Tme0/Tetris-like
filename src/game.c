@@ -1,10 +1,10 @@
 /* Ce fichier gère la logique principale du jeu.*/
 
 #include <time.h>
-#include <MLV/MLV_all.h>
+#include "../headers/types.h"
 #include "../headers/game.h"
-#include "../headers/input.h"
 #include "../headers/graphics.h"
+#include "../headers/input.h"
 #include "../headers/piece.h"
 #include "../headers/plateau.h"
 #include "../headers/save.h"
@@ -39,19 +39,19 @@ int jouer(int save) {
     int hardDrop; /* Permet de savoir si on a "hard drop" (touche espace) et d'empêcher une autre action */
     long int tempsAttente;
 
-    char nom_save[10];
+    char nom_save[18];
 
     if (save == 1) {
-        strcpy(nom_save, "save1.bin");
+        strcpy(nom_save, "./saves/save1.bin");
     }
     if (save == 2) {
-        strcpy(nom_save, "save2.bin");
+        strcpy(nom_save, "./saves/save2.bin");
     }
     if (save == 3) {
-        strcpy(nom_save, "save3.bin");
+        strcpy(nom_save, "./saves/save3.bin");
     }
     if (save == 4) {
-        strcpy(nom_save, "save4.bin");
+        strcpy(nom_save, "./saves/save4.bin");
     }
     
     maPiece = creerPiece(nbAleatoire(1, 7));

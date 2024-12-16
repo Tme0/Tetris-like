@@ -1,7 +1,7 @@
 /*Ce fichier gère la création et le mouvement des pièces.*/
 
+#include "../headers/types.h"
 #include "../headers/piece.h"
-#include <time.h>
 
 int nbAleatoire(int mi, int ma) {
     return rand() % (ma - mi + 1) + mi;

@@ -1,12 +1,12 @@
 /* Ce fichier gère les entrées utilisateur.*/
 
+#include "../headers/types.h"
 #include "../headers/input.h"
-#include "../headers/graphics.h"
 #include "../headers/game.h"
+#include "../headers/graphics.h"
 #include "../headers/piece.h"
 #include "../headers/plateau.h"
 #include "../headers/save.h"
-/*#include <MLV/MLV_all.h> déjà inclut dans input.h*/
 
 piece resoudreEvenement(MLV_Keyboard_button touche, piece maPiece, plateau monPlateau) {
     switch (touche) {
@@ -57,7 +57,7 @@ void mettreEnPause(plateau *monPlateau, piece *maPiece, int *mouvementVertical, 
     afficherMenuPause(monPlateau, maPiece, mouvementVertical, frame, aBouge, continuer, niveau, score, reserveUtilisee, hardDrop);
 }
 
-int selection(int nbBoutons, bouton boutons[BOUTONS]) {
+int selectionMenuPrincipal(int nbBoutons, bouton boutons[BOUTONS]) {
     int x, y, i;
     int quitterJeu = 0;
     MLV_wait_mouse(&x, &y);
@@ -136,16 +136,16 @@ void selectionMenuSauvegarder(int nbBoutons, bouton boutons[BOUTONS], plateau *m
 	    dansBouton = 1;
             switch (boutons[i].index) {
                 case 9:
-		    sauvegarderSave("save1.bin", monPlateau, maPiece, mouvementVertical, frame, aBouge, continuer, niveau, score, reserveUtilisee, hardDrop);
+		    sauvegarderSave("./saves/save1.bin", monPlateau, maPiece, mouvementVertical, frame, aBouge, continuer, niveau, score, reserveUtilisee, hardDrop);
                     break;
                 case 10:
-		    sauvegarderSave("save2.bin", monPlateau, maPiece, mouvementVertical, frame, aBouge, continuer, niveau, score, reserveUtilisee, hardDrop);
+		    sauvegarderSave("./saves/save2.bin", monPlateau, maPiece, mouvementVertical, frame, aBouge, continuer, niveau, score, reserveUtilisee, hardDrop);
                     break;
                 case 11:
-		    sauvegarderSave("save3.bin", monPlateau, maPiece, mouvementVertical, frame, aBouge, continuer, niveau, score, reserveUtilisee, hardDrop);
+		    sauvegarderSave("./saves/save3.bin", monPlateau, maPiece, mouvementVertical, frame, aBouge, continuer, niveau, score, reserveUtilisee, hardDrop);
                     break;
 		case 12:
-		    sauvegarderSave("save4.bin", monPlateau, maPiece, mouvementVertical, frame, aBouge, continuer, niveau, score, reserveUtilisee, hardDrop);
+		    sauvegarderSave("./saves/save4.bin", monPlateau, maPiece, mouvementVertical, frame, aBouge, continuer, niveau, score, reserveUtilisee, hardDrop);
                     break;
 		case 13:
 		    mettreEnPause(monPlateau, maPiece, mouvementVertical, frame, aBouge, continuer, niveau, score, reserveUtilisee, hardDrop);

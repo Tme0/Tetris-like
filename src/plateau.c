@@ -1,6 +1,8 @@
 /*Ce fichier gère la création et le mouvement des pièces.*/
 
+#include "../headers/types.h"
 #include "../headers/plateau.h"
+#include "../headers/piece.h"
 
 plateau initialiserPlateau(plateau monPlateau){
     int i, j;

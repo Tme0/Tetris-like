@@ -1,8 +1,10 @@
 /* Ce fichier gère l'affichage des éléments du jeu à l'écran (plateau, pièces et menus).*/
 
+#include "../headers/types.h"
 #include "../headers/graphics.h"
 #include "../headers/input.h"
-#include <MLV/MLV_all.h>
+#include "../headers/piece.h"
+#include "../headers/plateau.h"
 #include <stdio.h>
 
 void initialiserFenetre() {
@@ -36,7 +38,7 @@ int afficherMenu() { /*Fonctionnel : A rendre beau*/
     MLV_draw_text_box(milieu, 550, largeurBouton, hauteurBouton, texte_menu_4, 0, MLV_COLOR_WHITE, MLV_COLOR_WHITE, MLV_COLOR_BLACK, MLV_TEXT_CENTER, MLV_HORIZONTAL_CENTER, MLV_VERTICAL_CENTER);
     MLV_draw_text_box(milieu, 700, largeurBouton, hauteurBouton, texte_menu_5, 0, MLV_COLOR_WHITE, MLV_COLOR_WHITE, MLV_COLOR_BLACK, MLV_TEXT_CENTER, MLV_HORIZONTAL_CENTER, MLV_VERTICAL_CENTER);
     MLV_actualise_window();
-    if (selection(5, boutons) == 1){
+    if (selectionMenuPrincipal(5, boutons) == 1){
         return 0;
     }
     return 1;

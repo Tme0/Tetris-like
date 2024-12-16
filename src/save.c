@@ -1,8 +1,7 @@
 /*Ce fichier gère le système de sauvegarde de parties et de score.*/
 
+#include "../headers/types.h"
 #include "../headers/save.h"
-#include "../headers/plateau.h"
-#include "../headers/piece.h"
 #include <stdio.h>
 #include <stdlib.h>
 
@@ -19,7 +18,7 @@ void sauvegarderScore(int score) {
     fclose(fichier);
 }
 
-int sauvegarderSave(char nom[10], plateau *monPlateau, piece *maPiece, int *mouvementVertical, int *frame, int *aBouge, int *continuer, int *niveau, int *score, int *reserveUtilisee, int *hardDrop) {
+int sauvegarderSave(char nom[18], plateau *monPlateau, piece *maPiece, int *mouvementVertical, int *frame, int *aBouge, int *continuer, int *niveau, int *score, int *reserveUtilisee, int *hardDrop) {
     int i, j;
     FILE *fichier;
     printf("continuer : %d\n", *continuer);
@@ -187,7 +186,7 @@ int sauvegarderSave(char nom[10], plateau *monPlateau, piece *maPiece, int *mouv
 }
 
 
-int chargerSave(char nom[10], plateau *monPlateau, piece *maPiece, int *mouvementVertical, int *frame, int *aBouge, int *continuer, int *niveau, int *score, int *reserveUtilisee, int *hardDrop) {
+int chargerSave(char nom[18], plateau *monPlateau, piece *maPiece, int *mouvementVertical, int *frame, int *aBouge, int *continuer, int *niveau, int *score, int *reserveUtilisee, int *hardDrop) {
     int i;
     FILE *fichier;
     

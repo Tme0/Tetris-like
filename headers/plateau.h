@@ -3,21 +3,7 @@
 #ifndef PLATEAU_H
 #define PLATEAU_H
 
-#include <MLV/MLV_all.h>
-#include "../headers/piece.h"
-
-typedef struct {
-    int state[20][10];
-    int x;
-    int y;
-    int largeur;
-    int hauteur;
-    int taille;
-    MLV_Color couleur[20][10];
-    piece pieceReserve;
-    int reserveOccupee;
-    piece piecesSuivantes[5];
-} plateau;
+#include "./types.h"
 
 plateau initialiserPlateau(plateau monPlateau);
 void majPlateau(piece maPiece, plateau *monPlateau);

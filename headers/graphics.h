@@ -3,11 +3,7 @@
 #ifndef GRAPHICS_H
 #define GRAPHICS_H
 
-#include "../headers/input.h"
-#include "../headers/game.h"
-#include "../headers/piece.h"
-#include "../headers/plateau.h"
-#define N 50
+#include "./types.h"
 
 void initialiserFenetre();
 int afficherMenu();

@@ -3,8 +3,7 @@
 #ifndef GAME_H
 #define GAME_H
 
-#include "../headers/piece.h"
-#include "../headers/plateau.h"
+#include "./types.h"
 
 int menu(int menuActif);
 int jouer();

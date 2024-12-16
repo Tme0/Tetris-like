@@ -11,7 +11,7 @@
 
 int menu(int menuActif) {
     while (menuActif != 0) {
-        menuActif = afficherMenu();
+        menuActif = selectionMenuPrincipal();
     }
     return 0;
 }
@@ -120,7 +120,7 @@ int jouer(int save) {
         if (etatTouche == MLV_PRESSED && touche != MLV_KEYBOARD_UNKNOWN && souris == 0) {
             aBouge = 1;
 	    if (touche == MLV_KEYBOARD_ESCAPE) {
-		afficherMenuPause(&monPlateau, &maPiece, &mouvementVertical, &frame, &aBouge, &continuer, &niveau, &score, &reserveUtilisee, &hardDrop);
+		selectionMenuPause(&monPlateau, &maPiece, &mouvementVertical, &frame, &aBouge, &continuer, &niveau, &score, &reserveUtilisee, &hardDrop);
 	    }
             if (touche == MLV_KEYBOARD_SPACE) { /* On met hardDrop à 1 pour indiquer qu'on l'a utilisé */
                 hardDrop = 1;

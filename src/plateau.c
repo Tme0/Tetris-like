@@ -85,7 +85,6 @@ int ligneComplete(plateau monPlateau) {
         i++;
     }
     if (complet == 10) {
-        printf("Ligne %d complète\n", i-1);
         return i-1;
     }
     return -1;
@@ -98,7 +97,6 @@ void supprimerLigne(plateau *monPlateau, int ligne) {
         monPlateau->couleur[ligne][j] = MLV_COLOR_BLACK;
     }
     descendreLignes(monPlateau, ligne);
-    printf("Ligne %d supprimée\n", ligne);
 }
 
 void descendreLignes(plateau *monPlateau, int ligne) {

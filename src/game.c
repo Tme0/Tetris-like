@@ -26,7 +26,6 @@ int jouer(int save) {
     
     piece maPiece;
     plateau monPlateau;
-    int i, j;
     int mouvementVertical; /* Permet de savoir si la pièce peut se déplacer (ne touche pas le sol) */
     int frame; /* Permet de compter les frames passées pour gérer la vitesse de chute et attendre quand la pièce est posée pour laisser la possibilité de la déplacer */
     int aBouge; /* Permet d'empecher le déplacement des pièces en restant appuyé */
@@ -88,13 +87,6 @@ int jouer(int save) {
                 hardDrop = 0;
                 majPlateau(maPiece, &monPlateau);
                 combo = 0;
-                for (i = 0 ; i < 20 ; i++){
-                    for (j = 0 ; j < 10 ; j++){
-                        printf("%d ", monPlateau.state[i][j]);
-                    }
-                    printf("\n");
-                }
-                printf("\n");
                 idLigneComplete = ligneComplete(monPlateau);
                 while (idLigneComplete >= 0) {
                     supprimerLigne(&monPlateau, idLigneComplete);
@@ -126,30 +118,28 @@ int jouer(int save) {
         
         MLV_get_event(&touche, NULL, NULL, NULL, NULL, NULL, NULL, &souris, &etatTouche); 
         if (etatTouche == MLV_PRESSED && touche != MLV_KEYBOARD_UNKNOWN && souris == 0) {
-            if (aBouge == 0 || touche == MLV_KEYBOARD_s) {
-                aBouge = 1;
-		if (touche == MLV_KEYBOARD_ESCAPE) {
-		    mettreEnPause(&monPlateau, &maPiece, &mouvementVertical, &frame, &aBouge, &continuer, &niveau, &score, &reserveUtilisee, &hardDrop);
-		}
-                if (touche == MLV_KEYBOARD_SPACE) { /* On met hardDrop à 1 pour indiquer qu'on l'a utilisé */
-                    hardDrop = 1;
-                }
-                if (touche != MLV_KEYBOARD_s && touche != MLV_KEYBOARD_r) {
-                    maPiece = resoudreEvenement(touche, maPiece, monPlateau);
-                    touche = MLV_KEYBOARD_UNKNOWN;
-                }
-                else{
-                    if (touche == MLV_KEYBOARD_r) {
-                        if (reserveUtilisee == 0) {
-                            mettreEnReserve(&maPiece, &monPlateau);
-                            reserveUtilisee = 1; /* On met reserveUtilisee à 1 pour indiquer qu'on l'a utilisée */
-                        }
+            aBouge = 1;
+	    if (touche == MLV_KEYBOARD_ESCAPE) {
+		afficherMenuPause(&monPlateau, &maPiece, &mouvementVertical, &frame, &aBouge, &continuer, &niveau, &score, &reserveUtilisee, &hardDrop);
+	    }
+            if (touche == MLV_KEYBOARD_SPACE) { /* On met hardDrop à 1 pour indiquer qu'on l'a utilisé */
+                hardDrop = 1;
+            }
+            if (touche != MLV_KEYBOARD_DOWN && touche != MLV_KEYBOARD_z) {
+                maPiece = resoudreEvenement(touche, maPiece, monPlateau);
+                touche = MLV_KEYBOARD_UNKNOWN;
+            }
+            else{
+                if (touche == MLV_KEYBOARD_z) {
+                    if (reserveUtilisee == 0) {
+                        mettreEnReserve(&maPiece, &monPlateau);
+                        reserveUtilisee = 1; /* On met reserveUtilisee à 1 pour indiquer qu'on l'a utilisée */
                     }
-                    else {
-                        if (mouvementVertical == 1) {
-                            maPiece = resoudreEvenement(touche, maPiece, monPlateau);
-                            frame = 0;
-                        }
+                }
+                else {
+                    if (mouvementVertical == 1) {
+                        maPiece = resoudreEvenement(touche, maPiece, monPlateau);
+                        frame = 0;
                     }
                 }
             }
@@ -174,17 +164,15 @@ int jouer(int save) {
             aBouge = 0;
         }
 
-        actualiserJeu(monPlateau, maPiece, score);
-
-        /* Temps à la fin de l'image et boucle while pour completer le temps manquant (60/1 sec) */
-        clock_gettime(CLOCK_REALTIME, &fin );
+        clock_gettime(CLOCK_REALTIME, &fin);
         tempsAttente = 16 - (fin.tv_sec - debut.tv_sec) * 1000 + (fin.tv_nsec - debut.tv_nsec) / 1000000;
         if (tempsAttente > 0) {
             MLV_wait_milliseconds(tempsAttente);
         }
         else{
-            printf("%ld ", tempsAttente);
+            printf("Temps attente : %ld\n", tempsAttente);
         }
+	actualiserJeu(monPlateau, maPiece, score);
         MLV_actualise_window();
     }
     printf("Score : %d\n", score);

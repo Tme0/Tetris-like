@@ -7,11 +7,11 @@
 #include "./types.h"
 
 piece resoudreEvenement(MLV_Keyboard_button touche, piece maPiece, plateau monPlateau);
-int selectionMenuPrincipal(int nbBoutons, bouton boutons[BOUTONS]);
-void selectionMenuPause(int nbBoutons, bouton boutons[BOUTONS], plateau *monPlateau, piece *maPiece, int *mouvementVertical, int *frame, int *aBouge, int *continuer, int *niveau, int *score, int *reserveUtilisee, int *hardDrop);
-void selectionMenuSauvegarder(int nbBoutons, bouton boutons[BOUTONS], plateau *monPlateau, piece *maPiece, int *mouvementVertical, int *frame, int *aBouge, int *continuer, int *niveau, int *score, int *reserveUtilisee, int *hardDrop);
-void selectionMenuCharger(int nbBoutons, bouton boutons[BOUTONS]);
-void selectionMenuScores(bouton retour);
-void selectionMenuParametres(int nbBoutons, bouton boutons[BOUTONS]);
+int selectionMenuPrincipal();
+void selectionMenuPause(plateau *monPlateau, piece *maPiece, int *mouvementVertical, int *frame, int *aBouge, int *continuer, int *niveau, int *score, int *reserveUtilisee, int *hardDrop);
+void selectionMenuSauvegarder(plateau *monPlateau, piece *maPiece, int *mouvementVertical, int *frame, int *aBouge, int *continuer, int *niveau, int *score, int *reserveUtilisee, int *hardDrop);
+void selectionMenuCharger();
+void selectionMenuScores();
+void selectionMenuParametres();
 
 #endif /* INPUT_H */

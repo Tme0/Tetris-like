@@ -18,14 +18,9 @@ void sauvegarderScore(int score) {
     fclose(fichier);
 }
 
-int sauvegarderSave(char nom[18], plateau *monPlateau, piece *maPiece, int *mouvementVertical, int *frame, int *aBouge, int *continuer, int *niveau, int *score, int *reserveUtilisee, int *hardDrop) {
+int sauvegarderSave(char nom[23], plateau *monPlateau, piece *maPiece, int *mouvementVertical, int *frame,  int *continuer, int *niveau, int *score, int *reserveUtilisee, int *hardDrop) {
     int i, j;
     FILE *fichier;
-    printf("continuer : %d\n", *continuer);
-    printf("niveau : %d\n", *niveau);
-    printf("score : %d\n", *score);
-    printf("reserveUtilisee : %d\n", *reserveUtilisee);
-    printf("hardDrop : %d\n", *hardDrop);
 
     for (i=0;i<20;i++){
       for (j=0;j<10;j++){
@@ -146,12 +141,6 @@ int sauvegarderSave(char nom[18], plateau *monPlateau, piece *maPiece, int *mouv
         return -1;
     }
 
-    if (fwrite(aBouge, sizeof(int), 1, fichier) != 1) {
-        fprintf(stderr, "Erreur lors de l'écriture de aBouge.\n");
-        fclose(fichier);
-        return -1;
-    }
-
     if (fwrite(continuer, sizeof(int), 1, fichier) != 1) {
         fprintf(stderr, "Erreur lors de l'écriture de continuer.\n");
         fclose(fichier);
@@ -186,14 +175,9 @@ int sauvegarderSave(char nom[18], plateau *monPlateau, piece *maPiece, int *mouv
 }
 
 
-int chargerSave(char nom[18], plateau *monPlateau, piece *maPiece, int *mouvementVertical, int *frame, int *aBouge, int *continuer, int *niveau, int *score, int *reserveUtilisee, int *hardDrop) {
-  int i, j;
+int chargerSave(char nom[23], plateau *monPlateau, piece *maPiece, int *mouvementVertical, int *frame, int *continuer, int *niveau, int *score, int *reserveUtilisee, int *hardDrop) {
+    int i, j;
     FILE *fichier;
-    printf("continuer : %d\n", *continuer);
-    printf("niveau : %d\n", *niveau);
-    printf("score : %d\n", *score);
-    printf("reserveUtilisee : %d\n", *reserveUtilisee);
-    printf("hardDrop : %d\n", *hardDrop);
 
     for (i=0;i<20;i++){
       for (j=0;j<10;j++){
@@ -311,12 +295,6 @@ int chargerSave(char nom[18], plateau *monPlateau, piece *maPiece, int *mouvemen
 
     if (fread(frame, sizeof(int), 1, fichier) != 1) {
         fprintf(stderr, "Erreur lors de la lecture de frame.\n");
-        fclose(fichier);
-        return -1;
-    }
-
-    if (fread(aBouge, sizeof(int), 1, fichier) != 1) {
-        fprintf(stderr, "Erreur lors de la lecture de aBouge.\n");
         fclose(fichier);
         return -1;
     }

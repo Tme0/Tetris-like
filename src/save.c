@@ -134,49 +134,49 @@ int sauvegarderSave(char nom[18], plateau *monPlateau, piece *maPiece, int *mouv
 
     /* ---------- SAVE DES DIFFERENTES VARIABLES ---------- */
 
-    if (fwrite(&mouvementVertical, sizeof(int), 1, fichier) != 1) {
+    if (fwrite(mouvementVertical, sizeof(int), 1, fichier) != 1) {
         fprintf(stderr, "Erreur lors de l'écriture de mouvementVertical.\n");
         fclose(fichier);
         return -1;
     }
 
-    if (fwrite(&frame, sizeof(int), 1, fichier) != 1) {
+    if (fwrite(frame, sizeof(int), 1, fichier) != 1) {
         fprintf(stderr, "Erreur lors de l'écriture de frame.\n");
         fclose(fichier);
         return -1;
     }
 
-    if (fwrite(&aBouge, sizeof(int), 1, fichier) != 1) {
+    if (fwrite(aBouge, sizeof(int), 1, fichier) != 1) {
         fprintf(stderr, "Erreur lors de l'écriture de aBouge.\n");
         fclose(fichier);
         return -1;
     }
 
-    if (fwrite(&continuer, sizeof(int), 1, fichier) != 1) {
+    if (fwrite(continuer, sizeof(int), 1, fichier) != 1) {
         fprintf(stderr, "Erreur lors de l'écriture de continuer.\n");
         fclose(fichier);
         return -1;
     }
 
-    if (fwrite(&niveau, sizeof(int), 1, fichier) != 1) {
+    if (fwrite(niveau, sizeof(int), 1, fichier) != 1) {
         fprintf(stderr, "Erreur lors de l'écriture de niveau.\n");
         fclose(fichier);
         return -1;
     }
 
-    if (fwrite(&score, sizeof(int), 1, fichier) != 1) {
+    if (fwrite(score, sizeof(int), 1, fichier) != 1) {
         fprintf(stderr, "Erreur lors de l'écriture de score.\n");
         fclose(fichier);
         return -1;
     }
 
-    if (fwrite(&reserveUtilisee, sizeof(int), 1, fichier) != 1) {
+    if (fwrite(reserveUtilisee, sizeof(int), 1, fichier) != 1) {
         fprintf(stderr, "Erreur lors de l'écriture de reserveUtilisee.\n");
         fclose(fichier);
         return -1;
     }
 
-    if (fwrite(&hardDrop, sizeof(int), 1, fichier) != 1) {
+    if (fwrite(hardDrop, sizeof(int), 1, fichier) != 1) {
         fprintf(stderr, "Erreur lors de l'écriture de hardDrop.\n");
         fclose(fichier);
         return -1;
@@ -187,8 +187,20 @@ int sauvegarderSave(char nom[18], plateau *monPlateau, piece *maPiece, int *mouv
 
 
 int chargerSave(char nom[18], plateau *monPlateau, piece *maPiece, int *mouvementVertical, int *frame, int *aBouge, int *continuer, int *niveau, int *score, int *reserveUtilisee, int *hardDrop) {
-    int i;
+  int i, j;
     FILE *fichier;
+    printf("continuer : %d\n", *continuer);
+    printf("niveau : %d\n", *niveau);
+    printf("score : %d\n", *score);
+    printf("reserveUtilisee : %d\n", *reserveUtilisee);
+    printf("hardDrop : %d\n", *hardDrop);
+
+    for (i=0;i<20;i++){
+      for (j=0;j<10;j++){
+	printf("%d ", monPlateau->state[i][j]);
+      }
+      printf("\n");
+    }
     
     if ((fichier = fopen(nom, "rb")) == NULL) {
         printf("Erreur\n");
@@ -291,49 +303,49 @@ int chargerSave(char nom[18], plateau *monPlateau, piece *maPiece, int *mouvemen
 
     /* ---------- CHARGE DES DIFFERENTES VARIABLES ---------- */
 
-    if (fread(&mouvementVertical, sizeof(int), 1, fichier) != 1) {
+    if (fread(mouvementVertical, sizeof(int), 1, fichier) != 1) {
         fprintf(stderr, "Erreur lors de la lecture de mouvementVertical.\n");
         fclose(fichier);
         return -1;
     }
 
-    if (fread(&frame, sizeof(int), 1, fichier) != 1) {
+    if (fread(frame, sizeof(int), 1, fichier) != 1) {
         fprintf(stderr, "Erreur lors de la lecture de frame.\n");
         fclose(fichier);
         return -1;
     }
 
-    if (fread(&aBouge, sizeof(int), 1, fichier) != 1) {
+    if (fread(aBouge, sizeof(int), 1, fichier) != 1) {
         fprintf(stderr, "Erreur lors de la lecture de aBouge.\n");
         fclose(fichier);
         return -1;
     }
 
-    if (fread(&continuer, sizeof(int), 1, fichier) != 1) {
+    if (fread(continuer, sizeof(int), 1, fichier) != 1) {
         fprintf(stderr, "Erreur lors de la lecture de continuer.\n");
         fclose(fichier);
         return -1;
     }
 
-    if (fread(&niveau, sizeof(int), 1, fichier) != 1) {
+    if (fread(niveau, sizeof(int), 1, fichier) != 1) {
         fprintf(stderr, "Erreur lors de la lecture de niveau.\n");
         fclose(fichier);
         return -1;
     }
 
-    if (fread(&score, sizeof(int), 1, fichier) != 1) {
+    if (fread(score, sizeof(int), 1, fichier) != 1) {
         fprintf(stderr, "Erreur lors de la lecture de score.\n");
         fclose(fichier);
         return -1;
     }
 
-    if (fread(&reserveUtilisee, sizeof(int), 1, fichier) != 1) {
+    if (fread(reserveUtilisee, sizeof(int), 1, fichier) != 1) {
         fprintf(stderr, "Erreur lors de la lecture de reserveUtilisee.\n");
         fclose(fichier);
         return -1;
     }
 
-    if (fread(&hardDrop, sizeof(int), 1, fichier) != 1) {
+    if (fread(hardDrop, sizeof(int), 1, fichier) != 1) {
         fprintf(stderr, "Erreur lors de la lecture de hardDrop.\n");
         fclose(fichier);
         return -1;

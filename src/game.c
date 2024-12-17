@@ -28,7 +28,6 @@ int jouer(int save) {
     plateau monPlateau;
     int mouvementVertical; /* Permet de savoir si la pièce peut se déplacer (ne touche pas le sol) */
     int frame; /* Permet de compter les frames passées pour gérer la vitesse de chute et attendre quand la pièce est posée pour laisser la possibilité de la déplacer */
-    int aBouge; /* Permet d'empecher le déplacement des pièces en restant appuyé */
     int continuer; /* Permet de savoir si le jeu est en cours */
     int niveau; /* Permet de gérer la vitesse de chute des pièces */
     int score;
@@ -38,31 +37,32 @@ int jouer(int save) {
     int hardDrop; /* Permet de savoir si on a "hard drop" (touche espace) et d'empêcher une autre action */
     long int tempsAttente;
 
-    char nom_save[18];
+    char nom_save[23];
 
     if (save == 1) {
-        strcpy(nom_save, "./saves/save1.bin");
+        strcpy(nom_save, "./ressources/save1.bin");
     }
     if (save == 2) {
-        strcpy(nom_save, "./saves/save2.bin");
+        strcpy(nom_save, "./ressources/save2.bin");
     }
     if (save == 3) {
-        strcpy(nom_save, "./saves/save3.bin");
+        strcpy(nom_save, "./ressources/save3.bin");
     }
     if (save == 4) {
-        strcpy(nom_save, "./saves/save4.bin");
+        strcpy(nom_save, "./ressources/save4.bin");
     }
     
     maPiece = creerPiece(nbAleatoire(1, 7));
     monPlateau = initialiserPlateau(monPlateau);
 
     if (save != 0) {
-        chargerSave(nom_save, &monPlateau, &maPiece, &mouvementVertical, &frame, &aBouge, &continuer, &niveau, &score, &reserveUtilisee, &hardDrop);
+        if (chargerSave(nom_save, &monPlateau, &maPiece, &mouvementVertical, &frame, &continuer, &niveau, &score, &reserveUtilisee, &hardDrop) != 1){
+	    return -1;
+        }
     }
     else{
         mouvementVertical = 1;
         frame = 0;
-	aBouge = 0;
 	continuer = 1;
 	niveau = 1;
 	score = 0;
@@ -82,7 +82,7 @@ int jouer(int save) {
             if (finJeu(maPiece) == 1) {
                 continuer = 0;
             }
-            if (frame % 20 == 0 || hardDrop == 1) { /* J'ai enlevé le frame % (20/niveau) pour garder le même temps d'attente avant de bloquer la pièce */
+            if (frame % 20 == 0 || hardDrop == 1) { /* J'ai enlevé le frame % (20/niveau) pour garder le même temps d'attente avant de bloquer la pièce, même quand le niveau change */
                 frame = 0;
                 hardDrop = 0;
                 majPlateau(maPiece, &monPlateau);
@@ -118,9 +118,8 @@ int jouer(int save) {
         
         MLV_get_event(&touche, NULL, NULL, NULL, NULL, NULL, NULL, &souris, &etatTouche); 
         if (etatTouche == MLV_PRESSED && touche != MLV_KEYBOARD_UNKNOWN && souris == 0) {
-            aBouge = 1;
 	    if (touche == MLV_KEYBOARD_ESCAPE) {
-		selectionMenuPause(&monPlateau, &maPiece, &mouvementVertical, &frame, &aBouge, &continuer, &niveau, &score, &reserveUtilisee, &hardDrop);
+		selectionMenuPause(&monPlateau, &maPiece, &mouvementVertical, &frame, &continuer, &niveau, &score, &reserveUtilisee, &hardDrop);
 	    }
             if (touche == MLV_KEYBOARD_SPACE) { /* On met hardDrop à 1 pour indiquer qu'on l'a utilisé */
                 hardDrop = 1;
@@ -161,7 +160,6 @@ int jouer(int save) {
             default:
                 break;
             }
-            aBouge = 0;
         }
 
         clock_gettime(CLOCK_REALTIME, &fin);
@@ -172,8 +170,11 @@ int jouer(int save) {
         else{
             printf("Temps attente : %ld\n", tempsAttente);
         }
-	actualiserJeu(monPlateau, maPiece, score);
-        MLV_actualise_window();
+
+	if (continuer == 1) { /* Permet de ne pas réafficher la fenêtre un bref instant quand on clique sur menu principal */
+	    actualiserJeu(monPlateau, maPiece, score);
+            MLV_actualise_window();
+	}
     }
     printf("Score : %d\n", score);
     return score;

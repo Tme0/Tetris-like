@@ -44,7 +44,7 @@ piece resoudreEvenement(MLV_Keyboard_button touche, piece maPiece, plateau monPl
 	       alors on l'annule (pour la logique, voir le commentaire de la fonction dans plateau.c) */
             break;
         case MLV_KEYBOARD_SPACE:
-	    tomberPiece(&maPiece, &monPlateau);
+	    tomberPiece(&maPiece, &monPlateau); /* Drop instantané de la pièce */
 	    break;
         default:
             break;
@@ -103,7 +103,7 @@ int selectionMenuPrincipal() {
     return menuActif;
 }
 
-void selectionMenuPause(plateau *monPlateau, piece *maPiece, int *mouvementVertical, int *frame, int *aBouge, int *continuer, int *niveau, int *score, int *reserveUtilisee, int *hardDrop) {
+void selectionMenuPause(plateau *monPlateau, piece *maPiece, int *mouvementVertical, int *frame, int *continuer, int *niveau, int *score, int *reserveUtilisee, int *hardDrop) {
     int x, y, i;
     int boutonClic = 0;
     int retourFait = 0;
@@ -128,14 +128,15 @@ void selectionMenuPause(plateau *monPlateau, piece *maPiece, int *mouvementVerti
 	    boutonClic = boutons[i].index;
 	    switch (boutonClic) {
 	      case 6:
+		retourFait = 1;
 	        break;
 	      case 7:
-	        selectionMenuSauvegarder(monPlateau, maPiece, mouvementVertical, frame, aBouge, continuer, niveau, score, reserveUtilisee, hardDrop);
+	        selectionMenuSauvegarder(monPlateau, maPiece, mouvementVertical, frame, continuer, niveau, score, reserveUtilisee, hardDrop);
 	        break;
 	      case 8:
-	        *continuer = 0;
+	        *continuer = 0; /* Permet d'arrêter la partie en cours */
+		*score = 0; /* Permet d'éviter d'enregistrer le score lorsqu'on quitte, pour éviter de dupliquer des scores en quittant plusieurs fois la même save */
 		retourFait = 1;
-	        /*afficherMenu();*/
 	        break;
 	    }
     	}
@@ -143,7 +144,7 @@ void selectionMenuPause(plateau *monPlateau, piece *maPiece, int *mouvementVerti
     }
 }
 
-void selectionMenuSauvegarder(plateau *monPlateau, piece *maPiece, int *mouvementVertical, int *frame, int *aBouge, int *continuer, int *niveau, int *score, int *reserveUtilisee, int *hardDrop) {
+void selectionMenuSauvegarder(plateau *monPlateau, piece *maPiece, int *mouvementVertical, int *frame, int *continuer, int *niveau, int *score, int *reserveUtilisee, int *hardDrop) {
     int x, y, i;
     int boutonClic = 0;
     int retourFait = 0;
@@ -164,7 +165,7 @@ void selectionMenuSauvegarder(plateau *monPlateau, piece *maPiece, int *mouvemen
     boutons[4] = retour;
     
     while (retourFait == 0) {  
-      afficherMenuSauvegarder(monPlateau, maPiece, mouvementVertical, frame, aBouge, continuer, niveau, score, reserveUtilisee, hardDrop);
+      afficherMenuSauvegarder();
       MLV_wait_mouse(&x, &y);
       for (i = 0; i < nbBoutons; i++) {
         if (x >= boutons[i].x_min && x <= boutons[i].x_max &&
@@ -172,16 +173,16 @@ void selectionMenuSauvegarder(plateau *monPlateau, piece *maPiece, int *mouvemen
 	    boutonClic = boutons[i].index;
 	    switch (boutonClic) {
 	      case 9:
-	        sauvegarderSave("./saves/save1.bin", monPlateau, maPiece, mouvementVertical, frame, aBouge, continuer, niveau, score, reserveUtilisee, hardDrop);
+	        sauvegarderSave("./ressources/save1.bin", monPlateau, maPiece, mouvementVertical, frame, continuer, niveau, score, reserveUtilisee, hardDrop);
 	        break;
 	      case 10:
-		sauvegarderSave("./saves/save2.bin", monPlateau, maPiece, mouvementVertical, frame, aBouge, continuer, niveau, score, reserveUtilisee, hardDrop);
+		sauvegarderSave("./ressources/save2.bin", monPlateau, maPiece, mouvementVertical, frame, continuer, niveau, score, reserveUtilisee, hardDrop);
 		break;
 	      case 11:
-		sauvegarderSave("./saves/save3.bin", monPlateau, maPiece, mouvementVertical, frame, aBouge, continuer, niveau, score, reserveUtilisee, hardDrop);
+		sauvegarderSave("./ressources/save3.bin", monPlateau, maPiece, mouvementVertical, frame, continuer, niveau, score, reserveUtilisee, hardDrop);
 		break;
 	      case 12:
-		sauvegarderSave("./saves/save4.bin", monPlateau, maPiece, mouvementVertical, frame, aBouge, continuer, niveau, score, reserveUtilisee, hardDrop);
+		sauvegarderSave("./ressources/save4.bin", monPlateau, maPiece, mouvementVertical, frame, continuer, niveau, score, reserveUtilisee, hardDrop);
 		break;
 	      case 13:
 		retourFait = 1;
@@ -190,7 +191,6 @@ void selectionMenuSauvegarder(plateau *monPlateau, piece *maPiece, int *mouvemen
     	}
       }
     }
-    /*afficherMenuPause(monPlateau, maPiece, mouvementVertical, frame, aBouge, continuer, niveau, score, reserveUtilisee, hardDrop);*/
 }
 
 void selectionMenuCharger() {
@@ -222,20 +222,27 @@ void selectionMenuCharger() {
 	    boutonClic = boutons[i].index;
 	    switch (boutonClic) {
 	      case 14:
-		jouer(1);
+		if (jouer(1) != -1){ /* Permet de rester sur le menu si la sauvegarde 1 n'existe pas (retourFait est mis à 1 si la partie a vraiment été faite) */
+		    retourFait = 1;
+		}
 		break;
 	      case 15:
-		jouer(2);
+		if (jouer(2) != -1){ /* Permet de rester sur le menu si la sauvegarde 2 n'existe pas (retourFait est mis à 1 si la partie a vraiment été faite) */
+		    retourFait = 1;
+		}
 		break;
 	      case 16:
-		jouer(3);
+		if (jouer(3) != -1){ /* Permet de rester sur le menu si la sauvegarde 3 n'existe pas (retourFait est mis à 1 si la partie a vraiment été faite) */
+		    retourFait = 1;
+		}
 		break;
 	      case 17:
-		jouer(4);
+		if (jouer(4) != -1){ /* Permet de rester sur le menu si la sauvegarde 4 n'existe pas (retourFait est mis à 1 si la partie a vraiment été faite) */
+		    retourFait = 1;
+		}
 		break;
 	      case 18:
 		retourFait = 1;
-		/*afficherMenu();*/
 		break;
 	    }
     	}
@@ -258,8 +265,6 @@ void selectionMenuScores() {
 	boutonClic = retour.index;
       }
     }
-    /*MLV_clear_window(MLV_COLOR_BLACK);*/
-    /*afficherMenu();*/
 }
 
 
@@ -300,7 +305,6 @@ void selectionMenuParametres() {
 		break;
 	      case 23:
 		retourFait = 1;
-		/*afficherMenu();*/
 		break;
 	    }
     	}

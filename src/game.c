@@ -176,7 +176,9 @@ int jouer(int save) {
             MLV_actualise_window();
 	}
     }
-    printf("Score : %d\n", score);
+    if (score != 0) {
+        sauvegarderScore(score);
+    }
     return score;
 }
 

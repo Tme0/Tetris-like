@@ -234,25 +234,23 @@ int afficherScoresPendantPartie(){
     int i = 1;
     int decal_hauteur = 345;
     int decal_largeur = 30;
-    int score;
-    char score_char[7];
-    char i_char[15];
+    char score[10];
+    char i_score[15];
     FILE * fichier;
     MLV_draw_text_box(25, 300, 200, 35, "Meilleurs scores", 0, MLV_COLOR_DEEPSKYBLUE, MLV_COLOR_WHITE, MLV_COLOR_BLACK, MLV_TEXT_CENTER, MLV_HORIZONTAL_CENTER, MLV_VERTICAL_CENTER);
     MLV_draw_rectangle(25, 334, 200, 115, MLV_COLOR_DEEPSKYBLUE);
     if ((fichier = fopen("./ressources/scores.txt", "r")) == NULL){
         fichier = fopen("./ressources/scores.txt", "a+");
     }
-    while ((fscanf(fichier, "%d", &score)) == 1){
+    while (fscanf(fichier, "%s\n", score) != EOF && i < 11) {
         if (i == 6){
             decal_largeur += 100;
             decal_hauteur = 345;
         }
-        snprintf(score_char, sizeof(score_char), "%d", score);
-        snprintf(i_char, sizeof(i_char), "%d", i);
-        strcat(i_char, ". ");
-        strcat(i_char, score_char);
-        MLV_draw_text(decal_largeur, decal_hauteur, i_char, MLV_COLOR_WHITE);
+	snprintf(i_score, sizeof(i_score), "%d", i);
+	strcat(i_score, ". ");
+        strcat(i_score, score);
+	MLV_draw_text(decal_largeur, decal_hauteur, i_score, MLV_COLOR_WHITE);
         i++;
         decal_hauteur += 20;
     }

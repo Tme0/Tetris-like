@@ -19,7 +19,7 @@ int menu(int menuActif) {
 int jouer(int save) {
     /* On lance le jeu avec 0 sans save, sinon avec 1, 2, 3 ou 4 */
     struct timespec debut, fin;
-    
+
     MLV_Keyboard_button touche;
     MLV_Button_state etatTouche;
     MLV_Mouse_button souris;
@@ -70,19 +70,25 @@ int jouer(int save) {
 	hardDrop = 0;
     }
     
+    /* Boucle de jeu */
     while (score < 999999 && continuer == 1) {
-        /*Temps au début de l'image*/
+        /* Temps au début de l'image */
         clock_gettime(CLOCK_REALTIME, &debut);
+	
         frame++;
 
 	fixPlateau(&monPlateau); /* Permet de corriger des valeurs autres que 0 et 1 qui se mettent parfois dans le plateau */
-	
+
+	/* Affichage de l'image courante */
+        actualiserJeu(monPlateau, maPiece, score);
+        MLV_actualise_window();
+
 	if (estPosee(maPiece, monPlateau)) {
             mouvementVertical = 0;
             if (finJeu(maPiece) == 1) {
                 continuer = 0;
             }
-            if (frame % 20 == 0 || hardDrop == 1) { /* J'ai enlevé le frame % (20/niveau) pour garder le même temps d'attente avant de bloquer la pièce, même quand le niveau change */
+            if (frame % 24 == 0 || hardDrop == 1) { /* J'ai enlevé le frame % (20/niveau) pour garder le même temps d'attente avant de bloquer la pièce, même quand le niveau change */
                 frame = 0;
                 hardDrop = 0;
                 majPlateau(maPiece, &monPlateau);
@@ -111,10 +117,11 @@ int jouer(int save) {
             mouvementVertical = 1;
 	}
 
-        if (frame % (20/niveau) == 0 && mouvementVertical == 1) {
+	if (frame % (24/niveau) == 0 && mouvementVertical == 1) {
             maPiece.y++;
         }
-        
+
+	/* Récupération d'événement */
         MLV_get_event(&touche, NULL, NULL, NULL, NULL, NULL, NULL, &souris, &etatTouche); 
         if (etatTouche == MLV_PRESSED && touche != MLV_KEYBOARD_UNKNOWN && souris == 0) {
 	    if (touche == MLV_KEYBOARD_ESCAPE) {
@@ -142,7 +149,8 @@ int jouer(int save) {
                 }
             }
         }
-        
+	
+        /* Sert à éviter de faire l'action précédente du clavier avec la souris */
         if (etatTouche == MLV_RELEASED) {
             switch (souris) {
             case MLV_BUTTON_LEFT:{
@@ -161,19 +169,15 @@ int jouer(int save) {
             }
         }
 
+	/* Calcul du temps passé sur l'image puis on force à attendre si l'image a été trop rapide */
         clock_gettime(CLOCK_REALTIME, &fin);
-        tempsAttente = 16 - (fin.tv_sec - debut.tv_sec) * 1000 + (fin.tv_nsec - debut.tv_nsec) / 1000000;
+        tempsAttente = 32 - ((fin.tv_sec - debut.tv_sec) * 1000 + (fin.tv_nsec - debut.tv_nsec) / 1000000);
         if (tempsAttente > 0) {
             MLV_wait_milliseconds(tempsAttente);
         }
         else{
             printf("Temps attente : %ld\n", tempsAttente);
         }
-
-	if (continuer == 1) { /* Permet de ne pas réafficher la fenêtre un bref instant quand on clique sur menu principal */
-	    actualiserJeu(monPlateau, maPiece, score);
-            MLV_actualise_window();
-	}
     }
     if (score != 0) { /* On enregistre un score seulement si des points ont été gagné */
         sauvegarderScore(score);

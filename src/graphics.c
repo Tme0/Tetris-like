@@ -132,7 +132,6 @@ void afficherMenuScores() {
         snprintf(i_char, 3, "%d", i);
         MLV_draw_text_box(275, 120+40*i, 40, 40, i_char, 0, CONTOURS, MLV_COLOR_WHITE, MLV_COLOR_BLACK, MLV_TEXT_CENTER, MLV_HORIZONTAL_CENTER, MLV_VERTICAL_CENTER);
         MLV_draw_text_box(325, 120+40*i, 200, 40, score, 0, CONTOURS, MLV_COLOR_WHITE, MLV_COLOR_BLACK, MLV_TEXT_CENTER, MLV_HORIZONTAL_CENTER, MLV_VERTICAL_CENTER);
-	printf("%s\n", score);
 	i++;
     }
     fclose(fichier);

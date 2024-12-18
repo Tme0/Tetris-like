@@ -8,8 +8,8 @@
 int menu(int menuActif);
 int jouer();
 int estPosee(piece maPiece, plateau monPlateau);
-int colisionDroite(piece maPiece, plateau monPlateau);
-int colisionGauche(piece maPiece, plateau monPlateau);
+int collisionDroite(piece maPiece, plateau monPlateau);
+int collisionGauche(piece maPiece, plateau monPlateau);
 void tomberPiece(piece *maPiece, plateau *monPlateau);
 int finJeu(piece maPiece);
 

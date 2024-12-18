@@ -5,15 +5,14 @@
 #include "../headers/piece.h"
 
 plateau initialiserPlateau(plateau monPlateau){
+    /* Met le plateau dans son état initial */
     int i, j;
-    for (i=0 ; i < 20 ; i++) {
-        for (j=0 ; j < 10 ; j++) {
+    for (i = 0 ; i < 20 ; i++) {
+        for (j = 0 ; j < 10 ; j++) {
             monPlateau.state[i][j] = 0;
             monPlateau.couleur[i][j] = MLV_COLOR_BLACK;
         }
     }
-    monPlateau.x = 0;
-    monPlateau.y = 0;
     monPlateau.largeur = 10;
     monPlateau.hauteur = 20;
     monPlateau.taille = 20*10;
@@ -25,6 +24,7 @@ plateau initialiserPlateau(plateau monPlateau){
 }
 
 void majPlateau(piece maPiece, plateau *monPlateau) {
+    /* Rajoute la pièce posée sur le plateau */
     int i, j;
     for (i = 0 ; i < TAILLE_PIECE ; i++) {
         for (j = 0 ; j < TAILLE_PIECE ; j++) {
@@ -37,41 +37,32 @@ void majPlateau(piece maPiece, plateau *monPlateau) {
 }
 
 void mettreEnReserve(piece *maPiece, plateau *monPlateau) {
+    /* Met la pièce maPiece en réserve */
     int id_reserve;
-    if (monPlateau->reserveOccupee == 0) {
-        monPlateau->reserveOccupee = 1;
-        monPlateau->pieceReserve = creerPiece(maPiece->idPiece.id);
-        majPiecesSuivantes(maPiece, monPlateau);
+    if (monPlateau->reserveOccupee == 0) { /* Cas où il n'y avait pas de pièce en réserve */
+        monPlateau->reserveOccupee = 1; /* La réserve devient occupée, elle le restera forcément jusqu'à la fin de la partie */
+        monPlateau->pieceReserve = creerPiece(maPiece->idPiece.id); /* On crée une pièce pour la mettre dans la réserve */
+        majPiecesSuivantes(maPiece, monPlateau); /* Comme maPiece a été mise en réserve, il faut prendre la pièce suivante (dans le tableau) et mettre à jour le tableau des pièces suivantes */
     }
-    else {
-        id_reserve = monPlateau->pieceReserve.idPiece.id;
-        monPlateau->pieceReserve = creerPiece(maPiece->idPiece.id);
-        *maPiece = creerPiece(id_reserve);
+    else { /* Cas où il y avait déjà une pièce en réserve */
+        id_reserve = monPlateau->pieceReserve.idPiece.id; /* Stockage de l'id de la pièce de la réserve */
+        monPlateau->pieceReserve = creerPiece(maPiece->idPiece.id); /* On crée une pièce pour la mettre dans la réserve */
+        *maPiece = creerPiece(id_reserve); /* On crée une pièce avec l'id de la pièce qui était dans la réserve (pour la faire apparaître comme une nouvelle pièce) */
     }
 }
 
 void majPiecesSuivantes(piece *maPiece, plateau *monPlateau) {
+    /* Met la 1ère pièce du tableau dans maPiece, puis met à jour le tableau des pièces suivantes */
     int i;
-    *maPiece = monPlateau->piecesSuivantes[0];
+    *maPiece = monPlateau->piecesSuivantes[0]; /* maPiece devient la pièce suivante */
     for (i = 0 ; i < 4 ; i++) {
-        monPlateau->piecesSuivantes[i] = monPlateau->piecesSuivantes[i+1];
+        monPlateau->piecesSuivantes[i] = monPlateau->piecesSuivantes[i+1]; /* Décalage de toutes les pièces dans le tableau */
     }
-    monPlateau->piecesSuivantes[4] = creerPiece(nbAleatoire(1, 7));
-}
-    
-void majApresChute(piece maPiece, plateau *monPlateau) { /* Permet d'effacer la pièce à la frame précédente (actualisation) */
-    int i, j;
-    for (i = 0 ; i < TAILLE_PIECE ; i++) {
-        for (j = 0 ; j < TAILLE_PIECE ; j++) {
-            if (maPiece.idPiece.forme[i][j] == 1) {
-                monPlateau->state[maPiece.y + i][maPiece.x + j] = 0;
-                monPlateau->couleur[maPiece.y + i][maPiece.x + j] = MLV_COLOR_BLACK;
-            }
-        }
-    }
+    monPlateau->piecesSuivantes[4] = creerPiece(nbAleatoire(1, 7)); /* On crée une pièce aléatoire pour la mettre en fin de tableau */
 }
 
 int ligneComplete(plateau monPlateau) {
+    /* Vérifie si chaque ligne est complète */
     int i, j, complet;
     i = 0;
     complet = 0;
@@ -91,6 +82,7 @@ int ligneComplete(plateau monPlateau) {
 }
 
 void supprimerLigne(plateau *monPlateau, int ligne) {
+    /* Supprime tous les carrés d'une ligne (appelée si la ligne est complète */
     int j;
     for (j = 0 ; j < 10 ; j++) {
         monPlateau->state[ligne][j] = 0;
@@ -100,6 +92,7 @@ void supprimerLigne(plateau *monPlateau, int ligne) {
 }
 
 void descendreLignes(plateau *monPlateau, int ligne) {
+    /* Descend d'un cran toutes les lignes au-dessus de ligne */
     int i, j;
     for (i = ligne ; i > 0 ; i--) {
         for (j = 0 ; j < 10 ; j++) {
@@ -127,6 +120,7 @@ void fixPlateau (plateau *monPlateau) {
 }
 
 int validerRotation(piece *maPiece, plateau *monPlateau, int x, int y) {
+    /* Vérifie si une pièce ne se superpose pas avec une autre après être tournée (appelée avec différentes coordonnées x et y par superRotation */
     int i, j;
     for (i = 0; i < TAILLE_PIECE; i++) {
         for (j = 0; j < TAILLE_PIECE; j++) {

@@ -11,12 +11,12 @@
 piece resoudreEvenement(MLV_Keyboard_button touche, piece maPiece, plateau monPlateau) {
     switch (touche) {
         case MLV_KEYBOARD_RIGHT:
-            if (colisionDroite(maPiece, monPlateau) == 0) {
+            if (collisionDroite(maPiece, monPlateau) == 0) {
                 maPiece.x++;
             }
             break;
         case MLV_KEYBOARD_LEFT:
-            if (colisionGauche(maPiece, monPlateau) == 0) {  
+            if (collisionGauche(maPiece, monPlateau) == 0) {  
                 maPiece.x--;
             }
             break;
@@ -57,14 +57,11 @@ int selectionMenuPrincipal() {
     int menuActif = 1;
     int boutonClic = 0;
     int nbBoutons = 5;
-    const int largeurBouton = 400;
-    const int hauteurBouton = 100;
-    const int milieu = (800 - largeurBouton) / 2;
-    bouton nouvellePartie = {milieu, 100, milieu + largeurBouton, 100 + hauteurBouton, 1};
-    bouton chargerPartie = {milieu, 250, milieu + largeurBouton, 250 + hauteurBouton, 2};
-    bouton scores = {milieu, 400, milieu + largeurBouton, 400 + hauteurBouton, 3};
-    bouton parametres = {milieu, 550, milieu + largeurBouton, 550 + hauteurBouton, 4};
-    bouton quitter = {milieu, 700, milieu + largeurBouton, 700 + hauteurBouton, 5};
+    bouton nouvellePartie = {MILIEU, 200, MILIEU + LARGEURBOUTON, 200 + HAUTEURBOUTON, 1};
+    bouton chargerPartie = {MILIEU, 300, MILIEU + LARGEURBOUTON, 300 + HAUTEURBOUTON, 2};
+    bouton scores = {MILIEU, 400, MILIEU + LARGEURBOUTON, 400 + HAUTEURBOUTON, 3};
+    bouton parametres = {MILIEU, 500, MILIEU + LARGEURBOUTON, 500 + HAUTEURBOUTON, 4};
+    bouton quitter = {MILIEU, 600, MILIEU + LARGEURBOUTON, 600 + HAUTEURBOUTON, 5};
     bouton boutons[BOUTONS];
     boutons[0] = nouvellePartie;
     boutons[1] = chargerPartie;
@@ -108,12 +105,9 @@ void selectionMenuPause(plateau *monPlateau, piece *maPiece, int *mouvementVerti
     int boutonClic = 0;
     int retourFait = 0;
     int nbBoutons = 3;
-    const int largeurBouton = 400;
-    const int hauteurBouton = 100;
-    const int milieu = (800 - largeurBouton) / 2;
-    bouton reprendrePartie = {milieu, 100, milieu + largeurBouton, 100 + hauteurBouton, 6};
-    bouton sauvegarderPartie = {milieu, 250, milieu + largeurBouton, 250 + hauteurBouton, 7};
-    bouton menuPrincipal = {milieu, 400, milieu + largeurBouton, 400 + hauteurBouton, 8};
+    bouton reprendrePartie = {MILIEU, 200, MILIEU + LARGEURBOUTON, 200 + HAUTEURBOUTON, 6};
+    bouton sauvegarderPartie = {MILIEU, 300, MILIEU + LARGEURBOUTON, 300 + HAUTEURBOUTON, 7};
+    bouton menuPrincipal = {MILIEU, 400, MILIEU + LARGEURBOUTON, 400 + HAUTEURBOUTON, 8};
     bouton boutons[BOUTONS];
     boutons[0] = reprendrePartie;
     boutons[1] = sauvegarderPartie;
@@ -149,14 +143,11 @@ void selectionMenuSauvegarder(plateau *monPlateau, piece *maPiece, int *mouvemen
     int boutonClic = 0;
     int retourFait = 0;
     int nbBoutons = 5;
-    const int largeurBouton = 400;
-    const int hauteurBouton = 100;
-    const int milieu = (800 - largeurBouton) / 2;
-    bouton sauvegarde1 = {milieu, 100, milieu + largeurBouton, 100 + hauteurBouton, 9};
-    bouton sauvegarde2 = {milieu, 250, milieu + largeurBouton, 250 + hauteurBouton, 10};
-    bouton sauvegarde3 = {milieu, 400, milieu + largeurBouton, 400 + hauteurBouton, 11};
-    bouton sauvegarde4 = {milieu, 550, milieu + largeurBouton, 550 + hauteurBouton, 12};
-    bouton retour = {milieu, 700, milieu + largeurBouton, 700 + hauteurBouton, 13};
+    bouton sauvegarde1 = {MILIEU, 200, MILIEU + LARGEURBOUTON, 200 + HAUTEURBOUTON, 9};
+    bouton sauvegarde2 = {MILIEU, 300, MILIEU + LARGEURBOUTON, 300 + HAUTEURBOUTON, 10};
+    bouton sauvegarde3 = {MILIEU, 400, MILIEU + LARGEURBOUTON, 400 + HAUTEURBOUTON, 11};
+    bouton sauvegarde4 = {MILIEU, 500, MILIEU + LARGEURBOUTON, 500 + HAUTEURBOUTON, 12};
+    bouton retour = {MILIEU, 600, MILIEU + LARGEURBOUTON, 600 + HAUTEURBOUTON, 13};
     bouton boutons[BOUTONS];
     boutons[0] = sauvegarde1;
     boutons[1] = sauvegarde2;
@@ -198,14 +189,11 @@ void selectionMenuCharger() {
     int boutonClic = 0;
     int retourFait = 0;
     int nbBoutons = 5;
-    const int largeurBouton = 400;
-    const int hauteurBouton = 100;
-    const int milieu = (800 - largeurBouton) / 2;
-    bouton sauvegarde1 = {milieu, 100, milieu + largeurBouton, 100 + hauteurBouton, 14};
-    bouton sauvegarde2 = {milieu, 250, milieu + largeurBouton, 250 + hauteurBouton, 15};
-    bouton sauvegarde3 = {milieu, 400, milieu + largeurBouton, 400 + hauteurBouton, 16};
-    bouton sauvegarde4 = {milieu, 550, milieu + largeurBouton, 550 + hauteurBouton, 17};
-    bouton retour = {milieu, 700, milieu + largeurBouton, 700 + hauteurBouton, 18};
+    bouton sauvegarde1 = {MILIEU, 200, MILIEU + LARGEURBOUTON, 200 + HAUTEURBOUTON, 14};
+    bouton sauvegarde2 = {MILIEU, 300, MILIEU + LARGEURBOUTON, 300 + HAUTEURBOUTON, 15};
+    bouton sauvegarde3 = {MILIEU, 400, MILIEU + LARGEURBOUTON, 400 + HAUTEURBOUTON, 16};
+    bouton sauvegarde4 = {MILIEU, 500, MILIEU + LARGEURBOUTON, 500 + HAUTEURBOUTON, 17};
+    bouton retour = {MILIEU, 600, MILIEU + LARGEURBOUTON, 600 + HAUTEURBOUTON, 18};
     bouton boutons[BOUTONS];
     boutons[0] = sauvegarde1;
     boutons[1] = sauvegarde2;
@@ -253,10 +241,7 @@ void selectionMenuCharger() {
 void selectionMenuScores() {
     int x, y;
     int boutonClic = 0;
-    const int largeurBouton = 400;
-    const int hauteurBouton = 100;
-    const int milieu = (800 - largeurBouton) / 2;
-    const bouton retour = {milieu, 550, milieu + largeurBouton, 550 + hauteurBouton, 19};
+    bouton retour = {MILIEU, 600, MILIEU + LARGEURBOUTON, 600 + HAUTEURBOUTON, 19};
     while (boutonClic == 0) {
       afficherMenuScores();
       MLV_wait_mouse(&x, &y);
@@ -273,13 +258,10 @@ void selectionMenuParametres() {
     int boutonClic = 0;
     int retourFait = 0;
     int nbBoutons = 4;
-    const int largeurBouton = 400;
-    const int hauteurBouton = 100;
-    const int milieu = (800 - largeurBouton) / 2;
-    bouton parametresControles = {milieu, 100, milieu + largeurBouton, 100 + hauteurBouton, 20};
-    bouton parametresVideo = {milieu, 250, milieu + largeurBouton, 250 + hauteurBouton, 21};
-    bouton parametresAudio = {milieu, 400, milieu + largeurBouton, 400 + hauteurBouton, 22};
-    bouton retour = {milieu, 550, milieu + largeurBouton, 550 + hauteurBouton, 23};
+    bouton parametresControles = {MILIEU, 200, MILIEU + LARGEURBOUTON, 200 + HAUTEURBOUTON, 20};
+    bouton parametresVideo = {MILIEU, 300, MILIEU + LARGEURBOUTON, 300 + HAUTEURBOUTON, 21};
+    bouton parametresAudio = {MILIEU, 400, MILIEU + LARGEURBOUTON, 400 + HAUTEURBOUTON, 22};
+    bouton retour = {MILIEU, 500, MILIEU + LARGEURBOUTON, 500 + HAUTEURBOUTON, 23};
     bouton boutons[BOUTONS];
     boutons[0] = parametresControles;
     boutons[1] = parametresVideo;

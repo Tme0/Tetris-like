@@ -6,8 +6,15 @@
 #include <MLV/MLV_all.h>
 
 #define TAILLE_PIECE 4
-#define BOUTONS 5
-#define N 50
+
+#define BOUTONS 5 /* Nombre de boutons max sur un menu */
+#define LARGEURBOUTON 300
+#define HAUTEURBOUTON 75
+#define MILIEU 250 /* milieu = (800 - largeurbouton) / 2 */
+
+#define CONTOURS MLV_COLOR_DEEPSKYBLUE
+
+#define N 50 /* Taille max du texte d'un bouton */
 
 typedef struct {
     int id;
@@ -32,8 +39,6 @@ typedef struct {
 
 typedef struct {
     int state[20][10];
-    int x;
-    int y;
     int largeur;
     int hauteur;
     int taille;

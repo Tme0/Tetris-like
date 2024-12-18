@@ -108,11 +108,10 @@ int jouer(int save) {
             }
 	}
 	else {
-            mouvementVertical = 1; /* Permet de rendre possible la chute si la pièce est décalée entre le moment où elle touche le sol et ou elle doit être remplacée et qu'elle n'est plus posée */
+            mouvementVertical = 1;
 	}
 
         if (frame % (20/niveau) == 0 && mouvementVertical == 1) {
-            majApresChute(maPiece, &monPlateau);
             maPiece.y++;
         }
         
@@ -176,7 +175,7 @@ int jouer(int save) {
             MLV_actualise_window();
 	}
     }
-    if (score != 0) {
+    if (score != 0) { /* On enregistre un score seulement si des points ont été gagné */
         sauvegarderScore(score);
     }
     return score;
@@ -199,8 +198,7 @@ int estPosee(piece maPiece, plateau monPlateau) {
     return 0;
 }
 
-/* Vérifie s'il y a une collision à droite de la pièce */
-int colisionDroite(piece maPiece, plateau monPlateau) {
+int collisionDroite(piece maPiece, plateau monPlateau) {
     int i, j;
     for (i = 0 ; i < TAILLE_PIECE ; i++) {
         for (j = TAILLE_PIECE - 1 ; j >= 0 ; j--) { /* Boucle en partant de la droite */
@@ -218,11 +216,11 @@ int colisionDroite(piece maPiece, plateau monPlateau) {
     return 0;  /* Retourne 0 s'il n'y a pas de collision */
 }
 
-int colisionGauche(piece maPiece, plateau monPlateau) {
+int collisionGauche(piece maPiece, plateau monPlateau) {
     int i, j;
     for (i = 0 ; i < TAILLE_PIECE ; i++) {
-        for (j = 0 ; j < TAILLE_PIECE ; j++) {
-            if (maPiece.idPiece.forme[i][j] == 1) {
+        for (j = 0 ; j < TAILLE_PIECE ; j++) { /* Boucle en partant de la droite */
+            if (maPiece.idPiece.forme[i][j] == 1) { /* Vérifie si le bloc fait partie de la pièce */
                 if (j + maPiece.x == 0) {
                     return 1;
                 }
@@ -242,9 +240,10 @@ void tomberPiece(piece *maPiece, plateau *monPlateau) {
     while (posee == 0) {
         if (estPosee(*maPiece, *monPlateau) == 1) {
             posee = 1;
-            maPiece->y--; /* pour éviter d'aller un cran trop bas */
         }
-        maPiece->y++;
+	else {
+            maPiece->y++;
+	}
     }
 }
 
@@ -253,7 +252,7 @@ int finJeu(piece maPiece) {
     for (i = 0 ; i < TAILLE_PIECE ; i++) {
         for (j = 0 ; j < TAILLE_PIECE ; j++) {
             if (maPiece.idPiece.forme[i][j] == 1) {
-                if (i + maPiece.y < 0) {
+	      if (i + maPiece.y < 0) { /* Si un carré de la pièce est au-dessus du plateau, alors fin du jeu */
                     return 1;
                 }
             }

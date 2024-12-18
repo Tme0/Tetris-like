@@ -127,7 +127,7 @@ void tournerPieceGauche(piece *maPiece) {
   int i, j;
   int tmp[3][3];
   
-  if (maPiece->idPiece.id != 2 && maPiece->idPiece.id != 4){
+  if (maPiece->idPiece.id != 2 && maPiece->idPiece.id != 4){ /* On va ici si la pièce n'est ni un bloc, ni une barre */
     for (i = 0; i < 3; i++){
       for (j = 0 ; j < 3; j++){
         tmp[i][j] = maPiece->idPiece.forme[j][2-i];
@@ -140,7 +140,7 @@ void tournerPieceGauche(piece *maPiece) {
     }
   }
   
-  if (maPiece->idPiece.id == 2){
+  if (maPiece->idPiece.id == 2){ /* On va ici si la pièce est une barre */
     switch (maPiece->orientation) {
       case 0 :
 	for (i = 0; i < TAILLE_PIECE; i++) {
@@ -203,7 +203,7 @@ void tournerPieceDroite(piece *maPiece) {
   int i, j;
   int tmp[3][3];
   
-  if (maPiece->idPiece.id != 2 && maPiece->idPiece.id != 4){
+  if (maPiece->idPiece.id != 2 && maPiece->idPiece.id != 4){ /* On va ici si la pièce n'est ni un bloc, ni une barre */
     for (i = 0; i < 3; i++){
       for (j = 0 ; j < 3; j++){
         tmp[i][j] = maPiece->idPiece.forme[2-j][i];
@@ -216,7 +216,7 @@ void tournerPieceDroite(piece *maPiece) {
     }
   }
   
-  if (maPiece->idPiece.id == 2){
+  if (maPiece->idPiece.id == 2){ /* On va ici si la pièce est une barre */
     switch (maPiece->orientation) {
       case 0 :
 	for (i = 0; i < TAILLE_PIECE; i++) {

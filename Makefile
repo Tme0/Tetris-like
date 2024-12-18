@@ -16,5 +16,3 @@ $(TARGET): $(OBJS)
 
 clean:
 	rm -rf $(OBJS) $(TARGET)
-
-clear: clean

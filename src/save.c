@@ -6,15 +6,38 @@
 #include <stdlib.h>
 
 void sauvegarderScore(int score) {
-    /* int i; */
+    int i = 0;
+    int j;
+    int score_fichier;
+    int score_place = 0;
+    int scores[11];
     FILE *fichier;
-    if ((fichier = fopen("./ressources/scores.txt", "a")) == NULL) {
-        fprintf(stderr, "Impossible d'ouvrir le fichier scores.txt\n");
+    
+    if ((fichier = fopen("./ressources/scores.txt", "r")) == NULL) {
+        fichier = fopen("./ressources/scores.txt", "a+");
     }
-    /* à finir */
-    /* while (i < 10 && score <= score_fichier) { */
-    /* } */
-    fprintf(fichier, "%d\n", score);
+    while (i < 10 && fscanf(fichier, "%d\n", &score_fichier) != EOF) {
+      if (score > score_fichier && score_place != 1) {
+	  score_place = 1;
+	  scores[i] = score;
+	  i++;
+	  scores[i] = score_fichier;
+	  i++;
+      }
+      else {
+          scores[i] = score_fichier;
+          i++;
+      }
+    }
+    fclose(fichier);
+    
+    if ((fichier = fopen("./ressources/scores.txt", "w")) == NULL) {
+        fichier = fopen("./ressources/scores.txt", "a+");
+    }
+    for (j = 0 ; j < i ; j++) {
+      printf("%d\n", scores[j]);
+      fprintf(fichier, "%d\n", scores[j]);
+    }
     fclose(fichier);
 }
 

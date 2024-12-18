@@ -35,22 +35,14 @@ void sauvegarderScore(int score) {
         fichier = fopen("./ressources/scores.txt", "a+");
     }
     for (j = 0 ; j < i ; j++) {
-      printf("%d\n", scores[j]);
       fprintf(fichier, "%d\n", scores[j]);
     }
     fclose(fichier);
 }
 
 int sauvegarderSave(char nom[23], plateau *monPlateau, piece *maPiece, int *mouvementVertical, int *frame,  int *continuer, int *niveau, int *score, int *reserveUtilisee, int *hardDrop) {
-    int i, j;
+    int i;
     FILE *fichier;
-
-    for (i=0;i<20;i++){
-      for (j=0;j<10;j++){
-	printf("%d ", monPlateau->state[i][j]);
-      }
-      printf("\n");
-    }
     
     if ((fichier = fopen(nom, "wb+")) == NULL) {
         printf("Erreur\n");
@@ -199,15 +191,8 @@ int sauvegarderSave(char nom[23], plateau *monPlateau, piece *maPiece, int *mouv
 
 
 int chargerSave(char nom[23], plateau *monPlateau, piece *maPiece, int *mouvementVertical, int *frame, int *continuer, int *niveau, int *score, int *reserveUtilisee, int *hardDrop) {
-    int i, j;
+    int i;
     FILE *fichier;
-
-    for (i=0;i<20;i++){
-      for (j=0;j<10;j++){
-	printf("%d ", monPlateau->state[i][j]);
-      }
-      printf("\n");
-    }
     
     if ((fichier = fopen(nom, "rb")) == NULL) {
         printf("Erreur\n");
@@ -219,7 +204,6 @@ int chargerSave(char nom[23], plateau *monPlateau, piece *maPiece, int *mouvemen
     /* Charge de la grille */
     for (i = 0 ; i < monPlateau->hauteur ; i++) {
         if (fread(monPlateau->state[i], sizeof(int), (size_t)monPlateau->largeur, fichier) != (size_t)monPlateau->largeur) {
-	  /*fprintf(stderr, "Erreur lors de l'écriture de la grille.\n");*/
 	    fprintf(stderr, "Erreur : lecture matrice à la ligne %d \n", i);
             fclose(fichier);
             return -1;

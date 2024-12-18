@@ -11,10 +11,7 @@ void initialiserFenetre() {
     MLV_create_window("Tetris", "Tetris", 800, 800);
 }
 
-void afficherMenuPrincipal() { /*Fonctionnel : A rendre beau*/
-    const int largeurBouton = 400;
-    const int hauteurBouton = 100;
-    const int milieu = (800 - largeurBouton) / 2;
+void afficherMenuPrincipal() {
     char texte_menu_1[N] = "Nouvelle partie";
     char texte_menu_2[N] = "Charger une partie";
     char texte_menu_3[N] = "Afficher les scores";
@@ -22,33 +19,29 @@ void afficherMenuPrincipal() { /*Fonctionnel : A rendre beau*/
     char texte_menu_5[N] = "Quitter";
 
     MLV_clear_window(MLV_COLOR_BLACK);
-    MLV_draw_text_box(milieu, 100, largeurBouton, hauteurBouton, texte_menu_1, 0, MLV_COLOR_WHITE, MLV_COLOR_WHITE, MLV_COLOR_BLACK, MLV_TEXT_CENTER, MLV_HORIZONTAL_CENTER, MLV_VERTICAL_CENTER);
-    MLV_draw_text_box(milieu, 250, largeurBouton, hauteurBouton, texte_menu_2, 0, MLV_COLOR_WHITE, MLV_COLOR_WHITE, MLV_COLOR_BLACK, MLV_TEXT_CENTER, MLV_HORIZONTAL_CENTER, MLV_VERTICAL_CENTER);
-    MLV_draw_text_box(milieu, 400, largeurBouton, hauteurBouton, texte_menu_3, 0, MLV_COLOR_WHITE, MLV_COLOR_WHITE, MLV_COLOR_BLACK, MLV_TEXT_CENTER, MLV_HORIZONTAL_CENTER, MLV_VERTICAL_CENTER);
-    MLV_draw_text_box(milieu, 550, largeurBouton, hauteurBouton, texte_menu_4, 0, MLV_COLOR_WHITE, MLV_COLOR_WHITE, MLV_COLOR_BLACK, MLV_TEXT_CENTER, MLV_HORIZONTAL_CENTER, MLV_VERTICAL_CENTER);
-    MLV_draw_text_box(milieu, 700, largeurBouton, hauteurBouton, texte_menu_5, 0, MLV_COLOR_WHITE, MLV_COLOR_WHITE, MLV_COLOR_BLACK, MLV_TEXT_CENTER, MLV_HORIZONTAL_CENTER, MLV_VERTICAL_CENTER);
+    afficherLogo();
+    MLV_draw_text_box(MILIEU, 200, LARGEURBOUTON, HAUTEURBOUTON, texte_menu_1, 0, CONTOURS, MLV_COLOR_WHITE, MLV_COLOR_BLACK, MLV_TEXT_CENTER, MLV_HORIZONTAL_CENTER, MLV_VERTICAL_CENTER);
+    MLV_draw_text_box(MILIEU, 300, LARGEURBOUTON, HAUTEURBOUTON, texte_menu_2, 0, CONTOURS, MLV_COLOR_WHITE, MLV_COLOR_BLACK, MLV_TEXT_CENTER, MLV_HORIZONTAL_CENTER, MLV_VERTICAL_CENTER);
+    MLV_draw_text_box(MILIEU, 400, LARGEURBOUTON, HAUTEURBOUTON, texte_menu_3, 0, CONTOURS, MLV_COLOR_WHITE, MLV_COLOR_BLACK, MLV_TEXT_CENTER, MLV_HORIZONTAL_CENTER, MLV_VERTICAL_CENTER);
+    MLV_draw_text_box(MILIEU, 500, LARGEURBOUTON, HAUTEURBOUTON, texte_menu_4, 0, CONTOURS, MLV_COLOR_WHITE, MLV_COLOR_BLACK, MLV_TEXT_CENTER, MLV_HORIZONTAL_CENTER, MLV_VERTICAL_CENTER);
+    MLV_draw_text_box(MILIEU, 600, LARGEURBOUTON, HAUTEURBOUTON, texte_menu_5, 0, CONTOURS, MLV_COLOR_WHITE, MLV_COLOR_BLACK, MLV_TEXT_CENTER, MLV_HORIZONTAL_CENTER, MLV_VERTICAL_CENTER);
     MLV_actualise_window();
 }
 
 void afficherMenuPause() {
-    const int largeurBouton = 400;
-    const int hauteurBouton = 100;
-    const int milieu = (800 - largeurBouton) / 2;
     char texte_menu_pause_1[N] = "Reprendre la partie";
     char texte_menu_pause_2[N] = "Sauvegarder la partie";
     char texte_menu_pause_3[N] = "Menu principal";
     
     MLV_clear_window(MLV_COLOR_BLACK);
-    MLV_draw_text_box(milieu, 100, largeurBouton, hauteurBouton, texte_menu_pause_1, 0, MLV_COLOR_WHITE, MLV_COLOR_WHITE, MLV_COLOR_BLACK, MLV_TEXT_CENTER, MLV_HORIZONTAL_CENTER, MLV_VERTICAL_CENTER);
-    MLV_draw_text_box(milieu, 250, largeurBouton, hauteurBouton, texte_menu_pause_2, 0, MLV_COLOR_WHITE, MLV_COLOR_WHITE, MLV_COLOR_BLACK, MLV_TEXT_CENTER, MLV_HORIZONTAL_CENTER, MLV_VERTICAL_CENTER);
-    MLV_draw_text_box(milieu, 400, largeurBouton, hauteurBouton, texte_menu_pause_3, 0, MLV_COLOR_WHITE, MLV_COLOR_WHITE, MLV_COLOR_BLACK, MLV_TEXT_CENTER, MLV_HORIZONTAL_CENTER, MLV_VERTICAL_CENTER);
+    afficherLogo();
+    MLV_draw_text_box(MILIEU, 200, LARGEURBOUTON, HAUTEURBOUTON, texte_menu_pause_1, 0, CONTOURS, MLV_COLOR_WHITE, MLV_COLOR_BLACK, MLV_TEXT_CENTER, MLV_HORIZONTAL_CENTER, MLV_VERTICAL_CENTER);
+    MLV_draw_text_box(MILIEU, 300, LARGEURBOUTON, HAUTEURBOUTON, texte_menu_pause_2, 0, CONTOURS, MLV_COLOR_WHITE, MLV_COLOR_BLACK, MLV_TEXT_CENTER, MLV_HORIZONTAL_CENTER, MLV_VERTICAL_CENTER);
+    MLV_draw_text_box(MILIEU, 400, LARGEURBOUTON, HAUTEURBOUTON, texte_menu_pause_3, 0, CONTOURS, MLV_COLOR_WHITE, MLV_COLOR_BLACK, MLV_TEXT_CENTER, MLV_HORIZONTAL_CENTER, MLV_VERTICAL_CENTER);
     MLV_actualise_window();
 }
 
 void afficherMenuSauvegarder() {
-    const int largeurBouton = 400;
-    const int hauteurBouton = 100;
-    const int milieu = (800 - largeurBouton) / 2;
     char texte_menu_sauvegarder_1[N] = "Sauvegarde 1";
     char texte_menu_sauvegarder_2[N] = "Sauvegarde 2";
     char texte_menu_sauvegarder_3[N] = "Sauvegarde 3";
@@ -56,18 +49,16 @@ void afficherMenuSauvegarder() {
     char texte_menu_sauvegarder_5[N] = "Retour";
     
     MLV_clear_window(MLV_COLOR_BLACK);
-    MLV_draw_text_box(milieu, 100, largeurBouton, hauteurBouton, texte_menu_sauvegarder_1, 0, MLV_COLOR_WHITE, MLV_COLOR_WHITE, MLV_COLOR_BLACK, MLV_TEXT_CENTER, MLV_HORIZONTAL_CENTER, MLV_VERTICAL_CENTER);
-    MLV_draw_text_box(milieu, 250, largeurBouton, hauteurBouton, texte_menu_sauvegarder_2, 0, MLV_COLOR_WHITE, MLV_COLOR_WHITE, MLV_COLOR_BLACK, MLV_TEXT_CENTER, MLV_HORIZONTAL_CENTER, MLV_VERTICAL_CENTER);
-    MLV_draw_text_box(milieu, 400, largeurBouton, hauteurBouton, texte_menu_sauvegarder_3, 0, MLV_COLOR_WHITE, MLV_COLOR_WHITE, MLV_COLOR_BLACK, MLV_TEXT_CENTER, MLV_HORIZONTAL_CENTER, MLV_VERTICAL_CENTER);
-    MLV_draw_text_box(milieu, 550, largeurBouton, hauteurBouton, texte_menu_sauvegarder_4, 0, MLV_COLOR_WHITE, MLV_COLOR_WHITE, MLV_COLOR_BLACK, MLV_TEXT_CENTER, MLV_HORIZONTAL_CENTER, MLV_VERTICAL_CENTER);
-    MLV_draw_text_box(milieu, 700, largeurBouton, hauteurBouton, texte_menu_sauvegarder_5, 0, MLV_COLOR_WHITE, MLV_COLOR_WHITE, MLV_COLOR_BLACK, MLV_TEXT_CENTER, MLV_HORIZONTAL_CENTER, MLV_VERTICAL_CENTER);
+    afficherLogo();
+    MLV_draw_text_box(MILIEU, 200, LARGEURBOUTON, HAUTEURBOUTON, texte_menu_sauvegarder_1, 0, CONTOURS, MLV_COLOR_WHITE, MLV_COLOR_BLACK, MLV_TEXT_CENTER, MLV_HORIZONTAL_CENTER, MLV_VERTICAL_CENTER);
+    MLV_draw_text_box(MILIEU, 300, LARGEURBOUTON, HAUTEURBOUTON, texte_menu_sauvegarder_2, 0, CONTOURS, MLV_COLOR_WHITE, MLV_COLOR_BLACK, MLV_TEXT_CENTER, MLV_HORIZONTAL_CENTER, MLV_VERTICAL_CENTER);
+    MLV_draw_text_box(MILIEU, 400, LARGEURBOUTON, HAUTEURBOUTON, texte_menu_sauvegarder_3, 0, CONTOURS, MLV_COLOR_WHITE, MLV_COLOR_BLACK, MLV_TEXT_CENTER, MLV_HORIZONTAL_CENTER, MLV_VERTICAL_CENTER);
+    MLV_draw_text_box(MILIEU, 500, LARGEURBOUTON, HAUTEURBOUTON, texte_menu_sauvegarder_4, 0, CONTOURS, MLV_COLOR_WHITE, MLV_COLOR_BLACK, MLV_TEXT_CENTER, MLV_HORIZONTAL_CENTER, MLV_VERTICAL_CENTER);
+    MLV_draw_text_box(MILIEU, 600, LARGEURBOUTON, HAUTEURBOUTON, texte_menu_sauvegarder_5, 0, CONTOURS, MLV_COLOR_WHITE, MLV_COLOR_BLACK, MLV_TEXT_CENTER, MLV_HORIZONTAL_CENTER, MLV_VERTICAL_CENTER);
     MLV_actualise_window();
 }
 
 void afficherMenuCharger() {
-    const int largeurBouton = 400;
-    const int hauteurBouton = 100;
-    const int milieu = (800 - largeurBouton) / 2;
     char texte_menu_charger_1[N] = "Sauvegarde 1";
     char texte_menu_charger_2[N] = "Sauvegarde 2";
     char texte_menu_charger_3[N] = "Sauvegarde 3";
@@ -75,28 +66,27 @@ void afficherMenuCharger() {
     char texte_menu_charger_5[N] = "Retour";
     
     MLV_clear_window(MLV_COLOR_BLACK);
-    MLV_draw_text_box(milieu, 100, largeurBouton, hauteurBouton, texte_menu_charger_1, 0, MLV_COLOR_WHITE, MLV_COLOR_WHITE, MLV_COLOR_BLACK, MLV_TEXT_CENTER, MLV_HORIZONTAL_CENTER, MLV_VERTICAL_CENTER);
-    MLV_draw_text_box(milieu, 250, largeurBouton, hauteurBouton, texte_menu_charger_2, 0, MLV_COLOR_WHITE, MLV_COLOR_WHITE, MLV_COLOR_BLACK, MLV_TEXT_CENTER, MLV_HORIZONTAL_CENTER, MLV_VERTICAL_CENTER);
-    MLV_draw_text_box(milieu, 400, largeurBouton, hauteurBouton, texte_menu_charger_3, 0, MLV_COLOR_WHITE, MLV_COLOR_WHITE, MLV_COLOR_BLACK, MLV_TEXT_CENTER, MLV_HORIZONTAL_CENTER, MLV_VERTICAL_CENTER);
-    MLV_draw_text_box(milieu, 550, largeurBouton, hauteurBouton, texte_menu_charger_4, 0, MLV_COLOR_WHITE, MLV_COLOR_WHITE, MLV_COLOR_BLACK, MLV_TEXT_CENTER, MLV_HORIZONTAL_CENTER, MLV_VERTICAL_CENTER);
-    MLV_draw_text_box(milieu, 700, largeurBouton, hauteurBouton, texte_menu_charger_5, 0, MLV_COLOR_WHITE, MLV_COLOR_WHITE, MLV_COLOR_BLACK, MLV_TEXT_CENTER, MLV_HORIZONTAL_CENTER, MLV_VERTICAL_CENTER);
+    afficherLogo();
+    MLV_draw_text_box(MILIEU, 200, LARGEURBOUTON, HAUTEURBOUTON, texte_menu_charger_1, 0, CONTOURS, MLV_COLOR_WHITE, MLV_COLOR_BLACK, MLV_TEXT_CENTER, MLV_HORIZONTAL_CENTER, MLV_VERTICAL_CENTER);
+    MLV_draw_text_box(MILIEU, 300, LARGEURBOUTON, HAUTEURBOUTON, texte_menu_charger_2, 0, CONTOURS, MLV_COLOR_WHITE, MLV_COLOR_BLACK, MLV_TEXT_CENTER, MLV_HORIZONTAL_CENTER, MLV_VERTICAL_CENTER);
+    MLV_draw_text_box(MILIEU, 400, LARGEURBOUTON, HAUTEURBOUTON, texte_menu_charger_3, 0, CONTOURS, MLV_COLOR_WHITE, MLV_COLOR_BLACK, MLV_TEXT_CENTER, MLV_HORIZONTAL_CENTER, MLV_VERTICAL_CENTER);
+    MLV_draw_text_box(MILIEU, 500, LARGEURBOUTON, HAUTEURBOUTON, texte_menu_charger_4, 0, CONTOURS, MLV_COLOR_WHITE, MLV_COLOR_BLACK, MLV_TEXT_CENTER, MLV_HORIZONTAL_CENTER, MLV_VERTICAL_CENTER);
+    MLV_draw_text_box(MILIEU, 600, LARGEURBOUTON, HAUTEURBOUTON, texte_menu_charger_5, 0, CONTOURS, MLV_COLOR_WHITE, MLV_COLOR_BLACK, MLV_TEXT_CENTER, MLV_HORIZONTAL_CENTER, MLV_VERTICAL_CENTER);
     MLV_actualise_window();
 }
 
-void afficherMenuParametres() { /*Fonctionnel : A rendre beau*/
-    const int largeurBouton = 400;
-    const int hauteurBouton = 100;
-    const int milieu = (800 - largeurBouton) / 2;
+void afficherMenuParametres() {
     char texte_parametres_1[N] = "Controles";
     char texte_parametres_2[N] = "Video";
     char texte_parametres_3[N] = "Audio";
     char texte_parametres_4[N] = "Retour";
 
     MLV_clear_window(MLV_COLOR_BLACK);
-    MLV_draw_text_box(milieu, 100, largeurBouton, hauteurBouton, texte_parametres_1, 0, MLV_COLOR_WHITE, MLV_COLOR_WHITE, MLV_COLOR_BLACK, MLV_TEXT_CENTER, MLV_HORIZONTAL_CENTER, MLV_VERTICAL_CENTER);
-    MLV_draw_text_box(milieu, 250, largeurBouton, hauteurBouton, texte_parametres_2, 0, MLV_COLOR_WHITE, MLV_COLOR_WHITE, MLV_COLOR_BLACK, MLV_TEXT_CENTER, MLV_HORIZONTAL_CENTER, MLV_VERTICAL_CENTER);
-    MLV_draw_text_box(milieu, 400, largeurBouton, hauteurBouton, texte_parametres_3, 0, MLV_COLOR_WHITE, MLV_COLOR_WHITE, MLV_COLOR_BLACK, MLV_TEXT_CENTER, MLV_HORIZONTAL_CENTER, MLV_VERTICAL_CENTER);
-    MLV_draw_text_box(milieu, 550, largeurBouton, hauteurBouton, texte_parametres_4, 0, MLV_COLOR_WHITE, MLV_COLOR_WHITE, MLV_COLOR_BLACK, MLV_TEXT_CENTER, MLV_HORIZONTAL_CENTER, MLV_VERTICAL_CENTER);
+    afficherLogo();
+    MLV_draw_text_box(MILIEU, 200, LARGEURBOUTON, HAUTEURBOUTON, texte_parametres_1, 0, CONTOURS, MLV_COLOR_WHITE, MLV_COLOR_BLACK, MLV_TEXT_CENTER, MLV_HORIZONTAL_CENTER, MLV_VERTICAL_CENTER);
+    MLV_draw_text_box(MILIEU, 300, LARGEURBOUTON, HAUTEURBOUTON, texte_parametres_2, 0, CONTOURS, MLV_COLOR_WHITE, MLV_COLOR_BLACK, MLV_TEXT_CENTER, MLV_HORIZONTAL_CENTER, MLV_VERTICAL_CENTER);
+    MLV_draw_text_box(MILIEU, 400, LARGEURBOUTON, HAUTEURBOUTON, texte_parametres_3, 0, CONTOURS, MLV_COLOR_WHITE, MLV_COLOR_BLACK, MLV_TEXT_CENTER, MLV_HORIZONTAL_CENTER, MLV_VERTICAL_CENTER);
+    MLV_draw_text_box(MILIEU, 500, LARGEURBOUTON, HAUTEURBOUTON, texte_parametres_4, 0, CONTOURS, MLV_COLOR_WHITE, MLV_COLOR_BLACK, MLV_TEXT_CENTER, MLV_HORIZONTAL_CENTER, MLV_VERTICAL_CENTER);
     MLV_actualise_window();
 }
 
@@ -122,13 +112,11 @@ void afficherPiece(piece maPiece) {
     }
 }
 
-void afficherMenuScores() { /*Fonctionnel : A rendre beau*/
+void afficherMenuScores() {
     char score[10];
     FILE *fichier;
-    int i = 0;
-    const int largeurBouton = 400;
-    const int hauteurBouton = 100;
-    const int milieu = (800 - largeurBouton) / 2;
+    int i = 1;
+    char i_char[3];
     char texte_scores[N] = "Retour";
 
     fichier = fopen("./ressources/scores.txt", "r");
@@ -138,9 +126,12 @@ void afficherMenuScores() { /*Fonctionnel : A rendre beau*/
     }
     
     MLV_clear_window(MLV_COLOR_BLACK);
-    MLV_draw_text_box(milieu, 550, largeurBouton, hauteurBouton, texte_scores, 0, MLV_COLOR_WHITE, MLV_COLOR_WHITE, MLV_COLOR_BLACK, MLV_TEXT_CENTER, MLV_HORIZONTAL_CENTER, MLV_VERTICAL_CENTER);
-    while (fscanf(fichier, "%s\n", score) != EOF && i < 10) {
-        MLV_draw_text_box(300, 50+50*i, 200, 50, score, 0, MLV_COLOR_WHITE, MLV_COLOR_WHITE, MLV_COLOR_BLACK, MLV_TEXT_CENTER, MLV_HORIZONTAL_CENTER, MLV_VERTICAL_CENTER);
+    afficherLogo();
+    MLV_draw_text_box(MILIEU, 600, LARGEURBOUTON, HAUTEURBOUTON, texte_scores, 0, CONTOURS, MLV_COLOR_WHITE, MLV_COLOR_BLACK, MLV_TEXT_CENTER, MLV_HORIZONTAL_CENTER, MLV_VERTICAL_CENTER);
+    while (fscanf(fichier, "%s\n", score) != EOF && i < 11) {
+        snprintf(i_char, 3, "%d", i);
+        MLV_draw_text_box(275, 120+40*i, 40, 40, i_char, 0, CONTOURS, MLV_COLOR_WHITE, MLV_COLOR_BLACK, MLV_TEXT_CENTER, MLV_HORIZONTAL_CENTER, MLV_VERTICAL_CENTER);
+        MLV_draw_text_box(325, 120+40*i, 200, 40, score, 0, CONTOURS, MLV_COLOR_WHITE, MLV_COLOR_BLACK, MLV_TEXT_CENTER, MLV_HORIZONTAL_CENTER, MLV_VERTICAL_CENTER);
 	printf("%s\n", score);
 	i++;
     }
@@ -161,7 +152,7 @@ void afficherLogo(){
     int coordonnee5_y[4] = {20, 119, 119, 20};
     /* cadre */
     MLV_draw_filled_rectangle(170, 10, 460, 120, MLV_COLOR_DARKBLUE); /* arrière-plan */
-    MLV_draw_rectangle(170, 10, 460, 120, MLV_COLOR_DEEPSKYBLUE); /* contour */
+    MLV_draw_rectangle(170, 10, 460, 120, CONTOURS); /* contour */
     /* T */
     MLV_draw_filled_rectangle(180, 20, 80, 25, MLV_COLOR_RED); /* barre horizontale */
     MLV_draw_filled_rectangle(180+25, 20, 30, 100, MLV_COLOR_RED); /* barre verticale */
@@ -189,12 +180,9 @@ void afficherLogo(){
 }
 
 void afficherContoursEtTextes(){
-    MLV_draw_rectangle(250, 150, 300, 600, MLV_COLOR_DEEPSKYBLUE); /* contour de la grille */
-    MLV_draw_rectangle(550, 150, 100, 600, MLV_COLOR_DEEPSKYBLUE); /* à droite, liste des prochaines pièces et score */
-    MLV_draw_rectangle(150, 150, 100, 121, MLV_COLOR_DEEPSKYBLUE); /* à gauche, réserve */
-    
-    /* tentative de mettre des contours plus épais, à voir si on le fait après : */
-    /* MLV_draw_filled_rectangle(246, 146, 310, 5, MLV_COLOR_DEEPSKYBLUE); */
+    MLV_draw_rectangle(250, 150, 300, 600, CONTOURS); /* contour de la grille */
+    MLV_draw_rectangle(550, 150, 100, 600, CONTOURS); /* à droite, liste des prochaines pièces et score */
+    MLV_draw_rectangle(150, 150, 100, 121, CONTOURS); /* à gauche, réserve */
     
     /* prochaines pièces */
     MLV_draw_text_box(
@@ -202,7 +190,7 @@ void afficherContoursEtTextes(){
         100, 25,
         "NEXT",
         1,
-        MLV_COLOR_DEEPSKYBLUE, MLV_COLOR_BLACK, MLV_COLOR_DEEPSKYBLUE,
+        CONTOURS, MLV_COLOR_BLACK, CONTOURS,
         MLV_TEXT_CENTER,
         MLV_HORIZONTAL_CENTER, MLV_VERTICAL_CENTER
         );
@@ -213,7 +201,7 @@ void afficherContoursEtTextes(){
         100, 25,
         "SCORE",
         1,
-        MLV_COLOR_DEEPSKYBLUE, MLV_COLOR_BLACK, MLV_COLOR_DEEPSKYBLUE,
+        CONTOURS, MLV_COLOR_BLACK, CONTOURS,
         MLV_TEXT_CENTER,
         MLV_HORIZONTAL_CENTER, MLV_VERTICAL_CENTER
         );
@@ -224,7 +212,7 @@ void afficherContoursEtTextes(){
         100, 25,
         "RESERVE",
         1,
-        MLV_COLOR_DEEPSKYBLUE, MLV_COLOR_BLACK, MLV_COLOR_DEEPSKYBLUE,
+        CONTOURS, MLV_COLOR_BLACK, CONTOURS,
         MLV_TEXT_CENTER,
         MLV_HORIZONTAL_CENTER, MLV_VERTICAL_CENTER
         );
@@ -237,8 +225,8 @@ int afficherScoresPendantPartie(){
     char score[10];
     char i_score[15];
     FILE * fichier;
-    MLV_draw_text_box(25, 300, 200, 35, "Meilleurs scores", 0, MLV_COLOR_DEEPSKYBLUE, MLV_COLOR_WHITE, MLV_COLOR_BLACK, MLV_TEXT_CENTER, MLV_HORIZONTAL_CENTER, MLV_VERTICAL_CENTER);
-    MLV_draw_rectangle(25, 334, 200, 115, MLV_COLOR_DEEPSKYBLUE);
+    MLV_draw_text_box(25, 300, 200, 35, "Meilleurs scores", 0, CONTOURS, MLV_COLOR_WHITE, MLV_COLOR_BLACK, MLV_TEXT_CENTER, MLV_HORIZONTAL_CENTER, MLV_VERTICAL_CENTER);
+    MLV_draw_rectangle(25, 334, 200, 115, CONTOURS);
     if ((fichier = fopen("./ressources/scores.txt", "r")) == NULL){
         fichier = fopen("./ressources/scores.txt", "a+");
     }
